@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTextField;
 
 public class LoaiSanPhamJPanel extends javax.swing.JPanel {
 	public LoaiSanPhamJPanel() {
@@ -14,16 +15,16 @@ public class LoaiSanPhamJPanel extends javax.swing.JPanel {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(54)
+					.addContainerGap()
 					.addComponent(lblNewLabel)
-					.addContainerGap(328, Short.MAX_VALUE))
+					.addContainerGap(372, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(120)
+					.addGap(99)
 					.addComponent(lblNewLabel)
-					.addContainerGap(166, Short.MAX_VALUE))
+					.addContainerGap(187, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}

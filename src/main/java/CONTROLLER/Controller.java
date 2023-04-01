@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 public class Controller {
 	private JPanel root;
@@ -103,8 +104,8 @@ public class Controller {
 		@Override
 		public void mouseExited(MouseEvent e) {
 			if (!kindSelected.equalsIgnoreCase(kind)) {
-				pItem.setBackground(new Color(76, 175, 80));
-				lItem.setBackground(new Color(76, 175, 80));
+				pItem.setBackground(UIManager.getColor("Button.background"));
+				lItem.setBackground(UIManager.getColor("Button.background"));
 			}
 		}
 		
@@ -114,8 +115,8 @@ public class Controller {
 					item.getPanel().setBackground(new Color(96, 100, 191));
 					item.getLabel().setBackground(new Color(96, 100, 191));
 				} else {
-					item.getPanel().setBackground(new Color(76, 175, 80));
-					item.getLabel().setBackground(new Color(76, 175, 80));
+					item.getPanel().setBackground(UIManager.getColor("Button.background"));
+					item.getLabel().setBackground(UIManager.getColor("Button.background"));
 				}
 			}
 		}

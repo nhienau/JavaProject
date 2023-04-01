@@ -9,21 +9,21 @@ import javax.swing.GroupLayout.Alignment;
 public class SanPhamJPanel extends javax.swing.JPanel {
 	public SanPhamJPanel() {
 		
-		JLabel lblNewLabel = new JLabel("Label san pham");
+		JLabel lblNewLabel = new JLabel("San pham");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(53)
+					.addGap(20)
 					.addComponent(lblNewLabel)
-					.addContainerGap(323, Short.MAX_VALUE))
+					.addContainerGap(356, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(147, Short.MAX_VALUE)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(47)
 					.addComponent(lblNewLabel)
-					.addGap(139))
+					.addContainerGap(239, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}

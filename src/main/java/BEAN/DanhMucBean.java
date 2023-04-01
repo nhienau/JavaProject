@@ -8,7 +8,6 @@ public class DanhMucBean {
 	private JPanel panel;
 	private JLabel label;
 	public DanhMucBean(String kind, JPanel panel, JLabel label) {
-		super();
 		this.kind = kind;
 		this.panel = panel;
 		this.label = label;
