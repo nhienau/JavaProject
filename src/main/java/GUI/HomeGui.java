@@ -21,6 +21,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import BEAN.DanhMucBean;
 import CONTROLLER.Controller;
 import java.awt.SystemColor;
+import java.awt.Cursor;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -108,10 +109,13 @@ public class HomeGui extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         
         JPanel pBanHang = new JPanel();
+        pBanHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         
         pSanPham = new JPanel();
+        pSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         
         lblSanPham = new JLabel("Sản phẩm");
+        lblSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblSanPham.setHorizontalAlignment(SwingConstants.CENTER);
         lblSanPham.setFont(new Font("Tahoma", Font.BOLD, 14));
         GroupLayout gl_pSanPham = new GroupLayout(pSanPham);
@@ -129,6 +133,7 @@ public class HomeGui extends javax.swing.JFrame {
         draggableRoundPanel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
         JLabel lblBanHang = new JLabel("Bán hàng");
+        lblBanHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblBanHang.setHorizontalAlignment(SwingConstants.CENTER);
         lblBanHang.setFont(new Font("Tahoma", Font.BOLD, 14));
         GroupLayout gl_pBanHang = new GroupLayout(pBanHang);
@@ -145,9 +150,11 @@ public class HomeGui extends javax.swing.JFrame {
         draggableRoundPanel5.add(pSanPham);
         
         pLoaiSanPham = new JPanel();
+        pLoaiSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         draggableRoundPanel5.add(pLoaiSanPham);
         
         lblLoaiSanPham = new JLabel("Loại sản phẩm");
+        lblLoaiSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblLoaiSanPham.setHorizontalAlignment(SwingConstants.CENTER);
         lblLoaiSanPham.setFont(new Font("Tahoma", Font.BOLD, 14));
         GroupLayout gl_pLoaiSanPham = new GroupLayout(pLoaiSanPham);

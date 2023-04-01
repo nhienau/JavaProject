@@ -46,11 +46,8 @@ public class Controller {
 	class LabelEvent implements MouseListener {
 		private JPanel node;
 		private String kind;
-		
 		private JPanel pItem;
 		private JLabel lItem;
-		
-		
 		
 		public LabelEvent(String kind, JPanel pItem, JLabel lItem) {
 			super();
