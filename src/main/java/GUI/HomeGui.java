@@ -1,6 +1,27 @@
 package GUI;
 
 import CUSTOM.DraggableRoundPanel;
+import javax.swing.JButton;
+import javax.swing.GroupLayout.Alignment;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
+import javax.swing.JPanel;
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import BEAN.DanhMucBean;
+import CONTROLLER.Controller;
+import java.awt.SystemColor;
+import java.awt.Cursor;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -19,6 +40,7 @@ public class HomeGui extends javax.swing.JFrame {
     public HomeGui() {
         initComponents();
          DraggableRoundPanel roundPanel = new DraggableRoundPanel();
+         
     }
 
     /**
@@ -49,17 +71,6 @@ public class HomeGui extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout draggableRoundPanel5Layout = new javax.swing.GroupLayout(draggableRoundPanel5);
-        draggableRoundPanel5.setLayout(draggableRoundPanel5Layout);
-        draggableRoundPanel5Layout.setHorizontalGroup(
-            draggableRoundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        draggableRoundPanel5Layout.setVerticalGroup(
-            draggableRoundPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 607, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout draggableRoundPanel6Layout = new javax.swing.GroupLayout(draggableRoundPanel6);
         draggableRoundPanel6.setLayout(draggableRoundPanel6Layout);
         draggableRoundPanel6Layout.setHorizontalGroup(
@@ -72,32 +83,102 @@ public class HomeGui extends javax.swing.JFrame {
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(draggableRoundPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(draggableRoundPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(draggableRoundPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        				.addComponent(draggableRoundPanel5, 0, 0, Short.MAX_VALUE)
+        				.addComponent(draggableRoundPanel4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(draggableRoundPanel6, GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)
+        			.addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(draggableRoundPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(draggableRoundPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(draggableRoundPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(draggableRoundPanel6, GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(draggableRoundPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(draggableRoundPanel5, GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)))
+        			.addContainerGap())
         );
+        getContentPane().setLayout(layout);
+        
+        JPanel pBanHang = new JPanel();
+        pBanHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        pSanPham = new JPanel();
+        pSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        lblSanPham = new JLabel("Sản phẩm");
+        lblSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblSanPham.setHorizontalAlignment(SwingConstants.CENTER);
+        lblSanPham.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pSanPham = new GroupLayout(pSanPham);
+        gl_pSanPham.setHorizontalGroup(
+        	gl_pSanPham.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addComponent(lblSanPham, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        );
+        gl_pSanPham.setVerticalGroup(
+        	gl_pSanPham.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addComponent(lblSanPham, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+        pSanPham.setLayout(gl_pSanPham);
+        draggableRoundPanel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        
+        JLabel lblBanHang = new JLabel("Bán hàng");
+        lblBanHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblBanHang.setHorizontalAlignment(SwingConstants.CENTER);
+        lblBanHang.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pBanHang = new GroupLayout(pBanHang);
+        gl_pBanHang.setHorizontalGroup(
+        	gl_pBanHang.createParallelGroup(Alignment.LEADING)
+        		.addComponent(lblBanHang, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        );
+        gl_pBanHang.setVerticalGroup(
+        	gl_pBanHang.createParallelGroup(Alignment.LEADING)
+        		.addComponent(lblBanHang, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+        pBanHang.setLayout(gl_pBanHang);
+        draggableRoundPanel5.add(pBanHang);
+        draggableRoundPanel5.add(pSanPham);
+        
+        pLoaiSanPham = new JPanel();
+        pLoaiSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        draggableRoundPanel5.add(pLoaiSanPham);
+        
+        lblLoaiSanPham = new JLabel("Loại sản phẩm");
+        lblLoaiSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblLoaiSanPham.setHorizontalAlignment(SwingConstants.CENTER);
+        lblLoaiSanPham.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pLoaiSanPham = new GroupLayout(pLoaiSanPham);
+        gl_pLoaiSanPham.setHorizontalGroup(
+        	gl_pLoaiSanPham.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addComponent(lblLoaiSanPham, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        );
+        gl_pLoaiSanPham.setVerticalGroup(
+        	gl_pLoaiSanPham.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addComponent(lblLoaiSanPham, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+        pLoaiSanPham.setLayout(gl_pLoaiSanPham);
 
         pack();
+        
+        Controller controller = new Controller(draggableRoundPanel6);
+        controller.setView(pBanHang, lblBanHang);
+        List <DanhMucBean> listItem = new ArrayList();
+        listItem.add(new DanhMucBean("BanHang", pBanHang, lblBanHang));
+        listItem.add(new DanhMucBean("SanPham", pSanPham, lblSanPham));
+        listItem.add(new DanhMucBean("LoaiSanPham", pLoaiSanPham, lblLoaiSanPham));
+        controller.setEvent(listItem);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -139,5 +220,8 @@ public class HomeGui extends javax.swing.JFrame {
     private CUSTOM.DraggableRoundPanel draggableRoundPanel4;
     private CUSTOM.DraggableRoundPanel draggableRoundPanel5;
     private CUSTOM.DraggableRoundPanel draggableRoundPanel6;
-    // End of variables declaration//GEN-END:variables
+    private JPanel pSanPham;
+    private JLabel lblSanPham;
+    private JPanel pLoaiSanPham;
+    private JLabel lblLoaiSanPham;
 }
