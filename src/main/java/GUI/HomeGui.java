@@ -108,7 +108,7 @@ public class HomeGui extends javax.swing.JFrame {
         );
         getContentPane().setLayout(layout);
         
-        JPanel pBanHang = new JPanel();
+        pBanHang = new JPanel();
         pBanHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         
         pSanPham = new JPanel();
@@ -132,7 +132,7 @@ public class HomeGui extends javax.swing.JFrame {
         pSanPham.setLayout(gl_pSanPham);
         draggableRoundPanel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
-        JLabel lblBanHang = new JLabel("Bán hàng");
+        lblBanHang = new JLabel("Bán hàng");
         lblBanHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblBanHang.setHorizontalAlignment(SwingConstants.CENTER);
         lblBanHang.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -171,16 +171,20 @@ public class HomeGui extends javax.swing.JFrame {
         pLoaiSanPham.setLayout(gl_pLoaiSanPham);
 
         pack();
+        initController();
         
-        Controller controller = new Controller(draggableRoundPanel6);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void initController() {
+    	Controller controller = new Controller(draggableRoundPanel6);
         controller.setView(pBanHang, lblBanHang);
         List <DanhMucBean> listItem = new ArrayList();
         listItem.add(new DanhMucBean("BanHang", pBanHang, lblBanHang));
         listItem.add(new DanhMucBean("SanPham", pSanPham, lblSanPham));
         listItem.add(new DanhMucBean("LoaiSanPham", pLoaiSanPham, lblLoaiSanPham));
         controller.setEvent(listItem);
-    }// </editor-fold>//GEN-END:initComponents
-
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -220,6 +224,8 @@ public class HomeGui extends javax.swing.JFrame {
     private CUSTOM.DraggableRoundPanel draggableRoundPanel4;
     private CUSTOM.DraggableRoundPanel draggableRoundPanel5;
     private CUSTOM.DraggableRoundPanel draggableRoundPanel6;
+    private JPanel pBanHang;
+    private JLabel lblBanHang;
     private JPanel pSanPham;
     private JLabel lblSanPham;
     private JPanel pLoaiSanPham;

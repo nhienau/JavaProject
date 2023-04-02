@@ -39,7 +39,7 @@ public class Controller {
 	public void setEvent(List<DanhMucBean> listItem) {
 		this.listItem = listItem;
 		for (DanhMucBean item : listItem) {
-			item.getLabel().addMouseListener(new LabelEvent(item.getKind(), item.getPanel(), item.getLabel()));
+			item.getPanel().addMouseListener(new LabelEvent(item.getKind(), item.getPanel(), item.getLabel()));
 		}
 	}
 	
