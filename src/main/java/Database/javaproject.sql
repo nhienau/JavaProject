@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 02, 2023 lúc 05:22 AM
+-- Thời gian đã tạo: Th4 03, 2023 lúc 02:49 AM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 8.1.2
 
@@ -121,7 +121,7 @@ CREATE TABLE `chucvu` (
   `PhanQuyen` varchar(100) DEFAULT NULL,
   `ThongKe` varchar(100) DEFAULT NULL,
   `NhapHang` varchar(100) DEFAULT NULL,
-  `IsDeleted` tinyint(3) DEFAULT NULL
+  `IsDeleted` tinyint(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -361,26 +361,26 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`MaSP`, `TenSP`, `GiaSP`, `AnhSP`, `SL`, `IsDeleted`) VALUES
-(1, '', 16290000, 'src/main/java/Img', 10, 0),
-(2, '', 16390000, NULL, 4, 0),
-(3, '', 16990000, NULL, 7, 0),
-(4, '', 15590000, NULL, 5, 0),
-(5, '', 25590000, NULL, 1, 0),
-(6, '', 16290000, NULL, 4, 0),
-(7, '', 16390000, NULL, 9, 0),
-(8, '', 16990000, NULL, 24, 0),
-(9, '', 19490000, NULL, 13, 0),
-(10, '', 26290000, NULL, 2, 0),
-(11, '', 35490000, NULL, 0, 0),
-(12, '', 11690000, NULL, 5, 0),
-(13, '', 17490000, NULL, 9, 0),
-(14, '', 18790000, NULL, 5, 0),
-(15, '', 18790000, NULL, 12, 0),
-(16, '', 32490000, NULL, 0, 0),
-(17, '', 24790000, NULL, 14, 0),
-(18, '', 25150000, NULL, 78, 0),
-(19, '', 26290000, NULL, 64, 0),
-(20, '', 22990000, NULL, 14, 0);
+(1, 'Asus TUF Gaming F15 FX506LHB i5 10300H', 16290000, 'src/main/java/Images/image1.jpg', 10, 0),
+(2, 'Lenovo Ideapad Gaming 3 15IHU6 i5 11320H', 16390000, 'src/main/java/Images/image2.jpg', 4, 0),
+(3, 'Acer Aspire 7 Gaming A715 42G R05G R5 5500U', 16990000, 'src/main/java/Images/image3.jpg', 7, 0),
+(4, 'MSI Gaming GF63 Thin 11SC i5 11400H (664VN)', 15590000, 'src/main/java/Images/image4.jpg', 5, 0),
+(5, 'HP Gaming VICTUS 15 fa0111TX i5 12500H', 25590000, 'src/main/java/Images/image5.jpg', 1, 0),
+(6, 'Acer Aspire 7 Gaming A715 42G R05G R5 5500U', 16290000, 'src/main/java/Images/image6.jpg', 4, 0),
+(7, 'Asus TUF Gaming F15 FX506LHB i5 10300H', 16390000, 'src/main/java/Images/image7.jpg', 9, 0),
+(8, 'Lenovo Ideapad Gaming 3 15IHU6 i5 11320H', 16990000, 'src/main/java/Images/image8.jpg', 24, 0),
+(9, 'MacBook Air M1 2020 7-core GPU', 19490000, 'src/main/java/Images/image9.jpg', 13, 0),
+(10, 'MacBook Air M2 2022 8-core GPU', 26290000, 'src/main/java/Images/image10.jpg', 2, 0),
+(11, 'MacBook Pro M2 2022 10-core GPU', 35490000, 'src/main/java/Images/image11.jpg', 0, 0),
+(12, 'HP 15s fq2716TU i3 1115G4 (7C0X3PA)', 11690000, 'src/main/java/Images/image12.jpg', 5, 0),
+(13, 'Asus Vivobook 14X OLED A1403ZA i5 12500H', 17490000, 'src/main/java/Images/image13.jpg', 9, 0),
+(14, 'Dell Vostro 3510 i5 1135G7 (P112F002BBL)', 18790000, 'src/main/java/Images/image1.jpg', 5, 0),
+(15, 'Dell Vostro 5620 i5 1240P (70296963)', 18790000, 'src/main/java/Images/image2.jpg', 12, 0),
+(16, 'Lenovo Yoga Duet 7 13ITL6 i7 1165G7 (82MA009PVN)\r\n', 32490000, 'src/main/java/Images/image3.jpg', 0, 0),
+(17, 'HP EliteBook 630 G9 i7 1255U (6M146PA)\r\n', 24790000, 'src/main/java/Images/image4.jpg', 14, 0),
+(18, 'Lenovo Yoga 7 14IAL7 i7 1260P (82QE000QVN)\r\n', 25150000, 'src/main/java/Images/image5.jpg', 78, 0),
+(19, 'MSI Summit E14 Evo A12M i7 1280P (211VN)\r\n', 26290000, 'src/main/java/Images/image6.jpg', 64, 0),
+(20, 'Asus ExpertBook B5402CB i5 1240P (KI0353W)\r\n', 22990000, 'src/main/java/Images/image7.jpg', 14, 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
