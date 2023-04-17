@@ -19,7 +19,7 @@ import javax.swing.UIManager;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import BEAN.DanhMucBean;
-import CONTROLLER.Controller;
+import BUS.Controller;
 import java.awt.SystemColor;
 import java.awt.Cursor;
 
@@ -39,6 +39,7 @@ public class HomeGui extends javax.swing.JFrame {
      */
     public HomeGui() {
         initComponents();
+        initController();
          DraggableRoundPanel roundPanel = new DraggableRoundPanel();
          
     }
@@ -59,17 +60,52 @@ public class HomeGui extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1361, 725));
         setSize(new java.awt.Dimension(1361, 725));
+        
+        pUserInfo = new JPanel();
 
         javax.swing.GroupLayout draggableRoundPanel4Layout = new javax.swing.GroupLayout(draggableRoundPanel4);
-        draggableRoundPanel4.setLayout(draggableRoundPanel4Layout);
         draggableRoundPanel4Layout.setHorizontalGroup(
-            draggableRoundPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 188, Short.MAX_VALUE)
+        	draggableRoundPanel4Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(Alignment.TRAILING, draggableRoundPanel4Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(pUserInfo, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        			.addContainerGap())
         );
         draggableRoundPanel4Layout.setVerticalGroup(
-            draggableRoundPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        	draggableRoundPanel4Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(Alignment.TRAILING, draggableRoundPanel4Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(pUserInfo, GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+        			.addContainerGap())
         );
+        
+        lblTenNV = new JLabel("nhanvien.TenNV");
+        lblTenNV.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+        lblTenNV.setFont(new Font("Tahoma", Font.BOLD, 16));
+        
+        lblChucVu = new JLabel("chucvu.TenCV");
+        lblChucVu.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+        lblChucVu.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        GroupLayout gl_pUserInfo = new GroupLayout(pUserInfo);
+        gl_pUserInfo.setHorizontalGroup(
+        	gl_pUserInfo.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_pUserInfo.createSequentialGroup()
+        			.addGroup(gl_pUserInfo.createParallelGroup(Alignment.LEADING)
+        				.addComponent(lblTenNV)
+        				.addComponent(lblChucVu, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
+        			.addContainerGap(51, Short.MAX_VALUE))
+        );
+        gl_pUserInfo.setVerticalGroup(
+        	gl_pUserInfo.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_pUserInfo.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(lblTenNV)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(lblChucVu, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(21, Short.MAX_VALUE))
+        );
+        pUserInfo.setLayout(gl_pUserInfo);
+        draggableRoundPanel4.setLayout(draggableRoundPanel4Layout);
 
         javax.swing.GroupLayout draggableRoundPanel6Layout = new javax.swing.GroupLayout(draggableRoundPanel6);
         draggableRoundPanel6.setLayout(draggableRoundPanel6Layout);
@@ -169,9 +205,29 @@ public class HomeGui extends javax.swing.JFrame {
         		.addComponent(lblLoaiSanPham, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
         pLoaiSanPham.setLayout(gl_pLoaiSanPham);
+        
+        pTaiKhoan = new JPanel();
+        draggableRoundPanel5.add(pTaiKhoan);
+        
+        lblTaiKhoan = new JLabel("Tài khoản");
+        lblTaiKhoan.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblTaiKhoan.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTaiKhoan.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pTaiKhoan = new GroupLayout(pTaiKhoan);
+        gl_pTaiKhoan.setHorizontalGroup(
+        	gl_pTaiKhoan.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addComponent(lblTaiKhoan, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        );
+        gl_pTaiKhoan.setVerticalGroup(
+        	gl_pTaiKhoan.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addComponent(lblTaiKhoan, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+        pTaiKhoan.setLayout(gl_pTaiKhoan);
 
         pack();
-        initController();
+//        initController();
         
     }// </editor-fold>//GEN-END:initComponents
 
@@ -182,6 +238,7 @@ public class HomeGui extends javax.swing.JFrame {
         listItem.add(new DanhMucBean("BanHang", pBanHang, lblBanHang));
         listItem.add(new DanhMucBean("SanPham", pSanPham, lblSanPham));
         listItem.add(new DanhMucBean("LoaiSanPham", pLoaiSanPham, lblLoaiSanPham));
+        listItem.add(new DanhMucBean("TaiKhoan", pTaiKhoan, lblTaiKhoan));
         controller.setEvent(listItem);
     }
     
@@ -230,4 +287,9 @@ public class HomeGui extends javax.swing.JFrame {
     private JLabel lblSanPham;
     private JPanel pLoaiSanPham;
     private JLabel lblLoaiSanPham;
+    private JPanel pTaiKhoan;
+    private JLabel lblTaiKhoan;
+    private JPanel pUserInfo;
+    private JLabel lblTenNV;
+    private JLabel lblChucVu;
 }

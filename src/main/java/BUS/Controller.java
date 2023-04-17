@@ -1,4 +1,4 @@
-package CONTROLLER;
+package BUS;
 
 import GUI.*;
 import BEAN.DanhMucBean;
@@ -67,6 +67,9 @@ public class Controller {
 					break;
 				case "LoaiSanPham":
 					node = new LoaiSanPhamJPanel();
+					break;
+				case "TaiKhoan":
+					node = new TaiKhoanJPanel();
 					break;
 				default:
 					node = new BanHangJPanel();

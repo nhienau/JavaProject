@@ -1,3 +1,5 @@
+package DAO;
+
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,10 +23,20 @@ public class DB {
         }
     }
     public void closeConnect(){
-        try {
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    	try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//        try {
+//            conn.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(MyConnect.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+    }
+    
+    public Connection getConn() {
+    	return this.conn;
     }
 }
