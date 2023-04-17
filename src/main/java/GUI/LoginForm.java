@@ -1,15 +1,16 @@
 package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class LoginPanel extends JFrame implements ActionListener {
+public class LoginForm extends JFrame implements ActionListener {
     JLabel userLabel, passwordLabel;
     JTextField userTextField;
     JPasswordField passwordField;
     JButton loginButton, cancelButton;
 
-    public LoginPanel() {
+    public LoginForm() {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -18,17 +19,41 @@ public class LoginPanel extends JFrame implements ActionListener {
 
         setTitle("Login Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 200);
+        setSize(400, 250);
         setLocationRelativeTo(null);
 
-        userLabel = new JLabel("Username");
-        passwordLabel = new JLabel("Password");
+        userLabel = new JLabel("      Username");
+        Font myFont = new Font("Arial", Font.BOLD,16);
+        userLabel.setFont(myFont);
+        userLabel.setForeground(Color.WHITE);
+        passwordLabel = new JLabel("      Password");
+        passwordLabel.setFont(myFont);
+        passwordLabel.setForeground(Color.WHITE);
         userTextField = new JTextField(20);
         passwordField = new JPasswordField(20);
-        loginButton = new JButton("Login");
-        cancelButton = new JButton("Cancel");
+        
+        ImageIcon icon = new ImageIcon("GUI/logo/avatar.png");
+        int newWidth = 35; // Kích thước mới cho chiều rộng
+        int newHeight = 35; // Kích thước mới cho chiều cao
+        Image img = icon.getImage();
+        Image newImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        ImageIcon newIcon = new ImageIcon(newImg);
+        loginButton = new JButton("Login", newIcon);
+        Color myColor = new Color(255,101,0);
+        loginButton.setBackground(myColor);
 
-        JPanel panel = new JPanel(new GridLayout(3, 2));
+        ImageIcon icon2 = new ImageIcon("GUI/logo/cancel.png");
+        int newWidth2 = 35; // Kích thước mới cho chiều rộng
+        int newHeight2 = 35; // Kích thước mới cho chiều cao
+        Image img2 = icon2.getImage();
+        Image newImg2 = img2.getScaledInstance(newWidth2, newHeight2, Image.SCALE_SMOOTH);
+        ImageIcon newIcon2 = new ImageIcon(newImg2);
+        cancelButton = new JButton("Cancel",newIcon2);
+        cancelButton.setBackground(myColor);
+
+        JPanel panel = new JPanel(new GridLayout(3, 2, 15, 15));
+        Color myColor2 = new Color(31,31,31);
+        panel.setBackground(myColor2);
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panel.add(userLabel);
         panel.add(userTextField);
@@ -48,7 +73,7 @@ public class LoginPanel extends JFrame implements ActionListener {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     if(userTextField.getText().isEmpty())
                     {
-                        JOptionPane.showInputDialog(LoginPanel.this, "Tên đăng nhập không được để trống", "Hãy Nhập lại");
+                        JOptionPane.showInputDialog(LoginForm.this, "Tên đăng nhập không được để trống");
                     }    
                     passwordField.requestFocus();
                 }
@@ -62,7 +87,7 @@ public class LoginPanel extends JFrame implements ActionListener {
                     String password = new String(password_Chars);
                     if(password.isEmpty())
                     {
-                        JOptionPane.showInputDialog(LoginPanel.this, "Mật Khẩu Không Được Để Trống","Hãy nhập lại!");
+                        JOptionPane.showInputDialog(LoginForm.this, "Mật khẩu không được để trống");
                     } 
                     loginButton.doClick();
                 }
@@ -77,11 +102,11 @@ public class LoginPanel extends JFrame implements ActionListener {
                 char[] password = passwordField.getPassword();
                 boolean isValid = validateLogin(username, password);
                 if (isValid) {
-                    JOptionPane.showMessageDialog(LoginPanel.this, "Login successful!");
+                    JOptionPane.showMessageDialog(LoginForm.this, "Đăng nhập thành công");
                     openMainWindow();
                     closeLoginWindow();
                 } else  {
-                    JOptionPane.showMessageDialog(LoginPanel.this, "Tên Đăng Nhập Hoặc Mật Khẩu Không Hợp Lệ", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(LoginForm.this, "Tên đăng nhập hoặc mật khẩu không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
                 } 
             }
         });
@@ -108,7 +133,7 @@ public class LoginPanel extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new LoginPanel();
+        new LoginForm();
     }
     @Override
     public void actionPerformed(ActionEvent e) {

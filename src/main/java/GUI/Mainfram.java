@@ -1,13 +1,13 @@
 package GUI;
 import javax.swing.*;
 
-public class MainFrame extends JFrame {
-    public MainFrame() {
+public class Mainfram extends JFrame {
+    public Mainfram() {
         setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        LoginPanel loginPanel = new LoginPanel();
-        add(loginPanel);
+        LoginForm loginform = new LoginForm();
+        add(loginform);
 
         pack();
         setLocationRelativeTo(null);
@@ -15,6 +15,6 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainFrame());
+        SwingUtilities.invokeLater(() -> new Mainfram());
     }
 }
