@@ -3,16 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package GUI;
-import javax.swing.JLabel;
-import javax.swing.GroupLayout.Alignment;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class TaiKhoanJPanel extends javax.swing.JPanel {
+import DAO.DB;
+
+public class TaiKhoanPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form TaiKhoanJPanel1
      */
-    public TaiKhoanJPanel() {
+    public TaiKhoanPanel() {
         initComponents();
+        getData(1);
     }
 
     /**
@@ -41,15 +46,15 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
         btnReset = new javax.swing.JButton();
         pPassword = new javax.swing.JPanel();
         profileContainer1 = new javax.swing.JPanel();
-        lblHoTen1 = new javax.swing.JLabel();
-        txtSDT1 = new javax.swing.JTextField();
-        lblNgaySinh1 = new javax.swing.JLabel();
-        txtNgaySinh1 = new javax.swing.JTextField();
-        lblEmail1 = new javax.swing.JLabel();
-        txtEmail1 = new javax.swing.JTextField();
-        lblErrorMessage1 = new javax.swing.JLabel();
-        btnUpdate1 = new javax.swing.JButton();
-        lblSDT1 = new javax.swing.JLabel();
+        lblDoiMatKhau = new javax.swing.JLabel();
+        lblMatKhauMoi = new javax.swing.JLabel();
+        lblXacNhanMatKhauMoi = new javax.swing.JLabel();
+        lblErrorMessageMatKhau = new javax.swing.JLabel();
+        btnChangePassword = new javax.swing.JButton();
+        lblMatKhauHienTai = new javax.swing.JLabel();
+        pwMatKhauHienTai = new javax.swing.JPasswordField();
+        pwMatKhauMoi = new javax.swing.JPasswordField();
+        pwXacNhanMatKhauMoi = new javax.swing.JPasswordField();
 
         lblHoTen.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblHoTen.setText("Họ và tên");
@@ -108,7 +113,8 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnReset)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileContainerLayout.createSequentialGroup()
+            .addGroup(profileContainerLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(profileContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileContainerLayout.createSequentialGroup()
                         .addGroup(profileContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,6 +163,8 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
                     .addComponent(btnReset)))
         );
 
+        lblErrorMessage.setVisible(false);
+
         javax.swing.GroupLayout pProfileLayout = new javax.swing.GroupLayout(pProfile);
         pProfile.setLayout(pProfileLayout);
         pProfileLayout.setHorizontalGroup(
@@ -171,40 +179,55 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
             .addGroup(pProfileLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(profileContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(445, Short.MAX_VALUE))
+                .addContainerGap(449, Short.MAX_VALUE))
         );
 
         tp.addTab("Thông tin cá nhân", pProfile);
 
-        lblHoTen1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblHoTen1.setText("Đổi mật khẩu");
+        lblDoiMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblDoiMatKhau.setText("Đổi mật khẩu");
 
-        txtSDT1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblMatKhauMoi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblMatKhauMoi.setText("Mật khẩu mới");
 
-        lblNgaySinh1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblNgaySinh1.setText("Mật khẩu mới");
+        lblXacNhanMatKhauMoi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblXacNhanMatKhauMoi.setText("Xác nhận mật khẩu mới");
 
-        txtNgaySinh1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblErrorMessageMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblErrorMessageMatKhau.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorMessageMatKhau.setText("Error message here");
 
-        lblEmail1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblEmail1.setText("Xác nhận mật khẩu mới");
-
-        txtEmail1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
-        lblErrorMessage1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblErrorMessage1.setForeground(new java.awt.Color(255, 51, 51));
-        lblErrorMessage1.setText("Error message here");
-
-        btnUpdate1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnUpdate1.setText("Thay đổi");
-        btnUpdate1.addActionListener(new java.awt.event.ActionListener() {
+        btnChangePassword.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnChangePassword.setText("Thay đổi");
+        btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdate1ActionPerformed(evt);
+                btnChangePasswordActionPerformed(evt);
             }
         });
 
-        lblSDT1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblSDT1.setText("Mật khẩu hiện tại");
+        lblMatKhauHienTai.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblMatKhauHienTai.setText("Mật khẩu hiện tại");
+
+        pwMatKhauHienTai.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        pwMatKhauHienTai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pwMatKhauHienTaiActionPerformed(evt);
+            }
+        });
+
+        pwMatKhauMoi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        pwMatKhauMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pwMatKhauMoiActionPerformed(evt);
+            }
+        });
+
+        pwXacNhanMatKhauMoi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        pwXacNhanMatKhauMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pwXacNhanMatKhauMoiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout profileContainer1Layout = new javax.swing.GroupLayout(profileContainer1);
         profileContainer1.setLayout(profileContainer1Layout);
@@ -212,42 +235,44 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
             profileContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(profileContainer1Layout.createSequentialGroup()
                 .addGroup(profileContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblSDT1)
-                    .addComponent(lblHoTen1)
-                    .addComponent(lblErrorMessage1)
+                    .addComponent(lblDoiMatKhau)
+                    .addComponent(lblErrorMessageMatKhau)
+                    .addComponent(btnChangePassword)
                     .addGroup(profileContainer1Layout.createSequentialGroup()
                         .addGroup(profileContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEmail1)
-                            .addComponent(lblNgaySinh1))
+                            .addComponent(lblXacNhanMatKhauMoi)
+                            .addComponent(lblMatKhauMoi)
+                            .addComponent(lblMatKhauHienTai))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(profileContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNgaySinh1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSDT1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnUpdate1))
+                        .addGroup(profileContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pwMatKhauHienTai, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(pwMatKhauMoi)
+                            .addComponent(pwXacNhanMatKhauMoi))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         profileContainer1Layout.setVerticalGroup(
             profileContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(profileContainer1Layout.createSequentialGroup()
-                .addComponent(lblHoTen1)
+                .addComponent(lblDoiMatKhau)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(profileContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSDT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSDT1))
+                    .addComponent(lblMatKhauHienTai)
+                    .addComponent(pwMatKhauHienTai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(profileContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNgaySinh1)
-                    .addComponent(txtNgaySinh1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblMatKhauMoi)
+                    .addComponent(pwMatKhauMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(profileContainer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEmail1)
-                    .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblXacNhanMatKhauMoi)
+                    .addComponent(pwXacNhanMatKhauMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblErrorMessage1)
+                .addComponent(lblErrorMessageMatKhau)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUpdate1))
+                .addComponent(btnChangePassword))
         );
+
+        lblErrorMessageMatKhau.setVisible(false);
 
         javax.swing.GroupLayout pPasswordLayout = new javax.swing.GroupLayout(pPassword);
         pPassword.setLayout(pPasswordLayout);
@@ -263,7 +288,7 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
             .addGroup(pPasswordLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(profileContainer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(446, Short.MAX_VALUE))
+                .addContainerGap(450, Short.MAX_VALUE))
         );
 
         tp.addTab("Mật khẩu", pPassword);
@@ -305,41 +330,74 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnResetActionPerformed
 
-    private void btnUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdate1ActionPerformed
+    private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdate1ActionPerformed
+    }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void txtSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSDTActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSDTActionPerformed
 
+    private void pwMatKhauHienTaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwMatKhauHienTaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pwMatKhauHienTaiActionPerformed
+
+    private void pwMatKhauMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwMatKhauMoiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pwMatKhauMoiActionPerformed
+
+    private void pwXacNhanMatKhauMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwXacNhanMatKhauMoiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pwXacNhanMatKhauMoiActionPerformed
+
+    public void getData(int MaNV) {
+    	DB db = new DB();
+		db.getConnect();
+		Connection connection = db.getConn();
+		Statement statement = null;
+		String query = "SELECT * FROM nhanvien where MaNV = " + MaNV;
+		try {
+			statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			while(result.next()) {
+				txtHoTen.setText(result.getString(2));
+				txtSDT.setText(result.getString(3));
+				txtNgaySinh.setText(result.getString(5));
+				txtEmail.setText(result.getString(4));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		db.closeConnect();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChangePassword;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton btnUpdate1;
+    private javax.swing.JLabel lblDoiMatKhau;
     private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblEmail1;
     private javax.swing.JLabel lblErrorMessage;
-    private javax.swing.JLabel lblErrorMessage1;
+    private javax.swing.JLabel lblErrorMessageMatKhau;
     private javax.swing.JLabel lblHoTen;
-    private javax.swing.JLabel lblHoTen1;
+    private javax.swing.JLabel lblMatKhauHienTai;
+    private javax.swing.JLabel lblMatKhauMoi;
     private javax.swing.JLabel lblNgaySinh;
-    private javax.swing.JLabel lblNgaySinh1;
     private javax.swing.JLabel lblSDT;
-    private javax.swing.JLabel lblSDT1;
+    private javax.swing.JLabel lblXacNhanMatKhauMoi;
     private javax.swing.JPanel pPassword;
     private javax.swing.JPanel pProfile;
     private javax.swing.JPanel profileContainer;
     private javax.swing.JPanel profileContainer1;
+    private javax.swing.JPasswordField pwMatKhauHienTai;
+    private javax.swing.JPasswordField pwMatKhauMoi;
+    private javax.swing.JPasswordField pwXacNhanMatKhauMoi;
     private CUSTOM.DraggableRoundPanel roundPanel;
     private javax.swing.JTabbedPane tp;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEmail1;
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtNgaySinh;
-    private javax.swing.JTextField txtNgaySinh1;
     private javax.swing.JTextField txtSDT;
-    private javax.swing.JTextField txtSDT1;
     // End of variables declaration//GEN-END:variables
 }

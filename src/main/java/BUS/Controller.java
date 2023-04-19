@@ -24,14 +24,15 @@ public class Controller {
 	}
 	
 	public void setView (JPanel pItem, JLabel lItem) {
-		kindSelected = "BanHang";
+		kindSelected = "HoaDon";
 		
-		pItem.setBackground(new Color(96, 100, 191));
-		lItem.setBackground(new Color(96, 100, 191));
+		pItem.setBackground(new Color(31, 31, 31));
+		lItem.setBackground(new Color(31, 31, 31));
+		lItem.setForeground(new Color(240, 240, 240));
 		
 		root.removeAll();
 		root.setLayout(new BorderLayout());
-		root.add(new BanHangJPanel());
+		root.add(new HoaDonPanel());
 		root.validate();
 		root.repaint();
 	}
@@ -59,20 +60,35 @@ public class Controller {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			switch (kind) { 
-				case "BanHang":
-					node = new BanHangJPanel();
+				case "HoaDon":
+					node = new HoaDonPanel();
+					break;
+				case "KhachHang":
+					node = new KhachHangPanel();
+					break;
+				case "NhanVien":
+					node = new NhanVienPanel();
+					break;
+				case "KhuyenMai":
+					node = new KhuyenMaiPanel();
 					break;
 				case "SanPham":
-					node = new SanPhamJPanel();
+					node = new SanPhamPanel();
 					break;
-				case "LoaiSanPham":
-					node = new LoaiSanPhamJPanel();
+				case "PhanQuyen":
+					node = new PhanQuyenPanel();
+					break;
+				case "ThongKe":
+					node = new ThongKePanel();
+					break;
+				case "NhapHang":
+					node = new NhapHangPanel();
 					break;
 				case "TaiKhoan":
-					node = new TaiKhoanJPanel();
+					node = new TaiKhoanPanel();
 					break;
 				default:
-					node = new BanHangJPanel();
+					node = new HoaDonPanel();
 			}
 			root.removeAll();
 			root.setLayout(new BorderLayout());
@@ -85,8 +101,9 @@ public class Controller {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			kindSelected = kind;
-			pItem.setBackground(new Color(96, 100, 191));
-			lItem.setBackground(new Color(96, 100, 191));
+			pItem.setBackground(new Color(31, 31, 31));
+			lItem.setBackground(new Color(31, 31, 31));
+			lItem.setForeground(new Color(240, 240, 240));
 		}
 
 		@Override
@@ -97,8 +114,9 @@ public class Controller {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			pItem.setBackground(new Color(96, 100, 191));
-			lItem.setBackground(new Color(96, 100, 191));
+			pItem.setBackground(new Color(31, 31, 31));
+			lItem.setBackground(new Color(31, 31, 31));
+			lItem.setForeground(new Color(240, 240, 240));
 		}
 
 		@Override
@@ -106,17 +124,20 @@ public class Controller {
 			if (!kindSelected.equalsIgnoreCase(kind)) {
 				pItem.setBackground(UIManager.getColor("Button.background"));
 				lItem.setBackground(UIManager.getColor("Button.background"));
+				lItem.setForeground(new Color(0, 0, 0));
 			}
 		}
 		
 		private void setChangeBackground(String kind) {
 			for (DanhMucBean item : listItem) {
 				if (item.getKind().equalsIgnoreCase(kind)) {
-					item.getPanel().setBackground(new Color(96, 100, 191));
-					item.getLabel().setBackground(new Color(96, 100, 191));
+					item.getPanel().setBackground(new Color(31, 31, 31));
+					item.getLabel().setBackground(new Color(31, 31, 31));
+					item.getLabel().setForeground(new Color(240, 240, 240));
 				} else {
 					item.getPanel().setBackground(UIManager.getColor("Button.background"));
 					item.getLabel().setBackground(UIManager.getColor("Button.background"));
+					item.getLabel().setForeground(new Color(0, 0, 0));
 				}
 			}
 		}

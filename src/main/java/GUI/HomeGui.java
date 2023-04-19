@@ -39,9 +39,7 @@ public class HomeGui extends javax.swing.JFrame {
      */
     public HomeGui() {
         initComponents();
-        initController();
-         DraggableRoundPanel roundPanel = new DraggableRoundPanel();
-         
+        initController(); 
     }
 
     /**
@@ -143,73 +141,222 @@ public class HomeGui extends javax.swing.JFrame {
         			.addContainerGap())
         );
         getContentPane().setLayout(layout);
+        draggableRoundPanel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
-        pBanHang = new JPanel();
-        pBanHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        pHoaDon = new JPanel();
+        draggableRoundPanel5.add(pHoaDon);
+        
+        lblHoaDon = new JLabel("Hoá đơn");
+        lblHoaDon.setForeground(new Color(0, 0, 0));
+        lblHoaDon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblHoaDon.setHorizontalAlignment(SwingConstants.CENTER);
+        lblHoaDon.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pHoaDon = new GroupLayout(pHoaDon);
+        gl_pHoaDon.setHorizontalGroup(
+        	gl_pHoaDon.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addComponent(lblHoaDon, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        );
+        gl_pHoaDon.setVerticalGroup(
+        	gl_pHoaDon.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addComponent(lblHoaDon, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+        pHoaDon.setLayout(gl_pHoaDon);
+        
+        pKhachHang = new JPanel();
+        pKhachHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        draggableRoundPanel5.add(pKhachHang);
+        
+        lblKhachHang = new JLabel("Khách hàng");
+        lblKhachHang.setForeground(new Color(0, 0, 0));
+        lblKhachHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblKhachHang.setHorizontalAlignment(SwingConstants.CENTER);
+        lblKhachHang.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pKhachHang = new GroupLayout(pKhachHang);
+        gl_pKhachHang.setHorizontalGroup(
+        	gl_pKhachHang.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addComponent(lblKhachHang, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        );
+        gl_pKhachHang.setVerticalGroup(
+        	gl_pKhachHang.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addComponent(lblKhachHang, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+        pKhachHang.setLayout(gl_pKhachHang);
+        
+        pNhanVien = new JPanel();
+        pNhanVien.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        draggableRoundPanel5.add(pNhanVien);
+        
+        lblNhanVien = new JLabel("Nhân viên");
+        lblNhanVien.setForeground(new Color(0, 0, 0));
+        lblNhanVien.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNhanVien.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pNhanVien = new GroupLayout(pNhanVien);
+        gl_pNhanVien.setHorizontalGroup(
+        	gl_pNhanVien.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addComponent(lblNhanVien, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        );
+        gl_pNhanVien.setVerticalGroup(
+        	gl_pNhanVien.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addComponent(lblNhanVien, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+        pNhanVien.setLayout(gl_pNhanVien);
+        
+        pKhuyenMai = new JPanel();
+        pKhuyenMai.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        draggableRoundPanel5.add(pKhuyenMai);
+        
+        lblKhuyenMai = new JLabel("Khuyến mãi");
+        lblKhuyenMai.setForeground(new Color(0, 0, 0));
+        lblKhuyenMai.setHorizontalAlignment(SwingConstants.CENTER);
+        lblKhuyenMai.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pKhuyenMai = new GroupLayout(pKhuyenMai);
+        gl_pKhuyenMai.setHorizontalGroup(
+        	gl_pKhuyenMai.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addComponent(lblKhuyenMai, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        );
+        gl_pKhuyenMai.setVerticalGroup(
+        	gl_pKhuyenMai.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addComponent(lblKhuyenMai, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+        pKhuyenMai.setLayout(gl_pKhuyenMai);
         
         pSanPham = new JPanel();
         pSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        draggableRoundPanel5.add(pSanPham);
         
         lblSanPham = new JLabel("Sản phẩm");
-        lblSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblSanPham.setForeground(new Color(0, 0, 0));
         lblSanPham.setHorizontalAlignment(SwingConstants.CENTER);
         lblSanPham.setFont(new Font("Tahoma", Font.BOLD, 14));
         GroupLayout gl_pSanPham = new GroupLayout(pSanPham);
         gl_pSanPham.setHorizontalGroup(
         	gl_pSanPham.createParallelGroup(Alignment.LEADING)
         		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
         		.addComponent(lblSanPham, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
         );
         gl_pSanPham.setVerticalGroup(
         	gl_pSanPham.createParallelGroup(Alignment.LEADING)
         		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
         		.addComponent(lblSanPham, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
         pSanPham.setLayout(gl_pSanPham);
-        draggableRoundPanel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
-        lblBanHang = new JLabel("Bán hàng");
-        lblBanHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        lblBanHang.setHorizontalAlignment(SwingConstants.CENTER);
-        lblBanHang.setFont(new Font("Tahoma", Font.BOLD, 14));
-        GroupLayout gl_pBanHang = new GroupLayout(pBanHang);
-        gl_pBanHang.setHorizontalGroup(
-        	gl_pBanHang.createParallelGroup(Alignment.LEADING)
-        		.addComponent(lblBanHang, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-        );
-        gl_pBanHang.setVerticalGroup(
-        	gl_pBanHang.createParallelGroup(Alignment.LEADING)
-        		.addComponent(lblBanHang, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-        );
-        pBanHang.setLayout(gl_pBanHang);
-        draggableRoundPanel5.add(pBanHang);
-        draggableRoundPanel5.add(pSanPham);
+        pPhanQuyen = new JPanel();
+        pPhanQuyen.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        draggableRoundPanel5.add(pPhanQuyen);
         
-        pLoaiSanPham = new JPanel();
-        pLoaiSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        draggableRoundPanel5.add(pLoaiSanPham);
-        
-        lblLoaiSanPham = new JLabel("Loại sản phẩm");
-        lblLoaiSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        lblLoaiSanPham.setHorizontalAlignment(SwingConstants.CENTER);
-        lblLoaiSanPham.setFont(new Font("Tahoma", Font.BOLD, 14));
-        GroupLayout gl_pLoaiSanPham = new GroupLayout(pLoaiSanPham);
-        gl_pLoaiSanPham.setHorizontalGroup(
-        	gl_pLoaiSanPham.createParallelGroup(Alignment.LEADING)
+        lblPhanQuyen = new JLabel("Phân quyền");
+        lblPhanQuyen.setForeground(new Color(0, 0, 0));
+        lblPhanQuyen.setHorizontalAlignment(SwingConstants.CENTER);
+        lblPhanQuyen.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pPhanQuyen = new GroupLayout(pPhanQuyen);
+        gl_pPhanQuyen.setHorizontalGroup(
+        	gl_pPhanQuyen.createParallelGroup(Alignment.LEADING)
         		.addGap(0, 168, Short.MAX_VALUE)
-        		.addComponent(lblLoaiSanPham, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addComponent(lblPhanQuyen, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
         );
-        gl_pLoaiSanPham.setVerticalGroup(
-        	gl_pLoaiSanPham.createParallelGroup(Alignment.LEADING)
+        gl_pPhanQuyen.setVerticalGroup(
+        	gl_pPhanQuyen.createParallelGroup(Alignment.LEADING)
         		.addGap(0, 38, Short.MAX_VALUE)
-        		.addComponent(lblLoaiSanPham, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addComponent(lblPhanQuyen, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
-        pLoaiSanPham.setLayout(gl_pLoaiSanPham);
+        pPhanQuyen.setLayout(gl_pPhanQuyen);
+        
+        pThongKe = new JPanel();
+        pThongKe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        draggableRoundPanel5.add(pThongKe);
+        
+        lblThongKe = new JLabel("Thống kê");
+        lblThongKe.setForeground(new Color(0, 0, 0));
+        lblThongKe.setHorizontalAlignment(SwingConstants.CENTER);
+        lblThongKe.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pThongKe = new GroupLayout(pThongKe);
+        gl_pThongKe.setHorizontalGroup(
+        	gl_pThongKe.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addComponent(lblThongKe, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        );
+        gl_pThongKe.setVerticalGroup(
+        	gl_pThongKe.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addComponent(lblThongKe, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+        pThongKe.setLayout(gl_pThongKe);
+        
+        pNhapHang = new JPanel();
+        pNhapHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        draggableRoundPanel5.add(pNhapHang);
+        
+        lblNhapHang = new JLabel("Nhập hàng");
+        lblNhapHang.setForeground(new Color(0, 0, 0));
+        lblNhapHang.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNhapHang.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pNhapHang = new GroupLayout(pNhapHang);
+        gl_pNhapHang.setHorizontalGroup(
+        	gl_pNhapHang.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addComponent(lblNhapHang, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        );
+        gl_pNhapHang.setVerticalGroup(
+        	gl_pNhapHang.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addComponent(lblNhapHang, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+        pNhapHang.setLayout(gl_pNhapHang);
         
         pTaiKhoan = new JPanel();
         draggableRoundPanel5.add(pTaiKhoan);
         
         lblTaiKhoan = new JLabel("Tài khoản");
+        lblTaiKhoan.setForeground(new Color(0, 0, 0));
         lblTaiKhoan.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblTaiKhoan.setHorizontalAlignment(SwingConstants.CENTER);
         lblTaiKhoan.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -227,19 +374,22 @@ public class HomeGui extends javax.swing.JFrame {
         pTaiKhoan.setLayout(gl_pTaiKhoan);
 
         pack();
-//        initController();
-        
     }// </editor-fold>//GEN-END:initComponents
 
     private void initController() {
     	Controller controller = new Controller(draggableRoundPanel6);
-        controller.setView(pBanHang, lblBanHang);
         List <DanhMucBean> listItem = new ArrayList();
-        listItem.add(new DanhMucBean("BanHang", pBanHang, lblBanHang));
+        listItem.add(new DanhMucBean("HoaDon", pHoaDon, lblHoaDon));
+        listItem.add(new DanhMucBean("KhachHang", pKhachHang, lblKhachHang));
+        listItem.add(new DanhMucBean("NhanVien", pNhanVien, lblNhanVien));
+        listItem.add(new DanhMucBean("KhuyenMai", pKhuyenMai, lblKhuyenMai));
         listItem.add(new DanhMucBean("SanPham", pSanPham, lblSanPham));
-        listItem.add(new DanhMucBean("LoaiSanPham", pLoaiSanPham, lblLoaiSanPham));
+        listItem.add(new DanhMucBean("PhanQuyen", pPhanQuyen, lblPhanQuyen));
+        listItem.add(new DanhMucBean("ThongKe", pThongKe, lblThongKe));
+        listItem.add(new DanhMucBean("NhapHang", pNhapHang, lblNhapHang));
         listItem.add(new DanhMucBean("TaiKhoan", pTaiKhoan, lblTaiKhoan));
         controller.setEvent(listItem);
+        controller.setView(pHoaDon, lblHoaDon);
     }
     
     /**
@@ -281,15 +431,25 @@ public class HomeGui extends javax.swing.JFrame {
     private CUSTOM.DraggableRoundPanel draggableRoundPanel4;
     private CUSTOM.DraggableRoundPanel draggableRoundPanel5;
     private CUSTOM.DraggableRoundPanel draggableRoundPanel6;
-    private JPanel pBanHang;
-    private JLabel lblBanHang;
-    private JPanel pSanPham;
-    private JLabel lblSanPham;
-    private JPanel pLoaiSanPham;
-    private JLabel lblLoaiSanPham;
     private JPanel pTaiKhoan;
     private JLabel lblTaiKhoan;
     private JPanel pUserInfo;
     private JLabel lblTenNV;
     private JLabel lblChucVu;
+    private JPanel pHoaDon;
+    private JLabel lblHoaDon;
+    private JPanel pKhachHang;
+    private JLabel lblKhachHang;
+    private JPanel pNhanVien;
+    private JLabel lblNhanVien;
+    private JPanel pKhuyenMai;
+    private JLabel lblKhuyenMai;
+    private JPanel pSanPham;
+    private JLabel lblSanPham;
+    private JPanel pPhanQuyen;
+    private JLabel lblPhanQuyen;
+    private JPanel pThongKe;
+    private JLabel lblThongKe;
+    private JPanel pNhapHang;
+    private JLabel lblNhapHang;
 }
