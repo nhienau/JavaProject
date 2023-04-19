@@ -9,8 +9,16 @@ public class LoginForm extends JFrame implements ActionListener {
     JTextField userTextField;
     JPasswordField passwordField;
     JButton loginButton, cancelButton;
+    private boolean loginSuccess = false;
 
-    public LoginForm() {
+    public boolean isLoginSuccess() {
+		return loginSuccess;
+	}
+	public void setLoginSuccess(boolean loginSuccess) {
+		this.loginSuccess = loginSuccess;
+	}
+	
+	public LoginForm() {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -65,9 +73,9 @@ public class LoginForm extends JFrame implements ActionListener {
 
         loginButton.addActionListener(this);
         cancelButton.addActionListener(this);
-
         setVisible(true);
-         // Xử lý sự kiện khi textfiel_username bị để trống
+        
+        // Xử lý sự kiện khi textfiel_username bị để trống
         userTextField.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -79,6 +87,7 @@ public class LoginForm extends JFrame implements ActionListener {
                 }
             }
         });
+        
         // Xử lý sự kiện khi textfiel_password bị để trống 
         passwordField.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
@@ -94,24 +103,23 @@ public class LoginForm extends JFrame implements ActionListener {
                 
             }
         });
-         // Xử lý sự kiện khi nhấn nút đăng nhập
+
+        // Xử lý sự kiện khi nhấn nút đăng nhập
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = userTextField.getText();
-                char[] password = passwordField.getPassword();
-                boolean isValid = validateLogin(username, password);
-                if (isValid) {
-                    JOptionPane.showMessageDialog(LoginForm.this, "Đăng nhập thành công");
-                    openMainWindow();
-                    closeLoginWindow();
-                } else  {
-                    JOptionPane.showMessageDialog(LoginForm.this, "Tên đăng nhập hoặc mật khẩu không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
-                } 
+            	loginButtonActionPerformed(e);
             }
         });
-        cancelButton.addActionListener(e -> System.exit(0));
+        
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	cancelButtonActionPerformed(e);
+            }
+        });
     }
+	
     // Kiểm tra thông tin đăng nhập hợp lệ
     private boolean validateLogin(String username, char[] password) {
         // Kiểm tra xem username và password có đúng hay không
@@ -129,15 +137,38 @@ public class LoginForm extends JFrame implements ActionListener {
     
     // Đóng cửa sổ đăng nhập
     private void closeLoginWindow() {
-        SwingUtilities.getWindowAncestor(this).dispose();
+//        SwingUtilities.getWindowAncestor(this).dispose();
+        dispose();
+    }
+    
+    public void loginButtonActionPerformed(ActionEvent e) {
+    	String username = userTextField.getText();
+        char[] password = passwordField.getPassword();
+        boolean isValid = validateLogin(username, password);
+        if (isValid) {
+            JOptionPane.showMessageDialog(LoginForm.this, "Đăng nhập thành công");
+//            openMainWindow();
+            setLoginSuccess(true);
+            closeLoginWindow();
+        } else  {
+            JOptionPane.showMessageDialog(LoginForm.this, "Tên đăng nhập hoặc mật khẩu không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void cancelButtonActionPerformed(ActionEvent e) {
+    	System.exit(0);
     }
 
     public static void main(String[] args) {
         new LoginForm();
     }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+    	if (loginButton.isSelected()) {
+    		loginButtonActionPerformed(e);
+    	} else if (cancelButton.isSelected()) {
+    		cancelButtonActionPerformed(e);
+    	}
     }
 }
