@@ -1,4 +1,4 @@
-package CONTROLLER;
+package BUS;
 
 import GUI.*;
 import BEAN.DanhMucBean;
