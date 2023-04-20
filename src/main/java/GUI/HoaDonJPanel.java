@@ -1,5 +1,5 @@
 
-package CUSTOM;
+package GUI;
 
 public class HoaDonJPanel extends javax.swing.JPanel {
 
