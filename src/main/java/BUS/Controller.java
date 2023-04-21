@@ -32,7 +32,7 @@ public class Controller {
 		
 		root.removeAll();
 		root.setLayout(new BorderLayout());
-		root.add(new HoaDonPanel());
+		root.add(new HoaDonJPanel());
 		root.validate();
 		root.repaint();
 	}
@@ -61,7 +61,7 @@ public class Controller {
 		public void mouseClicked(MouseEvent e) {
 			switch (kind) { 
 				case "HoaDon":
-					node = new HoaDonPanel();
+					node = new HoaDonJPanel();
 					break;
 				case "KhachHang":
 					node = new KhachHangPanel();
@@ -79,7 +79,7 @@ public class Controller {
 					node = new PhanQuyenPanel();
 					break;
 				case "ThongKe":
-					node = new ThongKePanel();
+					node = new ThongKeJPanel();
 					break;
 				case "NhapHang":
 					node = new NhapHangPanel();
@@ -88,7 +88,7 @@ public class Controller {
 					node = new TaiKhoanPanel();
 					break;
 				default:
-					node = new HoaDonPanel();
+					node = new HoaDonJPanel();
 			}
 			root.removeAll();
 			root.setLayout(new BorderLayout());

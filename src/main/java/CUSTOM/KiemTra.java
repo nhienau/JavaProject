@@ -47,7 +47,7 @@ public class KiemTra {
     }
 
     public boolean KTHoVaTen(String input){
-        return input.matches("^[a-zA-Z\\s]*$");
+        return input.matches("^[\\p{L}\\s]+$");
     }
     
     public boolean KTKhongChuaSo(String in) {

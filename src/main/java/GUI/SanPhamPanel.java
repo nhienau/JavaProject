@@ -8,12 +8,12 @@ package GUI;
  *
  * @author HP
  */
-public class HoaDonPanel extends javax.swing.JPanel {
+public class SanPhamPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form HoaDonPanel
+     * Creates new form SanPhamPanel
      */
-    public HoaDonPanel() {
+    public SanPhamPanel() {
         initComponents();
     }
 
