@@ -4,6 +4,7 @@
  */
 package DTO;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -23,6 +24,17 @@ public class NhanVien {
 
     public NhanVien(int MaNV, String TenNV, String SDT, String Email, Date NgaySinh, String TaiKhoan, String MatKhau, int MaCV, int IsDeleted) {
         this.MaNV = MaNV;
+        this.TenNV = TenNV;
+        this.SDT = SDT;
+        this.Email = Email;
+        this.NgaySinh = NgaySinh;
+        this.TaiKhoan = TaiKhoan;
+        this.MatKhau = MatKhau;
+        this.MaCV = MaCV;
+        this.IsDeleted = IsDeleted;
+    }
+
+    public NhanVien(String TenNV, String SDT, String Email, Date NgaySinh, String TaiKhoan, String MatKhau, int MaCV, int IsDeleted) {
         this.TenNV = TenNV;
         this.SDT = SDT;
         this.Email = Email;
@@ -107,4 +119,8 @@ public class NhanVien {
         this.IsDeleted = IsDeleted;
     }
     
+    public String getDate(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(this.NgaySinh);
+    }
 }
