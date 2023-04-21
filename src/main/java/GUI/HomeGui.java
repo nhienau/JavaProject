@@ -3,25 +3,29 @@ package GUI;
 import CUSTOM.DraggableRoundPanel;
 import javax.swing.JButton;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
-import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
 import BEAN.DanhMucBean;
 import BUS.Controller;
-import java.awt.SystemColor;
 import java.awt.Cursor;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JMenuItem;
+import java.awt.Dimension;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -39,7 +43,7 @@ public class HomeGui extends javax.swing.JFrame {
      */
     public HomeGui() {
         initComponents();
-        initController(); 
+        initController();
     }
 
     /**
@@ -54,6 +58,7 @@ public class HomeGui extends javax.swing.JFrame {
         draggableRoundPanel4 = new CUSTOM.DraggableRoundPanel();
         draggableRoundPanel5 = new CUSTOM.DraggableRoundPanel();
         draggableRoundPanel6 = new CUSTOM.DraggableRoundPanel();
+        draggableRoundPanel6.setOpaque(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1361, 725));
@@ -63,58 +68,101 @@ public class HomeGui extends javax.swing.JFrame {
 
         javax.swing.GroupLayout draggableRoundPanel4Layout = new javax.swing.GroupLayout(draggableRoundPanel4);
         draggableRoundPanel4Layout.setHorizontalGroup(
-        	draggableRoundPanel4Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(Alignment.TRAILING, draggableRoundPanel4Layout.createSequentialGroup()
+        	draggableRoundPanel4Layout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(Alignment.LEADING, draggableRoundPanel4Layout.createSequentialGroup()
         			.addContainerGap()
         			.addComponent(pUserInfo, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
         			.addContainerGap())
         );
         draggableRoundPanel4Layout.setVerticalGroup(
-        	draggableRoundPanel4Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(Alignment.TRAILING, draggableRoundPanel4Layout.createSequentialGroup()
+        	draggableRoundPanel4Layout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(draggableRoundPanel4Layout.createSequentialGroup()
         			.addContainerGap()
         			.addComponent(pUserInfo, GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
         			.addContainerGap())
         );
         
-        lblTenNV = new JLabel("nhanvien.TenNV");
-        lblTenNV.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-        lblTenNV.setFont(new Font("Tahoma", Font.BOLD, 16));
+        lblStaffName = new JLabel("nhanvien.TenNV");
+        lblStaffName.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+        lblStaffName.setFont(new Font("Tahoma", Font.BOLD, 16));
         
-        lblChucVu = new JLabel("chucvu.TenCV");
-        lblChucVu.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-        lblChucVu.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblRole = new JLabel("chucvu.TenCV");
+        lblRole.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+        lblRole.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        
+        btnSettings = new JButton();
+        btnSettings.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		popupSettings.show(btnSettings, 0, btnSettings.getPreferredSize().height);
+        	}
+        });
+        btnSettings.setOpaque(false);
+        btnSettings.setPreferredSize(new Dimension(24, 24));
+        btnSettings.setMaximumSize(new Dimension(24, 24));
+        btnSettings.setMinimumSize(new Dimension(24, 24));
+        ImageIcon settingIcon = new ImageIcon(HomeGui.class.getResource("/Images/settings.png"));
+        Image smallSettingIcon = settingIcon.getImage().getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
+        settingIcon = new ImageIcon(smallSettingIcon);
+        btnSettings.setIcon(settingIcon);
         GroupLayout gl_pUserInfo = new GroupLayout(pUserInfo);
         gl_pUserInfo.setHorizontalGroup(
         	gl_pUserInfo.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_pUserInfo.createSequentialGroup()
-        			.addGroup(gl_pUserInfo.createParallelGroup(Alignment.LEADING)
-        				.addComponent(lblTenNV)
-        				.addComponent(lblChucVu, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
-        			.addContainerGap(51, Short.MAX_VALUE))
+        			.addComponent(lblRole)
+        			.addContainerGap(78, Short.MAX_VALUE))
+        		.addGroup(gl_pUserInfo.createSequentialGroup()
+        			.addComponent(lblStaffName)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(btnSettings, 0, 25, Short.MAX_VALUE)
+        			.addGap(6))
         );
         gl_pUserInfo.setVerticalGroup(
         	gl_pUserInfo.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_pUserInfo.createSequentialGroup()
         			.addContainerGap()
-        			.addComponent(lblTenNV)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(lblChucVu, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(21, Short.MAX_VALUE))
+        			.addGroup(gl_pUserInfo.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(btnSettings, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(lblStaffName))
+        			.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+        			.addComponent(lblRole, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+        			.addGap(16))
         );
+        
+        popupSettings = new JPopupMenu();
+        addPopup(btnSettings, popupSettings);
+        popupSettings.setLabel("");
+        
+        btnLogOut = new JMenuItem("Đăng xuất");
+        btnLogOut.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnLogOutActionPerformed(e);
+        	}
+        });
+        btnLogOut.setIcon(new ImageIcon(HomeGui.class.getResource("/Images/logout.png")));
+        popupSettings.add(btnLogOut);
+        
+        btnExit = new JMenuItem("Thoát");
+        btnExit.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnExitActionPerformed(e);
+        	}
+        });
+        btnExit.setIcon(new ImageIcon(HomeGui.class.getResource("/Images/turn-off.png")));
+        popupSettings.add(btnExit);
         pUserInfo.setLayout(gl_pUserInfo);
         draggableRoundPanel4.setLayout(draggableRoundPanel4Layout);
 
         javax.swing.GroupLayout draggableRoundPanel6Layout = new javax.swing.GroupLayout(draggableRoundPanel6);
-        draggableRoundPanel6.setLayout(draggableRoundPanel6Layout);
         draggableRoundPanel6Layout.setHorizontalGroup(
-            draggableRoundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1155, Short.MAX_VALUE)
+        	draggableRoundPanel6Layout.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 1131, Short.MAX_VALUE)
         );
         draggableRoundPanel6Layout.setVerticalGroup(
-            draggableRoundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        	draggableRoundPanel6Layout.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 664, Short.MAX_VALUE)
         );
+        draggableRoundPanel6.setLayout(draggableRoundPanel6Layout);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -396,18 +444,9 @@ public class HomeGui extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    	// set Windows look and feel
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+        	javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(HomeGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -417,14 +456,29 @@ public class HomeGui extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(HomeGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new HomeGui().setVisible(true);
             }
         });
+    }
+    
+    public boolean isLoggedOut() {
+		return loggedOut;
+	}
+
+	public void setLoggedOut(boolean loggedOut) {
+		this.loggedOut = loggedOut;
+	}
+    
+    private void btnLogOutActionPerformed(ActionEvent e) {
+    	setLoggedOut(true);
+    	dispose();
+    }
+    
+    private void btnExitActionPerformed(ActionEvent e) {
+    	dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -434,8 +488,8 @@ public class HomeGui extends javax.swing.JFrame {
     private JPanel pTaiKhoan;
     private JLabel lblTaiKhoan;
     private JPanel pUserInfo;
-    private JLabel lblTenNV;
-    private JLabel lblChucVu;
+    private JLabel lblStaffName;
+    private JLabel lblRole;
     private JPanel pHoaDon;
     private JLabel lblHoaDon;
     private JPanel pKhachHang;
@@ -452,4 +506,26 @@ public class HomeGui extends javax.swing.JFrame {
     private JLabel lblThongKe;
     private JPanel pNhapHang;
     private JLabel lblNhapHang;
+    private JButton btnSettings;
+    private JPopupMenu popupSettings;
+    private JMenuItem btnLogOut;
+    private JMenuItem btnExit;
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+	}
+	private boolean loggedOut = false;
 }

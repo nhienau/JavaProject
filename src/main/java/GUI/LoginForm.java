@@ -163,6 +163,11 @@ public class LoginForm extends JFrame implements ActionListener {
         new LoginForm();
     }
     
+    public void clearInputFields() {
+    	passwordField.setText("");
+    	userTextField.requestFocus();
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
     	if (loginButton.isSelected()) {
