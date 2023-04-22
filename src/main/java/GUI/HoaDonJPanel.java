@@ -36,7 +36,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
         jButton1.setBackground(new java.awt.Color(255, 102, 51));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\OneDrive\\Máy tính\\JavaProject\\img\\search.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon("Images//search.png")); // NOI18N
         jButton1.setText("Tìm Kiếm");
         jButton1.setToolTipText("");
 
@@ -114,7 +114,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
         jButton2.setBackground(new java.awt.Color(255, 102, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\OneDrive\\Máy tính\\JavaProject\\img\\trash.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon("Images//trash.png")); // NOI18N
         jButton2.setText("Xóa");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +124,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
         jButton3.setBackground(new java.awt.Color(255, 102, 0));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\OneDrive\\Máy tính\\JavaProject\\img\\circular-arrow.png")); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon("Images//circular-arrow.png")); // NOI18N
         jButton3.setText("Sửa");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,7 +134,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
         jButton4.setBackground(new java.awt.Color(255, 102, 0));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\OneDrive\\Máy tính\\JavaProject\\img\\export.png")); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon("Images//export.png")); // NOI18N
         jButton4.setText("Xuất");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
