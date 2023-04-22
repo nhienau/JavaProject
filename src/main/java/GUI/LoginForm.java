@@ -40,7 +40,7 @@ public class LoginForm extends JFrame implements ActionListener {
         userTextField = new JTextField(20);
         passwordField = new JPasswordField(20);
         
-        ImageIcon icon = new ImageIcon("GUI/logo/avatar.png");
+        ImageIcon icon = new ImageIcon("main/java/Images/avatar.png");
         int newWidth = 35; // Kích thước mới cho chiều rộng
         int newHeight = 35; // Kích thước mới cho chiều cao
         Image img = icon.getImage();
@@ -50,7 +50,7 @@ public class LoginForm extends JFrame implements ActionListener {
         Color myColor = new Color(255,101,0);
         loginButton.setBackground(myColor);
 
-        ImageIcon icon2 = new ImageIcon("GUI/logo/cancel.png");
+        ImageIcon icon2 = new ImageIcon("main/java/Images/cancel.png");
         int newWidth2 = 35; // Kích thước mới cho chiều rộng
         int newHeight2 = 35; // Kích thước mới cho chiều cao
         Image img2 = icon2.getImage();
