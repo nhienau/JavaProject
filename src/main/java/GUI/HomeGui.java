@@ -2,6 +2,7 @@ package GUI;
 
 import CUSTOM.DraggableRoundPanel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import BEAN.DanhMucBean;
 import BUS.Controller;
@@ -130,10 +132,12 @@ public class HomeGui extends javax.swing.JFrame {
         );
         
         popupSettings = new JPopupMenu();
+        popupSettings.setFont(new Font("Tahoma", Font.PLAIN, 12));
         addPopup(btnSettings, popupSettings);
         popupSettings.setLabel("");
         
         btnLogOut = new JMenuItem("Đăng xuất");
+        btnLogOut.setFont(new Font("Arial", Font.PLAIN, 12));
         btnLogOut.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		btnLogOutActionPerformed(e);
@@ -143,6 +147,7 @@ public class HomeGui extends javax.swing.JFrame {
         popupSettings.add(btnLogOut);
         
         btnExit = new JMenuItem("Thoát");
+        btnExit.setFont(new Font("Arial", Font.PLAIN, 12));
         btnExit.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		btnExitActionPerformed(e);

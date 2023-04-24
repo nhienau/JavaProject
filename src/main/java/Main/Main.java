@@ -8,6 +8,9 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 import GUI.*;
 
 public class Main {
@@ -29,6 +32,7 @@ public class Main {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(HomeGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        SwingUtilities.updateComponentTreeUI(mainFrame);
 
         loginFrame.addWindowListener(new WindowAdapter() {
         	@Override

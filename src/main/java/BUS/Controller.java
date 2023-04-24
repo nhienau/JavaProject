@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -67,7 +68,12 @@ public class Controller {
 					node = new KhachHangPanel();
 					break;
 				case "NhanVien":
-					node = new NhanVienPanel();
+					try {
+						node = new NhanVienPanel();
+					} catch (ClassNotFoundException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					break;
 				case "KhuyenMai":
 					node = new KhuyenMaiPanel();
