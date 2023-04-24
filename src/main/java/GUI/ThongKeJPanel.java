@@ -74,7 +74,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         jLabel10.setText("VND");
 
         jButton1.setBackground(new java.awt.Color(255, 102, 0));
-        jButton1.setIcon(new javax.swing.ImageIcon("Images//money.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon("main/java/Images/money.png")); // NOI18N
         jButton1.setText("TỔNG CỘNG");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +188,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
 
         jButton2.setBackground(new java.awt.Color(255, 102, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon("Images//search.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon("main/java/Images/search.png")); // NOI18N
         jButton2.setText("LỌC");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
