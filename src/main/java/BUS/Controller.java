@@ -76,7 +76,7 @@ public class Controller {
 					}
 					break;
 				case "KhuyenMai":
-					node = new KhuyenMaiPanel();
+					node = new KhuyenMaiJPanel();
 					break;
 				case "SanPham":
 					node = new SanPhamPanel();
