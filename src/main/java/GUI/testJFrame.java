@@ -4,6 +4,10 @@
  */
 package GUI;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ASUS
@@ -13,8 +17,13 @@ public class testJFrame extends javax.swing.JFrame {
     /**
      * Creates new form testJFrame
      */
-    public testJFrame() {
+    public testJFrame() throws ClassNotFoundException, SQLException {
         initComponents();
+        KhuyenMaiJPanel khuyenMaiJPanel1 = new GUI.KhuyenMaiJPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1155, 725));
+        getContentPane().add(khuyenMaiJPanel1, java.awt.BorderLayout.CENTER);
     }
 
     /**
@@ -26,11 +35,7 @@ public class testJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        khuyenMaiJPanel1 = new GUI.KhuyenMaiJPanel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1155, 725));
-        getContentPane().add(khuyenMaiJPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -65,12 +70,17 @@ public class testJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new testJFrame().setVisible(true);
+                try {
+                    new testJFrame().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(testJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(testJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private GUI.KhuyenMaiJPanel khuyenMaiJPanel1;
     // End of variables declaration//GEN-END:variables
 }

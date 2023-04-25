@@ -9,6 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -76,8 +78,17 @@ public class Controller {
 					}
 					break;
 				case "KhuyenMai":
-					node = new KhuyenMaiJPanel();
+                            {
+                                try {
+                                    node = new KhuyenMaiJPanel();
+                                } catch (ClassNotFoundException ex) {
+                                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (SQLException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            }
 					break;
+
 				case "SanPham":
 					node = new SanPhamPanel();
 					break;
