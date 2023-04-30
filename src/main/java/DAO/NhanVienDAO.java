@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.SimpleFormatter;
@@ -77,10 +78,7 @@ public class NhanVienDAO {
     public int addEmp(NhanVien nv) throws ClassNotFoundException, SQLException{
         Connection con = DB.connect();
         String sql;
-        if(nv.getMaCV() != -1)
             sql = "insert into nhanvien(TenNV,SDT,Email,NgaySinh,TaiKhoan,MatKhau,IsDeleted,MaCV) values(?,?,?,?,?,?,?,?)";
-        else
-            sql = "insert into nhanvien(TenNV,SDT,Email,NgaySinh,TaiKhoan,MatKhau,IsDeleted) values(?,?,?,?,?,?,?)";
         PreparedStatement pst = con.prepareStatement(sql);
         pst.setString(1, nv.getTenNV());
         pst.setString(2, nv.getSDT());
@@ -94,6 +92,9 @@ public class NhanVienDAO {
         if(nv.getMaCV() != -1){
             pst.setInt(8, nv.getMaCV());
         }
+        else {
+        	pst.setNull(8, Types.INTEGER);
+        }
         int rs = pst.executeUpdate();
         con.close();
         return rs;
@@ -102,12 +103,8 @@ public class NhanVienDAO {
     public int updateEmp(NhanVien nv) throws ClassNotFoundException, SQLException{
         Connection con = DB.connect();
         String sql;
-        if(nv.getMaCV() != -1){
            sql = "update nhanvien set TenNV = ? ,SDT = ? , Email = ? , NgaySinh = ? , TaiKhoan = ? , MatKhau = ? ,MaCV = ? Where MaNV = ?";
-        }
-        else{
-           sql = "update nhanvien set TenNV = ? ,SDT = ? , Email = ?, NgaySinh = ? ,TaiKhoan = ? ,MatKhau = ? Where MaNV = ?";
-        }
+       
         PreparedStatement pst = con.prepareStatement(sql);
          pst.setString(1, nv.getTenNV());
         pst.setString(2, nv.getSDT());
@@ -118,14 +115,15 @@ public class NhanVienDAO {
         pst.setString(6, nv.getMatKhau());
         if(nv.getMaCV() != -1){
             pst.setInt(7, nv.getMaCV());
-            pst.setInt(8, nv.getMaNV());
+            
         }
         else{
-            pst.setInt(7, nv.getMaNV());
+            pst.setNull(7, Types.INTEGER);
         }
-        
-        return pst.executeUpdate();
-        
+        pst.setInt(8, nv.getMaNV());
+        int rowAffect =  pst.executeUpdate();
+        con.close();
+        return rowAffect;
     }
     
     public int delEmp(int ID) throws ClassNotFoundException, SQLException{
@@ -134,7 +132,21 @@ public class NhanVienDAO {
         PreparedStatement pst = con.prepareStatement(sql);
         pst.setInt(1, 1);
         pst.setInt(2, ID);
-        return pst.executeUpdate();
+        int rowAffect = pst.executeUpdate();
+        con.close();
+        return rowAffect;
+    }
+    
+    
+    public void updateWhenCVIsDeleted(int MaCV) throws ClassNotFoundException, SQLException {
+    	Connection conn = DB.connect();
+    	String sqlString = "update nhanvien set MaCV = ? Where MaCV = ? ";
+    	PreparedStatement pst = conn.prepareStatement(sqlString);
+    	pst.setNull(1, Types.INTEGER);
+    	pst.setInt(2, MaCV);
+    	pst.executeUpdate();
+    	conn.close();
+    	
     }
     
 }

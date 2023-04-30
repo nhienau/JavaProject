@@ -47,4 +47,88 @@ public class ChucVuDAO {
         conn.close();
         return cvList;
     }
+    
+    public List<ChucVu> search(String input) throws ClassNotFoundException, SQLException {
+    	Connection connection = DB.connect();
+    	String sqlString = "select * from chucvu where TenCV like ? and IsDeleted = ?";
+    	PreparedStatement pStatement = connection.prepareStatement(sqlString);
+    	pStatement.setString(1, "%"+input+"%");
+    	pStatement.setInt(2, 0);
+    	ResultSet rSet = pStatement.executeQuery();
+    	List<ChucVu> cvList = new ArrayList<>();
+    	while(rSet.next()) {
+    		int MaCV = rSet.getInt("MaCV");
+    		String TenCV = rSet.getString("TenCV");
+    		String HoaDon = rSet.getString("HoaDon");
+    		String KhachHang = rSet.getString("KhachHang");
+    		String NhanVien = rSet.getString("NhanVien");
+    		String KhuyenMai = rSet.getString("KhuyenMai");
+    		String SanPham = rSet.getString("SanPham");
+    		String PhanQuyen = rSet.getString("PhanQuyen");
+    		String ThongKe = rSet.getString("ThongKe");
+    		String NhapHang = rSet.getString("NhapHang");
+    		int IsDeleted = rSet.getInt("IsDeleted");
+    		cvList.add(new ChucVu(MaCV, TenCV, HoaDon, KhachHang, NhanVien, KhuyenMai, SanPham, PhanQuyen, ThongKe, NhapHang, IsDeleted));
+    	}
+    	connection.close();
+    	return cvList;
+    	
+    }
+    
+    public int addChucVu(ChucVu cv) throws ClassNotFoundException, SQLException {
+    	Connection conn = DB.connect();
+    	String sql = "insert into "
+    			+ "chucvu(TenCV,HoaDon,KhachHang,NhanVien,KhuyenMai,SanPham,PhanQuyen,ThongKe,NhapHang,IsDeleted)"
+    			+ " values(?,?,?,?,?,?,?,?,?,?)";
+    	PreparedStatement pst = conn.prepareStatement(sql);
+    	pst.setString(1, cv.getTenCV());
+    	pst.setString(2, cv.getHoaDon());
+    	pst.setString(3, cv.getKhachHang());
+    	pst.setString(4, cv.getNhanVien());
+    	pst.setString(5, cv.getKhuyenMai());
+    	pst.setString(6, cv.getSanPham());
+    	pst.setString(7, cv.getPhanQuyen());
+    	pst.setString(8, cv.getThongKe());
+    	pst.setString(9, cv.getNhapHang());
+    	pst.setInt(10, 0);
+    	int rowAffect = pst.executeUpdate();
+    	conn.close();
+    	return rowAffect;
+    	
+    }
+    
+    public int updateChucVu(ChucVu cv) throws ClassNotFoundException, SQLException {
+    	Connection conn = DB.connect();
+    	
+    	String sql = "update chucvu set TenCV = ?, HoaDon = ?, "
+    			+ "KhachHang = ?, NhanVien = ?, KhuyenMai= ?, SanPham =?,"
+    			+ "PhanQuyen = ?, ThongKe = ?,NhapHang = ? where MaCV = ?";
+    	PreparedStatement pst = conn.prepareStatement(sql);
+    	pst.setString(1, cv.getTenCV());
+    	pst.setString(2, cv.getHoaDon());
+    	pst.setString(3, cv.getKhachHang());
+    	pst.setString(4, cv.getNhanVien());
+    	pst.setString(5, cv.getKhuyenMai());
+    	pst.setString(6, cv.getSanPham());
+    	pst.setString(7, cv.getPhanQuyen());
+    	pst.setString(8, cv.getThongKe());
+    	pst.setString(9, cv.getNhapHang());
+    	pst.setInt(10, cv.getMaCV());
+    	
+    	int rowAffect = pst.executeUpdate();
+    	conn.close();
+    	return rowAffect;
+    }
+    
+    public int deleteChucVu(int ID) throws ClassNotFoundException, SQLException {
+    	Connection conn = DB.connect();
+    	String sql = "update chucvu set IsDeleted = ? where MaCV = ?";
+    	PreparedStatement pStatement = conn.prepareStatement(sql);
+    	pStatement.setInt(1, 1);
+    	pStatement.setInt(2, ID);
+    	int rowAffect = pStatement.executeUpdate();
+    	conn.close();
+    	return rowAffect;
+    }
+    
 }

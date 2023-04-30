@@ -23,4 +23,21 @@ public class ChucVuBUS {
         return cvDAO.takeAll();
     }
     
+    public List<ChucVu> search(String input) throws ClassNotFoundException, SQLException{
+    	return cvDAO.search(input);
+    }
+    
+    public int addChucVu(ChucVu cv) throws ClassNotFoundException, SQLException {
+    	return cvDAO.addChucVu(cv);
+    	
+    }
+    
+    public int updateChucVu(ChucVu cv) throws ClassNotFoundException, SQLException {
+    	return cvDAO.updateChucVu(cv);
+    }
+    
+    public int deleteChucVu(int ID) throws ClassNotFoundException, SQLException {
+    	return cvDAO.deleteChucVu(ID);
+    }
+    
 }
