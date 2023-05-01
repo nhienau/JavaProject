@@ -10,7 +10,10 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import BUS.Coupon_BUS;
 import CUSTOM.KiemTra;
+import DTO.ChucVu;
 import DTO.Coupon;
+import DTO.NhanVien;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -33,6 +36,18 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
      * Creates new form KhuyenMaiJPanel
      */
     public KhuyenMaiJPanel() throws ClassNotFoundException, SQLException {
+        initComponents();
+        jTable3.setDefaultEditor(Object.class, null);
+        try {
+            LoadCouponList();
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        LoadRowValueToTextFD(jTable3);
+        LoadComboBox();
+    }
+    
+    public KhuyenMaiJPanel (NhanVien user, ChucVu permission) throws ClassNotFoundException, SQLException {
         initComponents();
         jTable3.setDefaultEditor(Object.class, null);
         try {

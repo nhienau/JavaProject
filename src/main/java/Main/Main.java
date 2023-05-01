@@ -8,8 +8,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.naming.InitialContext;
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import DTO.NhanVien;
@@ -60,6 +58,14 @@ public class Main {
         public void windowClosed(WindowEvent e) {
             if (loginFrame.isLoginSuccess()) {
             	setCurrentUser(loginFrame.getCurrentUser());
+            	mainFrame.setCurrentUser(loginFrame.getCurrentUser());
+            	loginFrame.clearInputFields();
+            	try {
+					mainFrame.getPermission(mainFrame.getCurrentUser());
+				} catch (NoSuchFieldException | IllegalAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             	mainFrame.setVisible(true);
             }
         }
@@ -74,7 +80,8 @@ public class Main {
     	@Override
         public void windowClosed(WindowEvent e) {
             if (mainFrame.isLoggedOut()) {
-            	loginFrame.clearInputFields();
+            	loginFrame.setCurrentUser(null);
+            	loginFrame.setLoginSuccess(false);
             	loginFrame.setVisible(true);
             }
         }

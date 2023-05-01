@@ -2,7 +2,7 @@ package GUI;
 
 import javax.swing.*;
 
-import BUS.LoginBUS;
+import BUS.NhanVienBUS;
 import DTO.NhanVien;
 
 import java.awt.*;
@@ -152,7 +152,7 @@ public class LoginForm extends JFrame implements ActionListener {
         	return;
         }
 
-        NhanVien nv = new LoginBUS().verifyLogin(username, password);
+        NhanVien nv = new NhanVienBUS().verifyLogin(username, password);
         if (nv == null) {
         	JOptionPane.showMessageDialog(LoginForm.this, "Tên đăng nhập hoặc mật khẩu không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
         	return;

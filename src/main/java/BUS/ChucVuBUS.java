@@ -6,6 +6,8 @@ package BUS;
 
 import DAO.ChucVuDAO;
 import DTO.ChucVu;
+import DTO.NhanVien;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -38,6 +40,10 @@ public class ChucVuBUS {
     
     public int deleteChucVu(int ID) throws ClassNotFoundException, SQLException {
     	return cvDAO.deleteChucVu(ID);
+    }
+    
+    public ChucVu getPermission(NhanVien nv) {
+    	return cvDAO.getPermission(nv);
     }
     
 }

@@ -1,6 +1,9 @@
 package GUI;
 
 import CUSTOM.DraggableRoundPanel;
+import DTO.ChucVu;
+import DTO.NhanVien;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.GroupLayout.Alignment;
@@ -18,14 +21,19 @@ import java.awt.Font;
 import java.awt.Image;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
 import BEAN.DanhMucBean;
+import BUS.ChucVuBUS;
 import BUS.Controller;
 import java.awt.Cursor;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Method;
+import java.lang.reflect.Field;
+
 import javax.swing.JMenuItem;
 import java.awt.Dimension;
 
@@ -45,7 +53,8 @@ public class HomeGui extends javax.swing.JFrame {
      */
     public HomeGui() {
         initComponents();
-        initController();
+        initAllControllers();
+//        initController();
     }
 
     /**
@@ -428,21 +437,124 @@ public class HomeGui extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void initController() {
-    	Controller controller = new Controller(draggableRoundPanel6);
-        List <DanhMucBean> listItem = new ArrayList();
-        listItem.add(new DanhMucBean("HoaDon", pHoaDon, lblHoaDon));
-        listItem.add(new DanhMucBean("KhachHang", pKhachHang, lblKhachHang));
-        listItem.add(new DanhMucBean("NhanVien", pNhanVien, lblNhanVien));
-        listItem.add(new DanhMucBean("KhuyenMai", pKhuyenMai, lblKhuyenMai));
-        listItem.add(new DanhMucBean("SanPham", pSanPham, lblSanPham));
-        listItem.add(new DanhMucBean("PhanQuyen", pPhanQuyen, lblPhanQuyen));
-        listItem.add(new DanhMucBean("ThongKe", pThongKe, lblThongKe));
-        listItem.add(new DanhMucBean("NhapHang", pNhapHang, lblNhapHang));
-        listItem.add(new DanhMucBean("TaiKhoan", pTaiKhoan, lblTaiKhoan));
+    
+    private void initAllControllers() {
+    	controller = new Controller(draggableRoundPanel6);
+    	List <DanhMucBean> listItem = new ArrayList();
+    	
+    	// Get all the methods of the class
+        Method[] methods = ChucVu.class.getDeclaredMethods();
+ 
+        // Iterate over the methods and check if they are getter methods
+        for (Method method : methods) {
+          if (method.getName().startsWith("get") && method.getParameterCount() == 0 && method.getReturnType().equals(String.class)) {
+        	if (method.getName().equals("getTenCV")) {
+        		continue;
+        	}
+        	
+            try {
+            	// Get return value of the method
+				Object value = method.invoke(new ChucVu());
+				
+				if (value != null && value.toString().equals("null")) {
+					continue;
+				}
+				String controllerName = method.getName().substring(3);
+				String panelVariableName = "p" + controllerName;
+				String labelVariableName = "lbl" + controllerName;
+				Object panelObj = null;
+				Object labelObj = null;
+				
+				// Get Field object by variable name
+				Field field = this.getClass().getDeclaredField(panelVariableName);
+				field.setAccessible(true);
+				panelObj = field.get(this); // get the value of the object
+				
+				field = this.getClass().getDeclaredField(labelVariableName);
+				field.setAccessible(true);
+				labelObj = field.get(this);
+				
+				// Parse
+				JPanel p = (JPanel) panelObj;
+				JLabel l = (JLabel) labelObj;
+				
+				listItem.add(new DanhMucBean(controllerName, p, l));
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+          }
+        }
+    	
+    	listItem.add(new DanhMucBean("TaiKhoan", pTaiKhoan, lblTaiKhoan));
         controller.setEvent(listItem);
-        controller.setView(pHoaDon, lblHoaDon);
+    }
+    
+    private void initController(ChucVu permission) throws NoSuchFieldException, IllegalAccessException {
+    	hideAllControllers();
+        List <DanhMucBean> listItem = new ArrayList();
+
+        // Get all the methods of the class
+        Method[] methods = permission.getClass().getDeclaredMethods();
+        
+        // Store the first found controller (to setView later)
+        // (set default to panel Account)
+        String firstString = "TaiKhoan";
+        JPanel firstPanel = pTaiKhoan;
+        JLabel firstLabel = lblTaiKhoan;
+        boolean found = false;
+        
+        // Iterate over the methods and check if they are getter methods
+        for (Method method : methods) {
+          if (method.getName().startsWith("get") && method.getParameterCount() == 0 && method.getReturnType().equals(String.class)) {
+        	if (method.getName().equals("getTenCV")) {
+        		continue;
+        	}
+        	
+            try {
+            	// Get return value of the method
+				Object value = method.invoke(permission);
+				
+				if (value.toString().equals("null")) {
+					continue;
+				}
+				String controllerName = method.getName().substring(3);
+				String panelVariableName = "p" + controllerName;
+				String labelVariableName = "lbl" + controllerName;
+				Object panelObj = null;
+				Object labelObj = null;
+				
+				// Get Field object by variable name
+				Field field = this.getClass().getDeclaredField(panelVariableName);
+				field.setAccessible(true);
+				panelObj = field.get(this); // get the value of the object
+				
+				field = this.getClass().getDeclaredField(labelVariableName);
+				field.setAccessible(true);
+				labelObj = field.get(this);
+				
+				// Parse
+				JPanel p = (JPanel) panelObj;
+				JLabel l = (JLabel) labelObj;
+				
+				listItem.add(new DanhMucBean(controllerName, p, l));
+				p.setVisible(true);
+				
+				// Update the first found controller (to setView later)
+				if (found == false) {
+					firstString = controllerName;
+					firstPanel = p;
+					firstLabel = l;
+					found = true;
+				}
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+          }
+        }
+        
+        listItem.add(new DanhMucBean("TaiKhoan", pTaiKhoan, lblTaiKhoan));
+        controller.setView(firstString, firstPanel, firstLabel);
+        controller.initUser(currentUser, permission);
     }
     
     /**
@@ -479,14 +591,64 @@ public class HomeGui extends javax.swing.JFrame {
     
     private void btnLogOutActionPerformed(ActionEvent e) {
     	setLoggedOut(true);
+    	setCurrentUser(null);
+    	setPermissionUser(null);
     	dispose();
     }
     
     private void btnExitActionPerformed(ActionEvent e) {
     	dispose();
     }
+    
+    public void getPermission(NhanVien user) throws NoSuchFieldException, IllegalAccessException {
+    	ChucVu cv = new ChucVuBUS().getPermission(user);
+    	if (cv == null) {
+    		// 
+    		return;
+    	}
+    	
+    	setPermissionUser(cv);
+    	initController(cv);
+    	showInfo(user, cv);
+    }
+    
+    public void hideAllControllers() { 
+    	JPanel[] panels = {pHoaDon, pKhachHang, pNhanVien, pKhuyenMai, pSanPham, pPhanQuyen, pThongKe, pNhapHang};
+    	for (JPanel p : panels) {
+    		p.setVisible(false);
+    	}
+    }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    public NhanVien getCurrentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(NhanVien currentUser) {
+		this.currentUser = currentUser;
+	}
+
+	public ChucVu getPermissionUser() {
+		return permissionUser;
+	}
+
+	public void setPermissionUser(ChucVu permissionUser) {
+		this.permissionUser = permissionUser;
+	}
+
+	public Controller getController() {
+		return controller;
+	}
+
+	public void setController(Controller controller) {
+		this.controller = controller;
+	}
+
+	public void showInfo(NhanVien nv, ChucVu cv) {
+		lblStaffName.setText(nv.getTenNV());
+		lblRole.setText(cv.getTenCV());
+	}
+	
+	// Variables declaration - do not modify//GEN-BEGIN:variables
     private CUSTOM.DraggableRoundPanel draggableRoundPanel4;
     private CUSTOM.DraggableRoundPanel draggableRoundPanel5;
     private CUSTOM.DraggableRoundPanel draggableRoundPanel6;
@@ -533,4 +695,8 @@ public class HomeGui extends javax.swing.JFrame {
 		});
 	}
 	private boolean loggedOut = false;
+	private NhanVien currentUser = null;
+	private ChucVu permissionUser = null;
+	private Controller controller = null;
+	
 }

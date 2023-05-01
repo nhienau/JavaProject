@@ -48,6 +48,7 @@ import javax.swing.border.Border;
 import CUSTOM.DraggableRoundPanel;
 import CUSTOM.KiemTra;
 import DTO.ChucVu;
+import DTO.NhanVien;
 
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -67,7 +68,7 @@ import javax.swing.border.LineBorder;
  *
  * @author Admin
  */
-public class PhanQuyenPanel extends javax.swing.JPanel {
+public class PhanQuyenJPanel extends javax.swing.JPanel {
 
     private List<JCheckBox> parentCheckBoxList;
     private List<ChucVu> chucVuList;
@@ -88,7 +89,32 @@ public class PhanQuyenPanel extends javax.swing.JPanel {
      * @throws SQLException 
      * @throws ClassNotFoundException 
      */
-    public PhanQuyenPanel() throws ClassNotFoundException, SQLException {
+    public PhanQuyenJPanel() throws ClassNotFoundException, SQLException {
+    	setForeground(new Color(31, 31, 31));
+        initComponents();
+        cvBUS = new ChucVuBUS();
+        nvBUS = new NhanVienBUS();
+        kTra = new KiemTra();
+        jLabel1.setIcon(new ImageIcon("src\\main\\java\\Images\\account-img.png"));
+        jLabel2.setIcon(new ImageIcon("src\\main\\java\\Images\\image-removebg-preview (1).png"));
+        delIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\delete.png"));
+        addIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\plus.png"));
+        editIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\edit.png"));
+        
+        
+        setDencenDetails();
+        setRowColorBackground(this.positionListTable);
+
+        initData();
+        initTable();
+        addSelectedCheckBoxEvent();
+        searchTFListener();
+        
+        addAllBorderFocus();
+        
+    }
+    
+    public PhanQuyenJPanel (NhanVien user, ChucVu permission) throws ClassNotFoundException, SQLException {
     	setForeground(new Color(31, 31, 31));
         initComponents();
         cvBUS = new ChucVuBUS();
@@ -1865,7 +1891,7 @@ public class PhanQuyenPanel extends javax.swing.JPanel {
 	}
     
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JCheckBox addBillCheckBox;
     private javax.swing.JCheckBox addCustomerCheckBox;
     private javax.swing.JCheckBox addDencenCheckBox;

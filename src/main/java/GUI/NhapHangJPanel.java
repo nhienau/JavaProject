@@ -4,17 +4,24 @@
  */
 package GUI;
 
+import DTO.ChucVu;
+import DTO.NhanVien;
+
 /**
  *
  * @author HP
  */
-public class KhuyenMaiPanel extends javax.swing.JPanel {
+public class NhapHangJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form KhuyenMaiPanel
+     * Creates new form NhapHangPanel
      */
-    public KhuyenMaiPanel() {
+    public NhapHangJPanel() {
         initComponents();
+    }
+    
+    public NhapHangJPanel (NhanVien user, ChucVu permission) {
+    	initComponents();
     }
 
     /**

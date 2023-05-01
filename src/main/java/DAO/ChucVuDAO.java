@@ -5,6 +5,8 @@
 package DAO;
 
 import DTO.ChucVu;
+import DTO.NhanVien;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -129,6 +131,29 @@ public class ChucVuDAO {
     	int rowAffect = pStatement.executeUpdate();
     	conn.close();
     	return rowAffect;
+    }
+    
+    public ChucVu getPermission(NhanVien nv) {
+    	ChucVu cv = null;
+    	try {
+			Connection conn = DB.connect();
+			String query = "SELECT CV.* FROM nhanvien NV, chucvu CV WHERE NV.MaCV = CV.MaCV AND NV.MaNV = ?";
+	        PreparedStatement pst = conn.prepareStatement(query);
+			pst.setInt(1, nv.getMaNV());
+			ResultSet rs = pst.executeQuery();
+			
+			if (rs.next() && rs.getInt(11) == 0) {
+				cv = new ChucVu(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
+			}
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cv;
     }
     
 }

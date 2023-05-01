@@ -1,11 +1,20 @@
 
 package GUI;
 
+import DTO.ChucVu;
+import DTO.NhanVien;
+
 public class HoaDonJPanel extends javax.swing.JPanel {
 
     public HoaDonJPanel() {
         initComponents();
-    }                        
+    }
+    
+    public HoaDonJPanel (NhanVien user, ChucVu permission) {
+        initComponents();
+        
+    }
+    
     private void initComponents() {
 
         draggableRoundPanel1 = new CUSTOM.DraggableRoundPanel();
