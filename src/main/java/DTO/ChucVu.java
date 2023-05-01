@@ -35,7 +35,38 @@ public class ChucVu {
         this.IsDeleted = IsDeleted;
     }
     
-    public ChucVu(){};
+    public ChucVu(String tenCV, String hoaDon, String khachHang, String nhanVien, String khuyenMai, String sanPham,
+			String phanQuyen, String thongKe, String nhapHang) {
+		super();
+		TenCV = tenCV;
+		HoaDon = hoaDon;
+		KhachHang = khachHang;
+		NhanVien = nhanVien;
+		KhuyenMai = khuyenMai;
+		SanPham = sanPham;
+		PhanQuyen = phanQuyen;
+		ThongKe = thongKe;
+		NhapHang = nhapHang;
+	}
+
+    
+    
+	public ChucVu(int maCV, String tenCV, String hoaDon, String khachHang, String nhanVien, String khuyenMai,
+			String sanPham, String phanQuyen, String thongKe, String nhapHang) {
+		super();
+		MaCV = maCV;
+		TenCV = tenCV;
+		HoaDon = hoaDon;
+		KhachHang = khachHang;
+		NhanVien = nhanVien;
+		KhuyenMai = khuyenMai;
+		SanPham = sanPham;
+		PhanQuyen = phanQuyen;
+		ThongKe = thongKe;
+		NhapHang = nhapHang;
+	}
+
+	public ChucVu(){};
 
     public int getMaCV() {
         return MaCV;
