@@ -53,7 +53,7 @@ public class NhanVienBUS {
     	nvDAO.updateWhenCVIsDeleted(MaCV);
     }
     
-    public NhanVien verifyLogin(String username, String password) {
+    public NhanVien verifyLogin(String username, String password) throws SQLException {
     	return nvDAO.verifyLogin(username, password);
     }
     

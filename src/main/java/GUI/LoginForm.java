@@ -7,6 +7,7 @@ import DTO.NhanVien;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class LoginForm extends JFrame implements ActionListener {
     JLabel userLabel, passwordLabel;
@@ -151,8 +152,19 @@ public class LoginForm extends JFrame implements ActionListener {
         if (!checkInput()) {
         	return;
         }
-
-        NhanVien nv = new NhanVienBUS().verifyLogin(username, password);
+        NhanVien nv = null;
+        try {
+            nv = new NhanVienBUS().verifyLogin(username, password);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(LoginForm.this, "Lỗi kết nối cơ sở dữ liệu", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(LoginForm.this, "Lỗi không xác định", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return;
+        }
+        
         if (nv == null) {
         	JOptionPane.showMessageDialog(LoginForm.this, "Tên đăng nhập hoặc mật khẩu không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
         	return;

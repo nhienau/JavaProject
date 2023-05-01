@@ -5,6 +5,8 @@
 package DAO;
 
 import DTO.NhanVien;
+import GUI.LoginForm;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,6 +16,8 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.SimpleFormatter;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -149,7 +153,7 @@ public class NhanVienDAO {
     	
     }
     
-    public NhanVien verifyLogin(String username, String password) {
+    public NhanVien verifyLogin(String username, String password) throws SQLException {
     	NhanVien nv = null;
     	try {
 			Connection conn = DB.connect();
@@ -168,7 +172,8 @@ public class NhanVienDAO {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			throw e;
 		}
 		return nv;
     }
