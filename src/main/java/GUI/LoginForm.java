@@ -1,6 +1,10 @@
 package GUI;
 
 import javax.swing.*;
+
+import BUS.LoginBUS;
+import DTO.NhanVien;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -10,10 +14,20 @@ public class LoginForm extends JFrame implements ActionListener {
     JPasswordField passwordField;
     JButton loginButton, cancelButton;
     private boolean loginSuccess = false;
+    private NhanVien currentUser = null;
 
-    public boolean isLoginSuccess() {
+    public NhanVien getCurrentUser() {
+		return currentUser;
+	}
+    
+	public void setCurrentUser(NhanVien currentUser) {
+		this.currentUser = currentUser;
+	}
+	
+	public boolean isLoginSuccess() {
 		return loginSuccess;
 	}
+	
 	public void setLoginSuccess(boolean loginSuccess) {
 		this.loginSuccess = loginSuccess;
 	}
@@ -78,12 +92,8 @@ public class LoginForm extends JFrame implements ActionListener {
         // Xử lý sự kiện khi textfiel_username bị để trống
         userTextField.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    if(userTextField.getText().isEmpty())
-                    {
-                        JOptionPane.showInputDialog(LoginForm.this, "Tên đăng nhập không được để trống");
-                    }    
-                    passwordField.requestFocus();
+                if (e.getKeyCode() == KeyEvent.VK_ENTER && checkInput()) {
+                	loginButtonActionPerformed();
                 }
             }
         });
@@ -91,16 +101,9 @@ public class LoginForm extends JFrame implements ActionListener {
         // Xử lý sự kiện khi textfiel_password bị để trống 
         passwordField.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    char[] password_Chars = passwordField.getPassword();
-                    String password = new String(password_Chars);
-                    if(password.isEmpty())
-                    {
-                        JOptionPane.showInputDialog(LoginForm.this, "Mật khẩu không được để trống");
-                    } 
-                    loginButton.doClick();
+                if (e.getKeyCode() == KeyEvent.VK_ENTER && checkInput()) {
+                	loginButtonActionPerformed();
                 }
-                
             }
         });
 
@@ -108,72 +111,77 @@ public class LoginForm extends JFrame implements ActionListener {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	loginButtonActionPerformed(e);
+            	loginButtonActionPerformed();
             }
         });
         
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	cancelButtonActionPerformed(e);
+            	cancelButtonActionPerformed();
             }
         });
     }
 	
-    // Kiểm tra thông tin đăng nhập hợp lệ
-    private boolean validateLogin(String username, char[] password) {
-        // Kiểm tra xem username và password có đúng hay không
-        return "admin".equals(username) && "123456".equals(new String(password));
+	public void clearInputFields() {
+    	passwordField.setText("");
+    	userTextField.requestFocus();
     }
     
-    // Mở một cửa sổ mới khi đăng nhập thành công
-    private void openMainWindow() {
-        JFrame mainWindow = new JFrame("Main Window");
-        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setSize(800, 500);
-        mainWindow.setLocationRelativeTo(null);
-        mainWindow.setVisible(true);
-    }
-    
-    // Đóng cửa sổ đăng nhập
-    private void closeLoginWindow() {
-//        SwingUtilities.getWindowAncestor(this).dispose();
-        dispose();
-    }
-    
-    public void loginButtonActionPerformed(ActionEvent e) {
+    public boolean checkInput() {
     	String username = userTextField.getText();
-        char[] password = passwordField.getPassword();
-        boolean isValid = validateLogin(username, password);
-        if (isValid) {
-            JOptionPane.showMessageDialog(LoginForm.this, "Đăng nhập thành công");
-//            openMainWindow();
-            setLoginSuccess(true);
-            closeLoginWindow();
-        } else  {
-            JOptionPane.showMessageDialog(LoginForm.this, "Tên đăng nhập hoặc mật khẩu không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
+        String password = new String(passwordField.getPassword());
+        
+        if (username.isEmpty() || password.isEmpty()) {
+        	JOptionPane.showMessageDialog(LoginForm.this, "Bạn chưa nhập tài khoản, mật khẩu", "Error", JOptionPane.ERROR_MESSAGE);
+        	if (username.isEmpty()) {
+        		userTextField.requestFocus();
+        	} else if (password.isEmpty()) {
+        		passwordField.requestFocus();
+        	}
+        	return false;
+        }
+        
+        return true;
+    }
+
+    public void loginButtonActionPerformed() {
+    	String username = userTextField.getText();
+        String password = new String(passwordField.getPassword());
+        if (!checkInput()) {
+        	return;
+        }
+
+        NhanVien nv = new LoginBUS().verifyLogin(username, password);
+        if (nv == null) {
+        	JOptionPane.showMessageDialog(LoginForm.this, "Tên đăng nhập hoặc mật khẩu không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+        if (nv.getIsDeleted() == 1) {
+        	JOptionPane.showMessageDialog(LoginForm.this, "Tài khoản của bạn đã bị khoá.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+        	JOptionPane.showMessageDialog(LoginForm.this, "Đăng nhập thành công");
+        	setCurrentUser(nv);
+        	setLoginSuccess(true);
+        	dispose();
         }
     }
     
-    public void cancelButtonActionPerformed(ActionEvent e) {
+    public void cancelButtonActionPerformed() {
     	System.exit(0);
     }
 
     public static void main(String[] args) {
         new LoginForm();
     }
-    
-    public void clearInputFields() {
-    	passwordField.setText("");
-    	userTextField.requestFocus();
-    }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
     	if (loginButton.isSelected()) {
-    		loginButtonActionPerformed(e);
+    		loginButtonActionPerformed();
     	} else if (cancelButton.isSelected()) {
-    		cancelButtonActionPerformed(e);
+    		cancelButtonActionPerformed();
     	}
     }
 }

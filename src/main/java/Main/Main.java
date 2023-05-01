@@ -8,16 +8,28 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.naming.InitialContext;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import DTO.NhanVien;
 import GUI.*;
 
 public class Main {
 	static LoginForm loginFrame;
 	static HomeGui mainFrame;
-    public static void main(String[] args) {
-        loginFrame = new LoginForm();
+	private NhanVien currentUser = null;
+
+    public NhanVien getCurrentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(NhanVien currentUser) {
+		this.currentUser = currentUser;
+	}
+	
+	private void init() {
+		loginFrame = new LoginForm();
         mainFrame = new HomeGui();
         
         // set Windows look and feel
@@ -33,46 +45,49 @@ public class Main {
             java.util.logging.Logger.getLogger(HomeGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         SwingUtilities.updateComponentTreeUI(mainFrame);
+        
+        loginFrame.addWindowListener(new LoginFrameWindowAdapter());
+        mainFrame.addWindowListener(new MainFrameWindowAdapter());
+        mainFrame.addComponentListener(new MainFrameComponentAdapter());
+	}
 
-        loginFrame.addWindowListener(new WindowAdapter() {
-        	@Override
-            public void windowClosing(WindowEvent e) {
-//                System.out.println("Exit");
-//                System.out.println(loginFrame.isLoginSuccess());
+	private class LoginFrameWindowAdapter extends WindowAdapter {
+		@Override
+        public void windowClosing(WindowEvent e) {
+        }
+    	
+    	@Override
+        public void windowClosed(WindowEvent e) {
+            if (loginFrame.isLoginSuccess()) {
+            	setCurrentUser(loginFrame.getCurrentUser());
+            	mainFrame.setVisible(true);
             }
-        	
-        	@Override
-            public void windowClosed(WindowEvent e) {
-//                System.out.println("Login success");
-//                System.out.println(loginFrame.isLoginSuccess());
-                
-                if (loginFrame.isLoginSuccess()) {
-                	mainFrame.setVisible(true);
-                }
+        }
+    }
+	
+	private class MainFrameWindowAdapter extends WindowAdapter {
+		@Override
+        public void windowClosing(WindowEvent e) {
+//            System.out.println("exit");
+        }
+    	
+    	@Override
+        public void windowClosed(WindowEvent e) {
+            if (mainFrame.isLoggedOut()) {
+            	loginFrame.clearInputFields();
+            	loginFrame.setVisible(true);
             }
-        });
-        
-        mainFrame.addWindowListener(new WindowAdapter() {
-        	@Override
-            public void windowClosing(WindowEvent e) {
-//                System.out.println("exit");
-            }
-        	
-        	@Override
-            public void windowClosed(WindowEvent e) {
-                if (mainFrame.isLoggedOut()) {
-                	loginFrame.clearInputFields();
-                	loginFrame.setVisible(true);
-                }
-            }
-        });
-        
-        mainFrame.addComponentListener(new ComponentAdapter() {
-        	@Override
-            public void componentShown(ComponentEvent e) {
-        		mainFrame.setLoggedOut(false);
-//                System.out.println("main frame is visible");
-            }
-		});
+        }
+	}
+	
+	private class MainFrameComponentAdapter extends ComponentAdapter {
+		@Override
+        public void componentShown(ComponentEvent e) {
+    		mainFrame.setLoggedOut(false);
+        }
+	}
+	
+	public static void main(String[] args) {
+		new Main().init();
     }
 }
