@@ -12,6 +12,7 @@ import BUS.Coupon_BUS;
 import BUS.KhuyenMaiHoaDonBUS;
 import BUS.KhuyenMaiSanPhamBUS;
 import CUSTOM.KiemTra;
+import DTO.ChucVu;
 import DTO.Coupon;
 import DTO.KhuyenMaiHoaDon;
 import DTO.KhuyenMaiSanPham;
@@ -77,6 +78,18 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jDateChooser2.setVisible(false);
         jRadioButton3.setVisible(false);
         jRadioButton4.setVisible(false);
+    }
+    
+    public KhuyenMaiJPanel (NhanVien user, ChucVu permission) throws ClassNotFoundException, SQLException {
+        initComponents();
+        jTable3.setDefaultEditor(Object.class, null);
+        try {
+            LoadCouponList();
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        LoadRowValueToTextFD(jTable3);
+        LoadComboBox();
     }
 
     /**

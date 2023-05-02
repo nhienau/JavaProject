@@ -4,17 +4,27 @@
  */
 package GUI;
 
+import DTO.ChucVu;
+import DTO.NhanVien;
+
 /**
  *
  * @author HP
  */
-public class TaiKhoanPanel extends javax.swing.JPanel {
+public class TaiKhoanJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form NewJPanel1
      */
-    public TaiKhoanPanel() {
+    public TaiKhoanJPanel() {
         initComponents();
+    }
+    
+    public TaiKhoanJPanel (NhanVien user, ChucVu permission) {
+        this.user = user;
+        this.permission = permission;
+        initComponents();
+        loadUserInfo(user);
     }
 
     /**
@@ -110,10 +120,20 @@ public class TaiKhoanPanel extends javax.swing.JPanel {
 
         btnUpdateProfile.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnUpdateProfile.setText("Thay đổi");
+        btnUpdateProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateProfileActionPerformed(evt);
+            }
+        });
         pFormProfileBtn.add(btnUpdateProfile);
 
         btnResetProfile.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnResetProfile.setText("Reset");
+        btnResetProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetProfileActionPerformed(evt);
+            }
+        });
         pFormProfileBtn.add(btnResetProfile);
 
         profileContainer.add(pFormProfileBtn, java.awt.BorderLayout.SOUTH);
@@ -242,6 +262,16 @@ public class TaiKhoanPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnUpdateProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProfileActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnUpdateProfileActionPerformed
+
+    private void btnResetProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetProfileActionPerformed
+        // TODO add your handling code here:
+        loadUserInfo(user);
+    }//GEN-LAST:event_btnResetProfileActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
@@ -279,4 +309,15 @@ public class TaiKhoanPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+    
+    private NhanVien user;
+    private ChucVu permission;
+    
+    private void loadUserInfo(NhanVien user) {
+    	txtFullName.setText(user.getTenNV());
+    	txtEmail.setText(user.getEmail());
+    	txtPhoneNumber.setText(user.getSDT());
+    	txtUsername.setText(user.getTaiKhoan());
+    	dcDateOfBirth.setDate(user.getNgaySinh());
+    }
 }

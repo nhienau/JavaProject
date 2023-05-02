@@ -59,7 +59,7 @@ import java.awt.event.MouseEvent;
  *
  * @author Admin
  */
-public class NhanVienPanel extends javax.swing.JPanel {
+public class NhanVienJPanel extends javax.swing.JPanel {
 
     private KiemTra kt;
     private NhanVienBUS nvBUS;
@@ -76,7 +76,7 @@ public class NhanVienPanel extends javax.swing.JPanel {
     /**
      * Creates new form NhanVienJPanel
      */
-    public NhanVienPanel() throws SQLException, ClassNotFoundException {
+    public NhanVienJPanel() throws SQLException, ClassNotFoundException {
         initComponents();
         kt = new KiemTra();
         nvBUS = new NhanVienBUS();
@@ -112,6 +112,44 @@ public class NhanVienPanel extends javax.swing.JPanel {
         renderSortComboxData();
         renderPositionComboxData();
     }
+    
+    public NhanVienJPanel(NhanVien user, ChucVu permission) throws SQLException, ClassNotFoundException {
+        initComponents();
+        kt = new KiemTra();
+        nvBUS = new NhanVienBUS();
+        cvBUS = new ChucVuBUS();
+        cvList = cvBUS.takeAll();
+        nvList = nvBUS.takeAll();
+
+        titleTableLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\account-img.png"));
+        jLabel2.setIcon(new ImageIcon("src\\main\\java\\Images\\image-removebg-preview (1).png"));
+        delIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\delete.png"));
+        addIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\plus.png"));
+        editIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\edit.png"));
+        
+        refreshRoundPanel.setVisible(false);
+        setRowColorBackground(this.empListTable);
+        setRenderComboBox(sortComboBox);
+        setRenderComboBox(positionComboBox);
+        addTFFocusListener();
+//        setAllValidateLabel();
+
+        addSearchTFListener();
+
+        addShowLabelListener(nameValidateLabel, nameTextField, "nameTextField");
+        addShowLabelListener(phoneValidateLabel, phoneTextField, "phoneTextField");
+        addShowLabelListener(accountNameValidateLabel, accountNameTextField, "accountNameTextField");
+
+        setDencenDetails();
+        
+        
+        addShowLabelListener(mailValidateLabel, mailTextField, "mailTextField");
+        addShortCutEnterForInput();
+        initTable(nvList);
+        renderSortComboxData();
+        renderPositionComboxData();
+    }
+    
 
     private void setDencenDetails() {
     	searchDencen = true;
@@ -276,11 +314,11 @@ public class NhanVienPanel extends javax.swing.JPanel {
                 try {
                     isUpdate(e);
                 } catch (ParseException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -289,11 +327,11 @@ public class NhanVienPanel extends javax.swing.JPanel {
                 try {
                     isUpdate(e);
                 } catch (ParseException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -302,11 +340,11 @@ public class NhanVienPanel extends javax.swing.JPanel {
                 try {
                     isUpdate(e);
                 } catch (ParseException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -518,9 +556,9 @@ public class NhanVienPanel extends javax.swing.JPanel {
                 try {
                     filter();
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 refreshRoundPanel.setVisible(false);
         	}
@@ -982,11 +1020,11 @@ public class NhanVienPanel extends javax.swing.JPanel {
         					//Check all input is ok? adn then submit
         					addEmp();
         				} catch (ParseException ex) {
-        					Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+        					Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
         				} catch (ClassNotFoundException ex) {
-        					Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+        					Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
         				} catch (SQLException ex) {
-        					Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+        					Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
         				}
         			}
         		}
@@ -1205,9 +1243,9 @@ public class NhanVienPanel extends javax.swing.JPanel {
                     try {
                         filter();
                     } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
-                        Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     refreshRoundPanel.setVisible(true);
                 }
@@ -1496,9 +1534,9 @@ public class NhanVienPanel extends javax.swing.JPanel {
             try {
                 filter();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-                Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             refreshRoundPanel.setVisible(true);
         }
@@ -1533,9 +1571,9 @@ public class NhanVienPanel extends javax.swing.JPanel {
                 try {
                     delEmp();
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             };
         };
@@ -1547,9 +1585,9 @@ public class NhanVienPanel extends javax.swing.JPanel {
             try {
                 filter();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-                Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NhanVienJPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_sortComboBoxItemStateChanged
@@ -1663,7 +1701,7 @@ public class NhanVienPanel extends javax.swing.JPanel {
 		}
 	}
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JTextField accountNameTextField;
     private javax.swing.JLabel accountNameValidateLabel;
     private javax.swing.JTextField dateTextField;

@@ -1,5 +1,7 @@
 package GUI;
 
+import DTO.ChucVu;
+import DTO.NhanVien;
 
 public class ThongKeJPanel extends javax.swing.JPanel {
 
@@ -7,6 +9,10 @@ public class ThongKeJPanel extends javax.swing.JPanel {
      * Creates new form ThongKeJPanel
      */
     public ThongKeJPanel() {
+        initComponents();
+    }
+    
+    public ThongKeJPanel(NhanVien user, ChucVu permission) {
         initComponents();
     }
                          

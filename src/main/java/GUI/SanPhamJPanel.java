@@ -4,16 +4,23 @@
  */
 package GUI;
 
+import DTO.ChucVu;
+import DTO.NhanVien;
+
 /**
  *
  * @author HP
  */
-public class SanPhamPanel extends javax.swing.JPanel {
+public class SanPhamJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form SanPhamPanel
      */
-    public SanPhamPanel() {
+    public SanPhamJPanel() {
+        initComponents();
+    }
+    
+    public SanPhamJPanel(NhanVien user, ChucVu permission) {
         initComponents();
     }
 
