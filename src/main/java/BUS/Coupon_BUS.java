@@ -76,4 +76,28 @@ public class Coupon_BUS {
     {
         return cpDAO.updateCoupon(cp);
     }
+    
+    public ArrayList<Coupon> searchCp(String dk, String input) throws ClassNotFoundException, SQLException
+    {
+        ArrayList<String> temp=new ArrayList<String>();
+        temp.add("Mã Coupon");
+        temp.add("Code");
+        temp.add("Tổng lượt áp dụng");
+        temp.add("Tổng lượt đã dùng");
+        temp.add("Mã KMHD");
+        ArrayList<String> temp1=new ArrayList<String>();
+        temp1.add("MaCP");
+        temp1.add("Code");
+        temp1.add("TongLuotApDung");
+        temp1.add("TongLuotDaDung");
+        temp1.add("MaKMHD");
+        for(int i=0;i<temp.size();i++)
+        {
+            if(temp.get(i)==dk)
+            {
+                return cpDAO.searchCp(temp1.get(i), input);
+            }
+        }
+        return cpDAO.searchCp(temp1.get(0), input);
+    }
 }

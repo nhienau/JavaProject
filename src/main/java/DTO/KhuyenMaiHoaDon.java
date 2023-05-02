@@ -4,17 +4,17 @@
  */
 package DTO;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  *
  * @author ASUS
  */
 public class KhuyenMaiHoaDon {
-    private int MaKHMD;
+    private int MaKMHD;
     private String TenKM;
-    private Date NgayBatDau;
-    private Date NgayKetThuc;
+    private Timestamp NgayBatDau;
+    private Timestamp NgayKetThuc;
     private double DonHangToiThieu;
     private float PhanTramGiam;
     private double SoTienGiam;
@@ -22,8 +22,8 @@ public class KhuyenMaiHoaDon {
     private int TongLuotDaDung;
     private int IsDeleted;
 
-    public KhuyenMaiHoaDon(int MaKHMD, String TenKM, Date NgayBatDau, Date NgayKetThuc, double DonHangToiThieu, float PhanTramGiam, double SoTienGiam, int TongLuotApDung, int TongLuotDaDung, int IsDeleted) {
-        this.MaKHMD = MaKHMD;
+    public KhuyenMaiHoaDon(int MaKHMD, String TenKM, Timestamp NgayBatDau, Timestamp NgayKetThuc, double DonHangToiThieu, float PhanTramGiam, double SoTienGiam, int TongLuotApDung, int TongLuotDaDung, int IsDeleted) {
+        this.MaKMHD = MaKHMD;
         this.TenKM = TenKM;
         this.NgayBatDau = NgayBatDau;
         this.NgayKetThuc = NgayKetThuc;
@@ -37,12 +37,12 @@ public class KhuyenMaiHoaDon {
     
     public KhuyenMaiHoaDon(){};
 
-    public int getMaKHMD() {
-        return MaKHMD;
+    public int getMaKMHD() {
+        return MaKMHD;
     }
 
-    public void setMaKHMD(int MaKHMD) {
-        this.MaKHMD = MaKHMD;
+    public void setMaKMHD(int MaKHMD) {
+        this.MaKMHD = MaKHMD;
     }
 
     public String getTenKM() {
@@ -53,19 +53,19 @@ public class KhuyenMaiHoaDon {
         this.TenKM = TenKM;
     }
 
-    public Date getNgayBatDau() {
+    public Timestamp getNgayBatDau() {
         return NgayBatDau;
     }
 
-    public void setNgayBatDau(Date NgayBatDau) {
+    public void setNgayBatDau(Timestamp NgayBatDau) {
         this.NgayBatDau = NgayBatDau;
     }
 
-    public Date getNgayKetThuc() {
+    public Timestamp getNgayKetThuc() {
         return NgayKetThuc;
     }
 
-    public void setNgayKetThuc(Date NgayKetThuc) {
+    public void setNgayKetThuc(Timestamp NgayKetThuc) {
         this.NgayKetThuc = NgayKetThuc;
     }
 

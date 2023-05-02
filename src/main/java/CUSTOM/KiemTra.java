@@ -28,6 +28,82 @@ public class KiemTra {
         }
         return true;
     }
+    
+    public boolean KTDouble(String in)
+    {
+        try
+        {
+          Double.parseDouble(in);
+        }
+        catch(NumberFormatException e)
+        {
+          return false;
+        }
+        return true;
+    }
+    
+    public boolean KTFloat(String in)
+    {
+        try
+        {
+          Float.parseFloat(in);
+        }
+        catch(NumberFormatException e)
+        {
+          return false;
+        }
+        return true;
+    }
+    
+    public boolean KTGio(String in)
+    {
+        int h=0;
+        try
+        {
+          h=Integer.parseInt(in);
+        }
+        catch(NumberFormatException e)
+        {
+          return false;
+        }
+        if(h>=24||h<0)
+        {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean KTPhut(String in)
+    {
+        int p=0;
+        try
+        {
+          p=Integer.parseInt(in);
+        }
+        catch(NumberFormatException e)
+        {
+          return false;
+        }
+        if(p>=60||p<0)
+        {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean KTInt(String in)
+    {
+        int p=0;
+        try
+        {
+          p=Integer.parseInt(in);
+        }
+        catch(NumberFormatException e)
+        {
+          return false;
+        }
+        return true;
+    }
 
     public boolean KTKyTuDacBiet(String in) {
         Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);

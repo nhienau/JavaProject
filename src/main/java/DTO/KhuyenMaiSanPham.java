@@ -4,6 +4,7 @@
  */
 package DTO;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -12,8 +13,8 @@ import java.util.Date;
  */
 public class KhuyenMaiSanPham {
     private int MaKMSP;
-    private Date NgayBatDau;
-    private Date NgayKetThuc;
+    private Timestamp NgayBatDau;
+    private Timestamp NgayKetThuc;
     private float PhanTramGiam;
     private double SoTienGiam;
     private int TongLuotApDung;
@@ -21,7 +22,7 @@ public class KhuyenMaiSanPham {
     private int MaSP;
     private int IsDeleted;
 
-    public KhuyenMaiSanPham(int MaKMSP, Date NgayBatDau, Date NgayKetThuc, float PhanTramGiam, double SoTienGiam, int TongLuotApDung, int TongLuotDaDung, int MaSP, int IsDeleted) {
+    public KhuyenMaiSanPham(int MaKMSP, Timestamp NgayBatDau, Timestamp NgayKetThuc, float PhanTramGiam, double SoTienGiam, int TongLuotApDung, int TongLuotDaDung, int MaSP, int IsDeleted) {
         this.MaKMSP = MaKMSP;
         this.NgayBatDau = NgayBatDau;
         this.NgayKetThuc = NgayKetThuc;
@@ -43,19 +44,19 @@ public class KhuyenMaiSanPham {
         this.MaKMSP = MaKMSP;
     }
 
-    public Date getNgayBatDau() {
+    public Timestamp getNgayBatDau() {
         return NgayBatDau;
     }
 
-    public void setNgayBatDau(Date NgayBatDau) {
+    public void setNgayBatDau(Timestamp NgayBatDau) {
         this.NgayBatDau = NgayBatDau;
     }
 
-    public Date getNgayKetThuc() {
+    public Timestamp getNgayKetThuc() {
         return NgayKetThuc;
     }
 
-    public void setNgayKetThuc(Date NgayKetThuc) {
+    public void setNgayKetThuc(Timestamp NgayKetThuc) {
         this.NgayKetThuc = NgayKetThuc;
     }
 

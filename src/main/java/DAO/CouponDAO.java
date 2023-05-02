@@ -129,4 +129,31 @@ public class CouponDAO {
             conn.close(); } }
             return result;
     }
+    
+    public ArrayList<Coupon> searchCp(String dk, String input) throws ClassNotFoundException, SQLException
+    {
+        ArrayList<Coupon> arr=new ArrayList<Coupon>();
+        Connection conn=DB.connect();
+        if(conn!=null)
+        {
+            Statement stm=conn.createStatement();
+            ResultSet rs;//ORDER BY Difference(City, @City) DESC
+            String sql="select * from coupon where "+dk+" like '%"+input+"%' and IsDeleted='0'";
+            //PreparedStatement stm1=conn.prepareStatement(sql);
+            //stm1.setString(1, input);
+            rs=stm.executeQuery(sql);
+            while(rs.next())
+            {
+                Coupon cp=new Coupon();
+                cp.setMaCP(rs.getInt("MaCP"));
+                cp.setTongLuotApDung(rs.getInt("TongLuotApDung"));
+                cp.setTongLuotDaDung(rs.getInt("TongLuotDaDung"));
+                cp.setMaKMHD(rs.getInt("MaKMHD"));
+                cp.setCode(rs.getString("Code"));
+                cp.setIsDeleted(rs.getInt("IsDeleted"));
+                arr.add(cp);
+            }
+        }
+        return arr;
+    }
 }
