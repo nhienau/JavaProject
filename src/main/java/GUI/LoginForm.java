@@ -3,6 +3,8 @@ package GUI;
 import javax.swing.*;
 
 import BUS.NhanVienBUS;
+import CUSTOM.KiemTra;
+import CUSTOM.PasswordHash;
 import DTO.NhanVien;
 
 import java.awt.*;
@@ -152,9 +154,16 @@ public class LoginForm extends JFrame implements ActionListener {
         if (!checkInput()) {
         	return;
         }
+        
+        if (!(new KiemTra()).isValidUsername(username)) {
+        	JOptionPane.showMessageDialog(LoginForm.this, "Tài khoản không hợp lệ", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+        String encryptedPassword = PasswordHash.hashPassword(password);
         NhanVien nv = null;
         try {
-            nv = new NhanVienBUS().verifyLogin(username, password);
+            nv = new NhanVienBUS().verifyLogin(username, encryptedPassword);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(LoginForm.this, "Lỗi kết nối cơ sở dữ liệu", "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
