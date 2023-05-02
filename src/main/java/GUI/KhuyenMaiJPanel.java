@@ -17,6 +17,8 @@ import DTO.Coupon;
 import DTO.KhuyenMaiHoaDon;
 import DTO.KhuyenMaiSanPham;
 import DTO.NhanVien;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -30,6 +32,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -79,6 +82,30 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jDateChooser2.setVisible(false);
         jRadioButton3.setVisible(false);
         jRadioButton4.setVisible(false);
+        jComboBox1.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public void paint(Graphics g) {
+                setBackground(Color.WHITE);
+                setForeground(Color.BLACK);
+                super.paint(g);
+            }
+        });
+        jComboBox10.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public void paint(Graphics g) {
+                setBackground(Color.WHITE);
+                setForeground(Color.BLACK);
+                super.paint(g);
+            }
+        });
+        jComboBox11.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public void paint(Graphics g) {
+                setBackground(Color.WHITE);
+                setForeground(Color.BLACK);
+                super.paint(g);
+            }
+        });
     }
     
     public KhuyenMaiJPanel (NhanVien user, ChucVu permission) throws ClassNotFoundException, SQLException {
@@ -417,10 +444,12 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1133, 668));
         setLayout(new java.awt.BorderLayout());
 
+        draggableRoundPanel1.setBackground(new java.awt.Color(31, 31, 31));
         draggableRoundPanel1.setMinimumSize(new java.awt.Dimension(800, 400));
-        draggableRoundPanel1.setPreferredSize(new java.awt.Dimension(1155, 725));
+        draggableRoundPanel1.setPreferredSize(new java.awt.Dimension(1133, 668));
         draggableRoundPanel1.setLayout(new java.awt.BorderLayout());
 
+        jTabbedPane1.setBackground(new java.awt.Color(255, 101, 0));
         jTabbedPane1.setMinimumSize(new java.awt.Dimension(800, 400));
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(1155, 713));
 
@@ -431,6 +460,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         draggableRoundPanel3.setPreferredSize(new java.awt.Dimension(1143, 50));
         draggableRoundPanel3.setLayout(new java.awt.BorderLayout());
 
+        jComboBox1.setBackground(new java.awt.Color(240, 240, 240));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.setMaximumSize(new java.awt.Dimension(72, 22));
         jComboBox1.setPreferredSize(new java.awt.Dimension(130, 72));
@@ -441,6 +471,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         });
         draggableRoundPanel3.add(jComboBox1, java.awt.BorderLayout.WEST);
 
+        jButton1.setOpaque(true);
+        jButton1.setBackground(new java.awt.Color(255, 101, 0));
+        jButton1.setBorderPainted(false);
         jButton1.setText("Tìm kiếm");
         jButton1.setPreferredSize(new java.awt.Dimension(90, 15));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -448,8 +481,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        draggableRoundPanel3.add(jButton1, java.awt.BorderLayout.LINE_END);
+        draggableRoundPanel3.add(jButton1, java.awt.BorderLayout.EAST);
 
+        jPanel4.setBackground(new java.awt.Color(31, 31, 31));
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
         jTextField1.setMinimumSize(new java.awt.Dimension(500, 72));
@@ -460,6 +494,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jDateChooser1.setPreferredSize(new java.awt.Dimension(160, 72));
         jPanel4.add(jDateChooser1, new java.awt.GridBagConstraints());
 
+        jRadioButton1.setBackground(new java.awt.Color(31, 31, 31));
+        jRadioButton1.setForeground(new java.awt.Color(240, 240, 240));
         jRadioButton1.setText("Sau ngày chọn");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -470,6 +506,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
         jPanel4.add(jRadioButton1, gridBagConstraints);
 
+        jRadioButton2.setBackground(new java.awt.Color(31, 31, 31));
+        jRadioButton2.setForeground(new java.awt.Color(240, 240, 240));
         jRadioButton2.setText("Trước ngày chọn");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
@@ -480,6 +518,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jPanel1.add(draggableRoundPanel3, java.awt.BorderLayout.PAGE_START);
 
         draggableRoundPanel4.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.setBackground(new java.awt.Color(31, 31, 31));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -499,15 +539,19 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         jPanel1.add(draggableRoundPanel4, java.awt.BorderLayout.CENTER);
 
+        draggableRoundPanel19.setBackground(new java.awt.Color(31, 31, 31));
         draggableRoundPanel19.setLayout(new java.awt.GridBagLayout());
 
+        jPanel14.setBackground(new java.awt.Color(31, 31, 31));
         jPanel14.setLayout(new java.awt.GridBagLayout());
 
+        jLabel57.setForeground(new java.awt.Color(240, 240, 240));
         jLabel57.setText("Mã KMHD:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
         jPanel14.add(jLabel57, gridBagConstraints);
 
+        jLabel60.setForeground(new java.awt.Color(240, 240, 240));
         jLabel60.setText("Ngày bắt đầu:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -526,6 +570,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel14.add(dcnbd, gridBagConstraints);
 
+        jLabel61.setForeground(new java.awt.Color(240, 240, 240));
         jLabel61.setText("Ngày kết thúc:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -543,12 +588,14 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         jPanel14.add(dcnkt, gridBagConstraints);
 
+        jLabel65.setForeground(new java.awt.Color(240, 240, 240));
         jLabel65.setText("Thời gian:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 10);
         jPanel14.add(jLabel65, gridBagConstraints);
 
+        jLabel66.setForeground(new java.awt.Color(240, 240, 240));
         jLabel66.setText("Thời gian:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -561,6 +608,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel14.add(jSpinner5, gridBagConstraints);
 
+        jLabel75.setForeground(new java.awt.Color(240, 240, 240));
         jLabel75.setText(":");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -578,6 +626,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         jPanel14.add(jSpinner7, gridBagConstraints);
 
+        jLabel76.setForeground(new java.awt.Color(240, 240, 240));
         jLabel76.setText(":");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -600,8 +649,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 50);
         draggableRoundPanel19.add(jPanel14, gridBagConstraints);
 
+        jPanel21.setBackground(new java.awt.Color(31, 31, 31));
         jPanel21.setLayout(new java.awt.GridBagLayout());
 
+        jLabel45.setForeground(new java.awt.Color(240, 240, 240));
         jLabel45.setText("Phần trăm giảm:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -614,6 +665,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         jPanel21.add(tfptg, gridBagConstraints);
 
+        jLabel46.setForeground(new java.awt.Color(240, 240, 240));
         jLabel46.setText("Đơn hàng tối thiểu:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -627,6 +679,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel21.add(tfdhtt, gridBagConstraints);
 
+        jLabel47.setForeground(new java.awt.Color(240, 240, 240));
         jLabel47.setText("Tên khuyến mãi:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
@@ -642,8 +695,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 25);
         draggableRoundPanel19.add(jPanel21, gridBagConstraints);
 
+        jPanel22.setBackground(new java.awt.Color(31, 31, 31));
         jPanel22.setLayout(new java.awt.GridBagLayout());
 
+        jLabel62.setForeground(new java.awt.Color(240, 240, 240));
         jLabel62.setText("Tổng lượt áp dụng:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -657,6 +712,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel22.add(tftlad, gridBagConstraints);
 
+        jLabel63.setForeground(new java.awt.Color(240, 240, 240));
         jLabel63.setText("Tổng lượt đã dùng:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -669,6 +725,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         jPanel22.add(tftldd, gridBagConstraints);
 
+        jLabel64.setForeground(new java.awt.Color(240, 240, 240));
         jLabel64.setText("Số tiền giảm:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
@@ -686,11 +743,14 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 25, 0, 0);
         draggableRoundPanel19.add(jPanel22, gridBagConstraints);
 
+        jPanel18.setBackground(new java.awt.Color(31, 31, 31));
         jPanel18.setMinimumSize(new java.awt.Dimension(155, 120));
         jPanel18.setPreferredSize(new java.awt.Dimension(155, 120));
         jPanel18.setLayout(new java.awt.GridBagLayout());
 
+        bthem.setBackground(new java.awt.Color(255, 101, 0));
         bthem.setText("Thêm");
+        bthem.setBorderPainted(false);
         bthem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bthemActionPerformed(evt);
@@ -700,9 +760,11 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel18.add(bthem, gridBagConstraints);
 
+        bsua.setBackground(new java.awt.Color(255, 101, 0));
         bsua.setText("Sửa");
         bsua.setMinimumSize(new java.awt.Dimension(63, 25));
         bsua.setPreferredSize(new java.awt.Dimension(63, 25));
+        bsua.setBorderPainted(false);
         bsua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bsuaActionPerformed(evt);
@@ -713,9 +775,11 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel18.add(bsua, gridBagConstraints);
 
+        bxoa.setBackground(new java.awt.Color(255, 101, 0));
         bxoa.setText("Xóa");
         bxoa.setMinimumSize(new java.awt.Dimension(63, 25));
         bxoa.setPreferredSize(new java.awt.Dimension(63, 25));
+        bxoa.setBorderPainted(false);
         bxoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bxoaActionPerformed(evt);
@@ -725,7 +789,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         jPanel18.add(bxoa, gridBagConstraints);
 
+        bxoanhap.setBackground(new java.awt.Color(255, 101, 0));
         bxoanhap.setText("Xóa nhập");
+        bxoanhap.setBorderPainted(false);
         bxoanhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bxoanhapActionPerformed(evt);
@@ -735,7 +801,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 20, 0);
         jPanel18.add(bxoanhap, gridBagConstraints);
 
+        brefresh.setBackground(new java.awt.Color(255, 101, 0));
         brefresh.setText("Refresh");
+        brefresh.setBorderPainted(false);
         brefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 brefreshActionPerformed(evt);
@@ -790,7 +858,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         });
         draggableRoundPanel12.add(jComboBox10, java.awt.BorderLayout.WEST);
 
+        jButton17.setBackground(new java.awt.Color(255, 101, 0));
         jButton17.setText("Tìm kiếm");
+        jButton17.setBorderPainted(false);
         jButton17.setPreferredSize(new java.awt.Dimension(90, 15));
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -799,6 +869,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         });
         draggableRoundPanel12.add(jButton17, java.awt.BorderLayout.LINE_END);
 
+        jPanel5.setBackground(new java.awt.Color(31, 31, 31));
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
         jTextField2.setMinimumSize(new java.awt.Dimension(500, 72));
@@ -809,6 +880,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jDateChooser2.setPreferredSize(new java.awt.Dimension(160, 72));
         jPanel5.add(jDateChooser2, new java.awt.GridBagConstraints());
 
+        jRadioButton3.setBackground(new java.awt.Color(31, 31, 31));
+        jRadioButton3.setForeground(new java.awt.Color(240, 240, 240));
         jRadioButton3.setText("Sau ngày chọn");
         jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -819,6 +892,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
         jPanel5.add(jRadioButton3, gridBagConstraints);
 
+        jRadioButton4.setBackground(new java.awt.Color(31, 31, 31));
+        jRadioButton4.setForeground(new java.awt.Color(240, 240, 240));
         jRadioButton4.setText("Trước ngày chọn");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
@@ -828,15 +903,21 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         jPanel2.add(draggableRoundPanel12, java.awt.BorderLayout.NORTH);
 
+        draggableRoundPanel16.setBackground(new java.awt.Color(31, 31, 31));
         draggableRoundPanel16.setLayout(new java.awt.GridBagLayout());
 
+        jPanel8.setBackground(new java.awt.Color(31, 31, 31));
         jPanel8.setLayout(new java.awt.GridBagLayout());
 
+        jLabel48.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel48.setForeground(new java.awt.Color(240, 240, 240));
         jLabel48.setText("Mã KMSP:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
         jPanel8.add(jLabel48, gridBagConstraints);
 
+        jLabel49.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel49.setForeground(new java.awt.Color(240, 240, 240));
         jLabel49.setText("Ngày bắt đầu:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -855,6 +936,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel8.add(jDateChooser11, gridBagConstraints);
 
+        jLabel50.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel50.setForeground(new java.awt.Color(240, 240, 240));
         jLabel50.setText("Ngày kết thúc:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -872,12 +955,16 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         jPanel8.add(jDateChooser12, gridBagConstraints);
 
+        jLabel69.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel69.setForeground(new java.awt.Color(240, 240, 240));
         jLabel69.setText("Thời gian:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 10);
         jPanel8.add(jLabel69, gridBagConstraints);
 
+        jLabel71.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel71.setForeground(new java.awt.Color(240, 240, 240));
         jLabel71.setText("Thời gian:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -897,6 +984,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel8.add(jSpinner1, gridBagConstraints);
 
+        jLabel73.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel73.setForeground(new java.awt.Color(240, 240, 240));
         jLabel73.setText(":");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -914,6 +1003,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         jPanel8.add(jSpinner3, gridBagConstraints);
 
+        jLabel74.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel74.setForeground(new java.awt.Color(240, 240, 240));
         jLabel74.setText(":");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -929,8 +1020,11 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 50);
         draggableRoundPanel16.add(jPanel8, gridBagConstraints);
 
+        jPanel9.setBackground(new java.awt.Color(31, 31, 31));
         jPanel9.setLayout(new java.awt.GridBagLayout());
 
+        jLabel36.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel36.setForeground(new java.awt.Color(240, 240, 240));
         jLabel36.setText("Phần trăm giảm:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
@@ -942,6 +1036,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel9.add(jTextField26, gridBagConstraints);
 
+        jLabel37.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel37.setForeground(new java.awt.Color(240, 240, 240));
         jLabel37.setText("Số tiền giảm:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -955,6 +1051,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel9.add(jTextField27, gridBagConstraints);
 
+        jLabel38.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel38.setForeground(new java.awt.Color(240, 240, 240));
         jLabel38.setText("Mã SP:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -972,8 +1070,11 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 25);
         draggableRoundPanel16.add(jPanel9, gridBagConstraints);
 
+        jPanel16.setBackground(new java.awt.Color(31, 31, 31));
         jPanel16.setLayout(new java.awt.GridBagLayout());
 
+        jLabel51.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel51.setForeground(new java.awt.Color(240, 240, 240));
         jLabel51.setText("Tổng lượt áp dụng:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
@@ -985,6 +1086,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel16.add(jTextField33, gridBagConstraints);
 
+        jLabel52.setBackground(new java.awt.Color(31, 31, 31));
+        jLabel52.setForeground(new java.awt.Color(240, 240, 240));
         jLabel52.setText("Tổng lượt đã dùng:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -1001,11 +1104,14 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 25, 0, 0);
         draggableRoundPanel16.add(jPanel16, gridBagConstraints);
 
+        jPanel17.setBackground(new java.awt.Color(31, 31, 31));
         jPanel17.setMinimumSize(new java.awt.Dimension(155, 120));
         jPanel17.setPreferredSize(new java.awt.Dimension(155, 120));
         jPanel17.setLayout(new java.awt.GridBagLayout());
 
+        jButton31.setBackground(new java.awt.Color(255, 101, 0));
         jButton31.setText("Thêm");
+        jButton31.setBorderPainted(false);
         jButton31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton31ActionPerformed(evt);
@@ -1015,8 +1121,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel17.add(jButton31, gridBagConstraints);
 
+        jButton32.setBackground(new java.awt.Color(255, 101, 0));
         jButton32.setText("Sửa");
         jButton32.setMinimumSize(new java.awt.Dimension(63, 25));
+        jButton32.setBorderPainted(false);
         jButton32.setPreferredSize(new java.awt.Dimension(63, 25));
         jButton32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1028,8 +1136,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel17.add(jButton32, gridBagConstraints);
 
+        jButton33.setBackground(new java.awt.Color(255, 101, 0));
         jButton33.setText("Xóa");
         jButton33.setMinimumSize(new java.awt.Dimension(63, 25));
+        jButton33.setBorderPainted(false);
         jButton33.setPreferredSize(new java.awt.Dimension(63, 25));
         jButton33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1040,7 +1150,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         jPanel17.add(jButton33, gridBagConstraints);
 
+        jButton30.setBackground(new java.awt.Color(255, 101, 0));
         jButton30.setText("Xóa nhập");
+        jButton30.setBorderPainted(false);
         jButton30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton30ActionPerformed(evt);
@@ -1050,7 +1162,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 20, 0);
         jPanel17.add(jButton30, gridBagConstraints);
 
+        jButton34.setBackground(new java.awt.Color(255, 101, 0));
         jButton34.setText("Refesh");
+        jButton34.setBorderPainted(false);
         jButton34.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton34ActionPerformed(evt);
@@ -1091,6 +1205,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         jPanel3.add(draggableRoundPanel10, java.awt.BorderLayout.CENTER);
 
+        draggableRoundPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         draggableRoundPanel13.setPreferredSize(new java.awt.Dimension(1143, 50));
         draggableRoundPanel13.setLayout(new java.awt.BorderLayout());
 
@@ -1104,7 +1219,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jTextField12.setPreferredSize(new java.awt.Dimension(64, 15));
         draggableRoundPanel13.add(jTextField12, java.awt.BorderLayout.CENTER);
 
+        jButton18.setBackground(new java.awt.Color(255, 101, 0));
         jButton18.setText("Tìm kiếm");
+        jButton18.setBorderPainted(false);
         jButton18.setPreferredSize(new java.awt.Dimension(90, 15));
         jButton18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1115,10 +1232,13 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         jPanel3.add(draggableRoundPanel13, java.awt.BorderLayout.NORTH);
 
+        draggableRoundPanel17.setBackground(new java.awt.Color(31, 31, 31));
         draggableRoundPanel17.setLayout(new java.awt.GridBagLayout());
 
+        jPanel11.setBackground(new java.awt.Color(31, 31, 31));
         jPanel11.setLayout(new java.awt.GridBagLayout());
 
+        jLabel14.setForeground(new java.awt.Color(240, 240, 240));
         jLabel14.setText("Mã CP:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1126,6 +1246,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
         jPanel11.add(jLabel14, gridBagConstraints);
 
+        jLabel22.setForeground(new java.awt.Color(240, 240, 240));
         jLabel22.setText("Code:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1139,6 +1260,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel11.add(jTextField19, gridBagConstraints);
 
+        jLabel40.setForeground(new java.awt.Color(240, 240, 240));
         jLabel40.setText("Mã KMHD:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -1168,8 +1290,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 50);
         draggableRoundPanel17.add(jPanel11, gridBagConstraints);
 
+        jPanel12.setBackground(new java.awt.Color(31, 31, 31));
         jPanel12.setLayout(new java.awt.GridBagLayout());
 
+        jLabel41.setForeground(new java.awt.Color(240, 240, 240));
         jLabel41.setText("Tổng lượt áp dụng:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
@@ -1181,6 +1305,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
         jPanel12.add(jTextField29, gridBagConstraints);
 
+        jLabel42.setForeground(new java.awt.Color(240, 240, 240));
         jLabel42.setText("Tổng lượt đã dùng:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -1198,9 +1323,12 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 50);
         draggableRoundPanel17.add(jPanel12, gridBagConstraints);
 
+        jPanel13.setBackground(new java.awt.Color(31, 31, 31));
         jPanel13.setLayout(new java.awt.GridBagLayout());
 
+        jButton25.setBackground(new java.awt.Color(255, 101, 0));
         jButton25.setText("Thêm");
+        jButton25.setBorderPainted(false);
         jButton25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton25ActionPerformed(evt);
@@ -1210,7 +1338,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel13.add(jButton25, gridBagConstraints);
 
+        jButton26.setBackground(new java.awt.Color(255, 101, 0));
         jButton26.setText("Sửa");
+        jButton26.setBorderPainted(false);
         jButton26.setMinimumSize(new java.awt.Dimension(63, 25));
         jButton26.setPreferredSize(new java.awt.Dimension(63, 25));
         jButton26.addActionListener(new java.awt.event.ActionListener() {
@@ -1223,8 +1353,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel13.add(jButton26, gridBagConstraints);
 
+        jButton27.setBackground(new java.awt.Color(255, 101, 0));
         jButton27.setText("Xóa");
         jButton27.setMinimumSize(new java.awt.Dimension(63, 25));
+        jButton27.setBorderPainted(false);
         jButton27.setPreferredSize(new java.awt.Dimension(63, 25));
         jButton27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1235,7 +1367,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         jPanel13.add(jButton27, gridBagConstraints);
 
+        jButton28.setBackground(new java.awt.Color(255, 101, 0));
         jButton28.setText("Xóa nhập");
+        jButton28.setBorderPainted(false);
         jButton28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton28ActionPerformed(evt);
@@ -1245,7 +1379,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 20, 0);
         jPanel13.add(jButton28, gridBagConstraints);
 
+        jButton29.setBackground(new java.awt.Color(255, 101, 0));
         jButton29.setText("Refesh");
+        jButton29.setBorderPainted(false);
         jButton29.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton29ActionPerformed(evt);
