@@ -178,4 +178,51 @@ public class NhanVienDAO {
 		return nv;
     }
     
+    public int updateEmployeeInfo (NhanVien nv) throws SQLException {
+    	int rowAffect = 0;
+    	try {
+			Connection conn = DB.connect();
+			String query = "UPDATE nhanvien SET TenNV = ?, SDT = ?, Email = ?, NgaySinh = ? WHERE MaNV = ?";
+	        PreparedStatement pst = conn.prepareStatement(query);
+	        pst.setString(1, nv.getTenNV());
+	        pst.setString(2, nv.getSDT());
+	        pst.setString(3, nv.getEmail());
+	        pst.setString(4, nv.getDate()); // chua duoc
+	        pst.setInt(5, nv.getMaNV());
+	        
+	        rowAffect = pst.executeUpdate();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			throw e;
+		}
+    	return rowAffect;
+    }
+    
+    public int changePassword (NhanVien nv) throws SQLException {
+    	int rowAffect = 0;
+    	try {
+			Connection conn = DB.connect();
+			String query = "UPDATE nhanvien SET MatKhau = ? WHERE MaNV = ?";
+	        PreparedStatement pst = conn.prepareStatement(query);
+	        pst.setString(1, nv.getMatKhau());
+	        pst.setInt(2, nv.getMaNV());
+	        
+	        rowAffect = pst.executeUpdate();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			throw e;
+		}
+    	return rowAffect;
+    }
+    
 }

@@ -4,6 +4,15 @@
  */
 package GUI;
 
+import java.util.Date;
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import BUS.NhanVienBUS;
+import CUSTOM.KiemTra;
+import CUSTOM.PasswordHash;
 import DTO.ChucVu;
 import DTO.NhanVien;
 
@@ -210,6 +219,11 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
 
         btnChangePassword.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnChangePassword.setText("Thay đổi");
+        btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangePasswordActionPerformed(evt);
+            }
+        });
         pFormChangePwdBtn.add(btnChangePassword);
 
         passwordContainer.add(pFormChangePwdBtn, java.awt.BorderLayout.SOUTH);
@@ -264,13 +278,140 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
 
     private void btnUpdateProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProfileActionPerformed
         // TODO add your handling code here:
-        
+    	lblProfileErrorMessage.setVisible(false);
+    	
+    	if (!infoChanged(user)) {
+    		return;
+    	}
+    	
+    	if (checkEmpty()) {
+    		lblProfileErrorMessage.setText("Thông tin không được bỏ trống");
+    		lblProfileErrorMessage.setVisible(true);
+    		return;
+    	}
+    	
+    	try {
+    		if (!validateRegex()) {
+        		return;
+        	}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	// Store new info
+    	NhanVien temp = new NhanVien();
+    	temp.setMaNV(user.getMaNV());
+    	temp.setTenNV(txtFullName.getText().trim());
+       	temp.setSDT(txtPhoneNumber.getText().trim());
+       	temp.setEmail(txtEmail.getText().trim());
+       	temp.setNgaySinh(dcDateOfBirth.getDate());
+       	
+       	// Update info
+       	int result = 0;
+       	try {
+			result = new NhanVienBUS().updateEmployeeInfo(temp);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu", "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+			return;
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(this, "Lỗi không xác định", "Error", JOptionPane.ERROR_MESSAGE);
+	        e.printStackTrace();
+	        return;
+	    }
+       	
+       	if (result > 0) {
+       		// Assign new info
+       		user.setMaNV(temp.getMaNV());
+       		user.setTenNV(temp.getTenNV());
+       		user.setSDT(temp.getSDT());
+       		user.setEmail(temp.getEmail());
+       		user.setNgaySinh(temp.getNgaySinh());
+       		
+       		JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công. Vui lòng đăng nhập lại để thông tin hiển thị được chính xác.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+       	} else {
+       		JOptionPane.showMessageDialog(this, "Có lỗi xảy ra trong quá trình cập nhật", "Error", JOptionPane.ERROR_MESSAGE);
+       	}
     }//GEN-LAST:event_btnUpdateProfileActionPerformed
 
     private void btnResetProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetProfileActionPerformed
         // TODO add your handling code here:
-        loadUserInfo(user);
+    	lblProfileErrorMessage.setVisible(false);
+    	lblProfileErrorMessage.setText("");
+    	loadUserInfo(user);
     }//GEN-LAST:event_btnResetProfileActionPerformed
+
+    private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
+        // TODO add your handling code here:
+    	lblChangePasswordErrorMessage.setVisible(false);
+    	
+    	if (allPasswordFieldEmpty()) {
+    		return;
+    	}
+    	
+    	if (anyPasswordFieldEmpty()) {
+    		lblChangePasswordErrorMessage.setText("Bạn chưa nhập đầy đủ thông tin");
+    		pfCurrentPassword.requestFocus();
+    		lblChangePasswordErrorMessage.setVisible(true);
+    		return;
+    	}
+    	
+    	// Check if matches current password
+    	String currentPassword = PasswordHash.hashPassword(new String(pfCurrentPassword.getPassword()));
+    	if (!currentPassword.equals(user.getMatKhau())) {
+    		lblChangePasswordErrorMessage.setText("Mật khẩu hiện tại không đúng");
+    		pfCurrentPassword.requestFocus();
+    		lblChangePasswordErrorMessage.setVisible(true);
+    		return;
+    	}
+    	
+    	// Check if new password = confirm new password
+    	String newPassword = PasswordHash.hashPassword(new String(pfNewPassword.getPassword()));
+    	String confirmNewPassword = PasswordHash.hashPassword(new String(pfConfirmNewPassword.getPassword()));
+    	if (!newPassword.equals(confirmNewPassword)) {
+    		lblChangePasswordErrorMessage.setText("Mật khẩu mới chưa trùng khớp");
+    		pfConfirmNewPassword.requestFocus();
+    		lblChangePasswordErrorMessage.setVisible(true);
+    		return;
+    	}
+    	
+    	// Store new password
+    	NhanVien temp = new NhanVien();
+    	temp.setMaNV(user.getMaNV());
+    	temp.setMatKhau(newPassword);
+       	
+    	// Change password
+       	int result = 0;
+       	try {
+			result = new NhanVienBUS().changePassword(temp);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu", "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+			return;
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(this, "Lỗi không xác định", "Error", JOptionPane.ERROR_MESSAGE);
+	        e.printStackTrace();
+	        return;
+	    }
+       	
+       	if (result > 0) {
+       		// Assign new password
+       		user.setMatKhau(newPassword);
+       		
+       		// Clear input fields
+       		pfCurrentPassword.setText("");
+       		pfNewPassword.setText("");
+       		pfConfirmNewPassword.setText("");
+       		
+       		JOptionPane.showMessageDialog(this, "Thay đổi mật khẩu thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+       	} else {
+       		JOptionPane.showMessageDialog(this, "Có lỗi xảy ra, vui lòng thử lại", "Error", JOptionPane.ERROR_MESSAGE);
+       	}
+    	
+    }//GEN-LAST:event_btnChangePasswordActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -319,5 +460,66 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
     	txtPhoneNumber.setText(user.getSDT());
     	txtUsername.setText(user.getTaiKhoan());
     	dcDateOfBirth.setDate(user.getNgaySinh());
+    }
+    
+    private boolean infoChanged(NhanVien user) { 	
+    	boolean dateChanged = false;
+    	try {
+    		dateChanged = !dcDateOfBirth.getDate().equals(user.getNgaySinh());
+    	} catch (NullPointerException e) {
+    		dateChanged = true;
+    	}
+    	
+    	return !txtFullName.getText().trim().equals(user.getTenNV()) || !txtEmail.getText().trim().equals(user.getEmail()) || !txtPhoneNumber.getText().trim().equals(user.getSDT()) || dateChanged;
+    }
+    
+    private boolean checkEmpty() {
+    	boolean dateEmpty = true;
+    	try {
+    		dateEmpty = dcDateOfBirth.getDate() == null;
+    	} catch (NullPointerException e) {
+    		dateEmpty = true;
+    	}
+    	return txtFullName.getText().trim().equals("") || txtEmail.getText().trim().equals("") || txtPhoneNumber.getText().trim().equals("") || dateEmpty;
+    }
+    
+    private boolean validateRegex() throws ParseException {
+    	KiemTra validate = new KiemTra();
+    	boolean valid = true;
+    	if (!validate.KTHoVaTen(txtFullName.getText().trim())) {
+    		valid = false;
+    		lblProfileErrorMessage.setText("Họ và tên không hợp lệ");
+    		txtFullName.requestFocus();
+    	} else if (!validate.isValidPhone(txtPhoneNumber.getText().trim())) {
+    		valid = false;
+    		lblProfileErrorMessage.setText("Số điện thoại không hợp lệ");
+    		txtPhoneNumber.requestFocus();
+    	} else if (!validate.isValidEmail(txtEmail.getText().trim())) {
+    		valid = false;
+    		lblProfileErrorMessage.setText("Email không hợp lệ");
+    		txtEmail.requestFocus();
+    	}
+    	
+    	// Validate date
+    	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    	Date today = format.parse(format.format(new Date())); // only get date, time is set to 00:00:00
+    	if (dcDateOfBirth.getDate().compareTo(today) >= 0) {
+    		valid = false;
+    		lblProfileErrorMessage.setText("Ngày sinh không hợp lệ");
+    		dcDateOfBirth.requestFocus();
+    	}
+
+    	if (!valid) {
+    		lblProfileErrorMessage.setVisible(true);
+    	}
+    	return valid;
+    }
+    
+    private boolean allPasswordFieldEmpty() {
+    	return (new String(pfCurrentPassword.getPassword())).isEmpty() && (new String(pfNewPassword.getPassword())).isEmpty() && (new String(pfConfirmNewPassword.getPassword())).isEmpty();
+    }
+    
+    private boolean anyPasswordFieldEmpty() {
+    	return (new String(pfCurrentPassword.getPassword())).equals("") || (new String(pfNewPassword.getPassword())).equals("") || (new String(pfConfirmNewPassword.getPassword())).equals("");
     }
 }

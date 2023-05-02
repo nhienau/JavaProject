@@ -57,4 +57,12 @@ public class NhanVienBUS {
     	return nvDAO.verifyLogin(username, password);
     }
     
+    public int updateEmployeeInfo(NhanVien nv) throws SQLException {
+    	return nvDAO.updateEmployeeInfo(nv);
+    }
+    
+    public int changePassword (NhanVien nv) throws SQLException {
+    	return nvDAO.changePassword(nv);
+    }
+    
 }
