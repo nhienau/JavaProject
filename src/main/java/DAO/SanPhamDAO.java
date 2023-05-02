@@ -25,7 +25,7 @@ public class SanPhamDAO {
     
     public List<SanPham> getAll() throws SQLException, ClassNotFoundException{
     List<SanPham> spList = new ArrayList<>();
-    try(Connection conn = new DB().connect()) {
+    try(Connection conn =  DB.connect()) {
         String sql = "Select * from sanpham where IsDeleted = ?";
         PreparedStatement pst = conn.prepareStatement(sql);
         pst.setInt(1, 0);
@@ -46,7 +46,7 @@ public class SanPhamDAO {
     
     public int themSanPham (SanPham sp) throws SQLException, ClassNotFoundException {
         int rs;
-        try (Connection conn = new DB().connect()) {
+        try (Connection conn = DB.connect()) {
             String sql = "Insert into sanpham(AnhSP, TenSP, GiaSP, SL, IsDeleted) values (?,?,?,?,?)";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, sp.getAnhSP());
@@ -60,7 +60,7 @@ public class SanPhamDAO {
     }
     
     public int xoaSanPham(int id) throws ClassNotFoundException, SQLException {
-        Connection conn = new DB().connect();
+        Connection conn = DB.connect();
         String sql = "Update sanpham set IsDeleted = ? where MaSP = ?";
         PreparedStatement pst = conn.prepareStatement(sql);
         pst.setInt(1,1);
@@ -71,7 +71,7 @@ public class SanPhamDAO {
     
     public List<SanPham> timKiemSanPham() throws SQLException, ClassNotFoundException {
         List<SanPham> spList = new ArrayList<>();
-        try(Connection conn = new DB().connect()) {
+        try(Connection conn = DB.connect()) {
             String sql = "Select * from sanpham where (TenSP like ? or MaSP like ? ) and IsDeleted = ?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setInt(1, 0);
