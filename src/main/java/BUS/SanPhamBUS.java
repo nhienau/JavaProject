@@ -28,10 +28,18 @@ public class SanPhamBUS {
         return spDAO.themSanPham(sp);
     }
     
-    public List<SanPham> searchProducts () throws SQLException, ClassNotFoundException {
-        return spDAO.timKiemSanPham();
+    public List<SanPham> searchProducts (String searchInput) throws SQLException, ClassNotFoundException {
+        if(searchInput == null || searchInput.isEmpty()){
+            searchInput = "%";
+        }else{
+            searchInput = "%" + searchInput + "%";
+        }
+        return spDAO.timKiemSanPham(searchInput);
     }
     public int xoaSanPham(int id) throws SQLException, ClassNotFoundException{
         return spDAO.xoaSanPham(id);
+    }
+    public int capNhatSanPham(SanPham sp) throws SQLException, ClassNotFoundException{
+        return spDAO.capNhatSanPham(sp);
     }
 }
