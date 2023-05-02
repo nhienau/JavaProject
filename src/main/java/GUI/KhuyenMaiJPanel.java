@@ -16,6 +16,7 @@ import DTO.ChucVu;
 import DTO.Coupon;
 import DTO.KhuyenMaiHoaDon;
 import DTO.KhuyenMaiSanPham;
+import DTO.NhanVien;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -82,14 +83,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     
     public KhuyenMaiJPanel (NhanVien user, ChucVu permission) throws ClassNotFoundException, SQLException {
         initComponents();
-        jTable3.setDefaultEditor(Object.class, null);
-        try {
-            LoadCouponList();
-        } catch (SQLException ex) {
-            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        LoadRowValueToTextFD(jTable3);
-        LoadComboBox();
+        SetUp();
     }
 
     /**
