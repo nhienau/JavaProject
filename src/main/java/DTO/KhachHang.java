@@ -4,6 +4,7 @@
  */
 package DTO;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
  * @author ASUS
  */
 public class KhachHang {
-    private int MaHD;
+    private int MaKH;
     private String TenKH;
     private String SDT;
     private Date NgaySinh;
@@ -19,8 +20,8 @@ public class KhachHang {
     private int TongDiem;
     private int IsDeleted;
 
-    public KhachHang(int MaHD, String TenKH, String SDT, Date NgaySinh, int DiemHienTai, int TongDiem, int IsDeleted) {
-        this.MaHD = MaHD;
+    public KhachHang(int MaKH, String TenKH, String SDT, Date NgaySinh, int DiemHienTai, int TongDiem, int IsDeleted) {
+        this.MaKH = MaKH;
         this.TenKH = TenKH;
         this.SDT = SDT;
         this.NgaySinh = NgaySinh;
@@ -31,12 +32,12 @@ public class KhachHang {
     
     public KhachHang(){};
 
-    public int getMaHD() {
-        return MaHD;
+    public int getMaKH() {
+        return MaKH;
     }
 
-    public void setMaHD(int MaHD) {
-        this.MaHD = MaHD;
+    public void setMaKH(int MaKH) {
+        this.MaKH = MaKH;
     }
 
     public String getTenKH() {
@@ -87,5 +88,8 @@ public class KhachHang {
         this.IsDeleted = IsDeleted;
     }
     
-    
+    public String getDate(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(this.NgaySinh);
+    }
 }
