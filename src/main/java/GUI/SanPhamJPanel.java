@@ -44,15 +44,15 @@ import javax.swing.table.TableModel;
  *
  * @author HP
  */
-public class SanPhamPanel extends javax.swing.JPanel {
+public class SanPhamJPanel extends javax.swing.JPanel {
     private SanPhamBUS spBUS;
     private List<SanPham> spList;
     private String searchInput;
     
     /**
-     * Creates new form SanPhamPanel
+     * Creates new form SanPhamJPanel
      */
-    public SanPhamPanel(NhanVien user, ChucVu permission) throws SQLException, ClassNotFoundException{
+    public SanPhamJPanel(NhanVien user, ChucVu permission) throws SQLException, ClassNotFoundException{
         initComponents();
         spBUS = new SanPhamBUS();
         spList = spBUS.getAll();
@@ -126,7 +126,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
       
 
         // Create a JPanel with your interface components
-        JPanel panel = new SanPhamPanel();
+        JPanel panel = new SanPhamJPanel();
 
         // Add the panel to the frame
         frame.getContentPane().add(panel);
@@ -667,7 +667,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
         tableModel.setRowCount(0); 
         addValueToTable(spList); 
     } catch (SQLException | ClassNotFoundException ex) {
-        Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(SanPhamJPanel.class.getName()).log(Level.SEVERE, null, ex);
     }
 }
 
@@ -696,9 +696,9 @@ public class SanPhamPanel extends javax.swing.JPanel {
                         
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SanPhamJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SanPhamJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         
@@ -723,9 +723,9 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 try {
                      row = spBUS.capNhatSanPham(sp);
                 } catch (SQLException ex) {
-                    Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SanPhamJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SanPhamJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if(row > 0){
                     JOptionPane.showMessageDialog(this, "Cập nhật thành công. ", "Thành công", JOptionPane.INFORMATION_MESSAGE);
@@ -750,9 +750,9 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 try {
                     xoaSPBus = spBUS.xoaSanPham(maSP);
                 } catch (SQLException ex) {
-                    Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SanPhamJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SanPhamJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                     
                 if(xoaSPBus > 0){
@@ -778,9 +778,9 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 spList = spBUS.searchProducts(searchInput);
                 
             } catch (SQLException ex) {
-                Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SanPhamJPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SanPhamJPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }                                         
