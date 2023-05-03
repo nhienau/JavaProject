@@ -480,7 +480,7 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
     	} catch (NullPointerException e) {
     		dateEmpty = true;
     	}
-    	return txtFullName.getText().trim().equals("") || txtEmail.getText().trim().equals("") || txtPhoneNumber.getText().trim().equals("") || dateEmpty;
+    	return txtFullName.getText().trim().isEmpty() || txtEmail.getText().trim().isEmpty() || txtPhoneNumber.getText().trim().isEmpty() || dateEmpty;
     }
     
     private boolean validateRegex() throws ParseException {
@@ -520,6 +520,6 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
     }
     
     private boolean anyPasswordFieldEmpty() {
-    	return (new String(pfCurrentPassword.getPassword())).equals("") || (new String(pfNewPassword.getPassword())).equals("") || (new String(pfConfirmNewPassword.getPassword())).equals("");
+    	return (new String(pfCurrentPassword.getPassword())).isEmpty() || (new String(pfNewPassword.getPassword())).isEmpty() || (new String(pfConfirmNewPassword.getPassword())).isEmpty();
     }
 }
