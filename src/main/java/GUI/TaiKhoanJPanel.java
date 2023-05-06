@@ -307,6 +307,13 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
        	temp.setEmail(txtEmail.getText().trim());
        	temp.setNgaySinh(dcDateOfBirth.getDate());
        	
+       	// Check if new phone number existed
+       	if (phoneNumberExisted(temp.getSDT())) {
+       		lblProfileErrorMessage.setText("Số điện thoại đã tồn tại");
+    		lblProfileErrorMessage.setVisible(true);
+    		return;
+       	}
+       	
        	// Update info
        	int result = 0;
        	try {
@@ -521,5 +528,21 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
     
     private boolean anyPasswordFieldEmpty() {
     	return (new String(pfCurrentPassword.getPassword())).isEmpty() || (new String(pfNewPassword.getPassword())).isEmpty() || (new String(pfConfirmNewPassword.getPassword())).isEmpty();
+    }
+    
+    private boolean phoneNumberExisted(String phoneNumber) {
+    	boolean check = true;
+    	try {
+			check = new NhanVienBUS().phoneNumberExisted(phoneNumber);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu", "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(this, "Lỗi không xác định", "Error", JOptionPane.ERROR_MESSAGE);
+	        e.printStackTrace();
+	    }
+    	
+    	return check;
     }
 }

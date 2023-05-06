@@ -225,4 +225,26 @@ public class NhanVienDAO {
     	return rowAffect;
     }
     
+    public boolean phoneNumberExisted (String phoneNumber) throws SQLException {
+    	boolean check = false;
+    	try {
+			Connection conn = DB.connect();
+			String query = "SELECT * FROM nhanvien WHERE IsDeleted = ? AND SDT = ?";
+	        PreparedStatement pst = conn.prepareStatement(query);
+	        pst.setInt(1, 0);
+	        pst.setString(2, phoneNumber);
+	        ResultSet rs = pst.executeQuery();
+	        check = rs.next();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			throw e;
+		}
+    	return check;
+    }
+    
 }

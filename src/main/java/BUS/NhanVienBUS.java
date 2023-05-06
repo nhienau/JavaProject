@@ -65,4 +65,8 @@ public class NhanVienBUS {
     	return nvDAO.changePassword(nv);
     }
     
+    public boolean phoneNumberExisted (String phoneNumber) throws SQLException {
+    	return nvDAO.phoneNumberExisted(phoneNumber);
+    }
+    
 }
