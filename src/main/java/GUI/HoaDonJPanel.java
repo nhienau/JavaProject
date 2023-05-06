@@ -13,8 +13,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import BUS.HoaDonBUS;
+import DTO.ChucVu;
 import DTO.HoaDon;
 import DTO.KhachHang;
+import DTO.NhanVien;
 public class HoaDonJPanel extends javax.swing.JPanel {
     private HoaDonBUS hdBUS;
     private String maHD;
@@ -24,6 +26,12 @@ public class HoaDonJPanel extends javax.swing.JPanel {
     static int flag = 0;
     private NonEditableTableModel tableModel_jTable1;
     public HoaDonJPanel() {
+        initComponents();
+        hdBUS = new HoaDonBUS();
+        load_HoaDon();
+    }
+    
+    public HoaDonJPanel(NhanVien user, ChucVu permission) {
         initComponents();
         hdBUS = new HoaDonBUS();
         load_HoaDon();

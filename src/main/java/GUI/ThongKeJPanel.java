@@ -20,6 +20,8 @@ import BUS.ThongKeKHBUS;
 import BUS.ThongKeSPBBUS;
 import BUS.ThongKeSPNBUS;
 import DAO.ThongKeDTDAO;
+import DTO.ChucVu;
+import DTO.NhanVien;
 
 
 
@@ -38,7 +40,20 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         loadCombobox2();
         loadCombobox3();
         loadCombobox4();
-    }              
+    }           
+    
+    public ThongKeJPanel(NhanVien user, ChucVu permission) {
+    	initComponents();
+        showCustomerStatistics();
+        showSPN();
+        showSPB();
+        showDT();
+        loadCombobox1();
+        loadCombobox2();
+        loadCombobox3();
+        loadCombobox4();
+    }
+    
     private void initComponents() {
 
         draggableRoundPanel1 = new CUSTOM.DraggableRoundPanel();
