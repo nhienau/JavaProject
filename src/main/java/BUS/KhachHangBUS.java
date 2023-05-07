@@ -32,8 +32,8 @@ public class KhachHangBUS {
     	return khachHangDAO.updateCustomer(kh);
     }
     
-    public int removeCustomer(int id) throws SQLException {
-    	return khachHangDAO.removeCustomer(id);
+    public int deleteCustomer(int id) throws SQLException {
+    	return khachHangDAO.deleteCustomer(id);
     }
     
 }

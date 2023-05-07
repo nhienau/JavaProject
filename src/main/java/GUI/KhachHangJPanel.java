@@ -52,6 +52,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         currentList = customers;
         showData(currentList);
         currentAction = "read";
+        auth(permission);
     }
     
     private void showData(List<KhachHang> list) {
@@ -100,7 +101,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         btnResetAction = new javax.swing.JButton();
         btnAddCustomer = new javax.swing.JButton();
         btnUpdateCustomer = new javax.swing.JButton();
-        btnRemoveCustomer = new javax.swing.JButton();
+        btnDeleteCustomer = new javax.swing.JButton();
         pCustomerInfo = new javax.swing.JPanel();
         pCustomerInfo1 = new javax.swing.JPanel();
         lblID = new javax.swing.JLabel();
@@ -128,6 +129,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         pTableControl.setLayout(new java.awt.BorderLayout());
 
         txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtSearch.setEnabled(false);
         txtSearch.setMinimumSize(new java.awt.Dimension(300, 28));
         txtSearch.setPreferredSize(new java.awt.Dimension(300, 28));
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -138,6 +140,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         pSearchBar.add(txtSearch);
 
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search.png"))); // NOI18N
+        btnSearch.setEnabled(false);
         btnSearch.setPreferredSize(new java.awt.Dimension(28, 28));
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +164,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         pToolbar.add(btnResetAction);
 
         btnAddCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/plus.png"))); // NOI18N
+        btnAddCustomer.setEnabled(false);
         btnAddCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddCustomerActionPerformed(evt);
@@ -169,6 +173,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         pToolbar.add(btnAddCustomer);
 
         btnUpdateCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
+        btnUpdateCustomer.setEnabled(false);
         btnUpdateCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateCustomerActionPerformed(evt);
@@ -176,13 +181,14 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         });
         pToolbar.add(btnUpdateCustomer);
 
-        btnRemoveCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/delete.png"))); // NOI18N
-        btnRemoveCustomer.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/delete.png"))); // NOI18N
+        btnDeleteCustomer.setEnabled(false);
+        btnDeleteCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveCustomerActionPerformed(evt);
+                btnDeleteCustomerActionPerformed(evt);
             }
         });
-        pToolbar.add(btnRemoveCustomer);
+        pToolbar.add(btnDeleteCustomer);
 
         pCustomerDetail.add(pToolbar, java.awt.BorderLayout.NORTH);
 
@@ -370,7 +376,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     	enableAllInput();
     }//GEN-LAST:event_btnUpdateCustomerActionPerformed
 
-    private void btnRemoveCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveCustomerActionPerformed
+    private void btnDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustomerActionPerformed
         // TODO add your handling code here:
     	int selectedRow = tblCustomer.getSelectedRow();
     	if (selectedRow == -1) {
@@ -387,7 +393,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         int customerID = Integer.parseInt(txtID.getText());
         int result = 0;
        	try {
-			result = khBUS.removeCustomer(customerID);
+			result = khBUS.deleteCustomer(customerID);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu", "Error", JOptionPane.ERROR_MESSAGE);
@@ -409,7 +415,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
        	} else {
        		JOptionPane.showMessageDialog(this, "Có lỗi xảy ra, vui lòng thử lại", "Error", JOptionPane.ERROR_MESSAGE);
        	}
-    }//GEN-LAST:event_btnRemoveCustomerActionPerformed
+    }//GEN-LAST:event_btnDeleteCustomerActionPerformed
 
     private void btnConfirmActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionActionPerformed
         // TODO add your handling code here:
@@ -436,7 +442,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCustomer;
     private javax.swing.JButton btnConfirmAction;
-    private javax.swing.JButton btnRemoveCustomer;
+    private javax.swing.JButton btnDeleteCustomer;
     private javax.swing.JButton btnResetAction;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdateCustomer;
@@ -780,4 +786,17 @@ public class KhachHangJPanel extends javax.swing.JPanel {
        	}
     }
     
+    private void auth(ChucVu permission) {
+    	String allPermission = permission.getKhachHang();
+    	boolean toggleAdd = allPermission.contains("them");
+    	boolean toggleUpdate = allPermission.contains("sua");
+    	boolean toggleDelete = allPermission.contains("xoa");
+    	boolean toggleSearch = allPermission.contains("timkiem");
+
+    	btnAddCustomer.setEnabled(toggleAdd);
+    	btnUpdateCustomer.setEnabled(toggleUpdate);
+    	btnDeleteCustomer.setEnabled(toggleDelete);
+    	btnSearch.setEnabled(toggleSearch);
+    	txtSearch.setEnabled(toggleSearch);
+    }
 }

@@ -96,7 +96,7 @@ public class KhachHangDAO {
     	return rowAffect;
     }
     
-    public int removeCustomer(int id) throws SQLException {
+    public int deleteCustomer(int id) throws SQLException {
     	int rowAffect = 0;
     	try {
 			Connection conn = DB.connect();

@@ -308,7 +308,7 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
        	temp.setNgaySinh(dcDateOfBirth.getDate());
        	
        	// Check if new phone number existed
-       	if (phoneNumberExisted(temp.getSDT())) {
+       	if (phoneNumberExisted(temp)) {
        		lblProfileErrorMessage.setText("Số điện thoại đã tồn tại");
     		lblProfileErrorMessage.setVisible(true);
     		return;
@@ -530,10 +530,10 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
     	return (new String(pfCurrentPassword.getPassword())).isEmpty() || (new String(pfNewPassword.getPassword())).isEmpty() || (new String(pfConfirmNewPassword.getPassword())).isEmpty();
     }
     
-    private boolean phoneNumberExisted(String phoneNumber) {
+    private boolean phoneNumberExisted(NhanVien user) {
     	boolean check = true;
     	try {
-			check = new NhanVienBUS().phoneNumberExisted(phoneNumber);
+			check = new NhanVienBUS().phoneNumberExisted(user);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu", "Error", JOptionPane.ERROR_MESSAGE);

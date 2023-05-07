@@ -65,8 +65,8 @@ public class NhanVienBUS {
     	return nvDAO.changePassword(nv);
     }
     
-    public boolean phoneNumberExisted (String phoneNumber) throws SQLException {
-    	return nvDAO.phoneNumberExisted(phoneNumber);
+    public boolean phoneNumberExisted (NhanVien nv) throws SQLException {
+    	return nvDAO.phoneNumberExisted(nv);
     }
     
     public int updateEmpWithoutPassword(NhanVien nv) throws ClassNotFoundException, SQLException {

@@ -250,16 +250,23 @@ public class NhanVienDAO {
     	return rowAffect;
     }
     
-    public boolean phoneNumberExisted (String phoneNumber) throws SQLException {
+    public boolean phoneNumberExisted (NhanVien user) throws SQLException {
     	boolean check = false;
     	try {
 			Connection conn = DB.connect();
 			String query = "SELECT * FROM nhanvien WHERE IsDeleted = ? AND SDT = ?";
 	        PreparedStatement pst = conn.prepareStatement(query);
 	        pst.setInt(1, 0);
-	        pst.setString(2, phoneNumber);
+	        pst.setString(2, user.getSDT());
 	        ResultSet rs = pst.executeQuery();
-	        check = rs.next();
+	        if (rs.next()) {
+	        	if (rs.getInt("MaNV") == user.getMaNV())
+	        		check = false;
+	        	else
+	        		check = true;
+	        } else {
+	        	check = false;
+	        }
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
