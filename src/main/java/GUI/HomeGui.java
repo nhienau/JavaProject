@@ -500,7 +500,7 @@ public class HomeGui extends javax.swing.JFrame {
             	// Get return value of the method
 				Object value = method.invoke(new ChucVu());
 				
-				if (value != null && value.toString().equals("null")) {
+				if (value != null && value.toString().isEmpty()) {
 					continue;
 				}
 				String controllerName = method.getName().substring(3);
@@ -559,7 +559,7 @@ public class HomeGui extends javax.swing.JFrame {
             	// Get return value of the method
 				Object value = method.invoke(permission);
 				
-				if (value.toString().equals("null")) {
+				if (value.toString().isEmpty()) {
 					continue;
 				}
 				String controllerName = method.getName().substring(3);
