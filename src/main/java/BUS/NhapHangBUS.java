@@ -5,7 +5,8 @@
 package BUS;
 
 import DAO.NhapHangDAO;
-import DTO.ChiTietPhieuNhap;
+import DTO.ChiTietNhapHang;
+import DTO.ChiTietNhapHang;
 import DTO.PhieuNhap;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,11 +28,11 @@ public class NhapHangBUS {
         return nhDAO.getAll();
     }
     
-    public int themPhieuNhap(PhieuNhap pn, String TongTien) throws SQLException, ClassNotFoundException{
-        return nhDAO.themNhapHang(pn, TongTien);
+    public int themPhieuNhap(PhieuNhap pn, Double TongTien,List<ChiTietNhapHang> ctList) throws SQLException, ClassNotFoundException{
+        return nhDAO.themNhapHang(pn, TongTien,ctList);
     }
     
-    public int themChiTietPhieuNhap(ArrayList<ArrayList> ct){
-        return nhDAO.themChiTietPhieuNhap(ct);
-    }
+//    public int themChiTietPhieuNhap(ArrayList<ArrayList> ct){
+//        return nhDAO.themChiTietPhieuNhap(ct);
+//    }
 }
