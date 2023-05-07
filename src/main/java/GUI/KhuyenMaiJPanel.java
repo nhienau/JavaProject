@@ -1580,13 +1580,6 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tổng lượt sử dụng!");
         }
         else{
-            try {
-            if(cpBUS.hasCode(jTextField19.getText())!=false)
-            {
-                JOptionPane.showMessageDialog(this, "Trùng code!");
-            }
-            else
-            {
                 Coupon cp=new Coupon();
                 cp.setMaCP(Integer.parseInt(jTextField20.getText()));
                 cp.setCode(jTextField19.getText());
@@ -1603,12 +1596,6 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            } catch (SQLException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }//GEN-LAST:event_jButton26ActionPerformed
 
