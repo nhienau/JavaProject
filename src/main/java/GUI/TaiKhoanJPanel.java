@@ -80,39 +80,56 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
         pFormChangePwdBtn = new javax.swing.JPanel();
         btnChangePassword = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(51, 51, 51));
+
+        roundPanel.setBackground(new java.awt.Color(51, 51, 51));
+
+        tabProfile.setBackground(new java.awt.Color(51, 51, 51));
+
+        profileContainer.setBackground(new java.awt.Color(51, 51, 51));
         profileContainer.setLayout(new java.awt.BorderLayout(0, 5));
 
+        pFormChangeProfile.setBackground(new java.awt.Color(51, 51, 51));
         pFormChangeProfile.setLayout(new java.awt.BorderLayout(0, 3));
 
+        pFormChangeProfile1.setBackground(new java.awt.Color(51, 51, 51));
         pFormChangeProfile1.setLayout(new java.awt.GridLayout(4, 2, 0, 5));
 
         lblFullName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblFullName.setForeground(new java.awt.Color(245, 245, 245));
         lblFullName.setText("Họ và tên");
         pFormChangeProfile1.add(lblFullName);
 
         txtFullName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtFullName.setForeground(new java.awt.Color(60, 60, 60));
         pFormChangeProfile1.add(txtFullName);
 
         lblPhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblPhoneNumber.setForeground(new java.awt.Color(245, 245, 245));
         lblPhoneNumber.setText("Số điện thoại");
         pFormChangeProfile1.add(lblPhoneNumber);
 
         txtPhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtPhoneNumber.setForeground(new java.awt.Color(60, 60, 60));
         pFormChangeProfile1.add(txtPhoneNumber);
 
         lblDateOfBirth.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblDateOfBirth.setForeground(new java.awt.Color(245, 245, 245));
         lblDateOfBirth.setText("Ngày sinh");
         pFormChangeProfile1.add(lblDateOfBirth);
 
+        dcDateOfBirth.setForeground(new java.awt.Color(60, 60, 60));
         dcDateOfBirth.setDateFormatString("dd/MM/yyyy");
         dcDateOfBirth.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         pFormChangeProfile1.add(dcDateOfBirth);
 
         lblEmail.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblEmail.setForeground(new java.awt.Color(245, 245, 245));
         lblEmail.setText("Email");
         pFormChangeProfile1.add(lblEmail);
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtEmail.setForeground(new java.awt.Color(60, 60, 60));
         pFormChangeProfile1.add(txtEmail);
 
         pFormChangeProfile.add(pFormChangeProfile1, java.awt.BorderLayout.NORTH);
@@ -125,6 +142,7 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
 
         profileContainer.add(pFormChangeProfile, java.awt.BorderLayout.CENTER);
 
+        pFormProfileBtn.setBackground(new java.awt.Color(51, 51, 51));
         pFormProfileBtn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 3));
 
         btnUpdateProfile.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -166,17 +184,24 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
 
         tp.addTab("Thông tin cá nhân", tabProfile);
 
+        tabPassword.setBackground(new java.awt.Color(51, 51, 51));
+
+        passwordContainer.setBackground(new java.awt.Color(51, 51, 51));
         passwordContainer.setLayout(new java.awt.BorderLayout(0, 5));
 
         lblChangePwd.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblChangePwd.setForeground(new java.awt.Color(245, 245, 245));
         lblChangePwd.setText("Đổi mật khẩu");
         passwordContainer.add(lblChangePwd, java.awt.BorderLayout.NORTH);
 
+        pFormChangePwd.setBackground(new java.awt.Color(51, 51, 51));
         pFormChangePwd.setLayout(new java.awt.BorderLayout(0, 3));
 
+        pFormChangePwd1.setBackground(new java.awt.Color(51, 51, 51));
         pFormChangePwd1.setLayout(new java.awt.GridLayout(4, 2, 0, 5));
 
         lblUsername.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(245, 245, 245));
         lblUsername.setText("Tài khoản");
         pFormChangePwd1.add(lblUsername);
 
@@ -185,6 +210,7 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
         pFormChangePwd1.add(txtUsername);
 
         lblCurrentPassword.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblCurrentPassword.setForeground(new java.awt.Color(245, 245, 245));
         lblCurrentPassword.setText("Mật khẩu hiện tại");
         pFormChangePwd1.add(lblCurrentPassword);
 
@@ -192,6 +218,7 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
         pFormChangePwd1.add(pfCurrentPassword);
 
         lblNewPassword.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblNewPassword.setForeground(new java.awt.Color(245, 245, 245));
         lblNewPassword.setText("Mật khẩu mới");
         pFormChangePwd1.add(lblNewPassword);
 
@@ -199,6 +226,7 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
         pFormChangePwd1.add(pfNewPassword);
 
         lblConfirmNewPassword.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblConfirmNewPassword.setForeground(new java.awt.Color(245, 245, 245));
         lblConfirmNewPassword.setText("Xác nhận mật khẩu mới");
         pFormChangePwd1.add(lblConfirmNewPassword);
 
@@ -215,6 +243,7 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
 
         passwordContainer.add(pFormChangePwd, java.awt.BorderLayout.CENTER);
 
+        pFormChangePwdBtn.setBackground(new java.awt.Color(51, 51, 51));
         pFormChangePwdBtn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 3));
 
         btnChangePassword.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
