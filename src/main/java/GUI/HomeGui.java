@@ -33,6 +33,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Method;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JMenuItem;
 import java.awt.Dimension;
@@ -597,8 +598,14 @@ public class HomeGui extends javax.swing.JFrame {
         }
         
         listItem.add(new DanhMucBean("TaiKhoan", pTaiKhoan, lblTaiKhoan));
-        controller.setView(firstString, firstPanel, firstLabel);
         controller.initUser(currentUser, permission);
+        try {
+			controller.setView(firstString, firstPanel, firstLabel);
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
     }
     
     /**

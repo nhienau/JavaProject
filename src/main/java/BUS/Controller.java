@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,15 +53,16 @@ public class Controller {
 		this.permission = permission;
 	}
 
-	public void setView (String kind, JPanel pItem, JLabel lItem) {
+	public void setView (String kind, JPanel pItem, JLabel lItem) throws InvocationTargetException {
 		kindSelected = kind;
 		
 		String className = "GUI." + kind + "JPanel";
 		Object instance = null;
-
+		
 		try {
 			Class<?> clazz = Class.forName(className);
-			instance = clazz.getDeclaredConstructor(NhanVien.class, ChucVu.class).newInstance(this.user, this.permission);
+			Constructor<?> constructor = clazz.getDeclaredConstructor(NhanVien.class, ChucVu.class);
+			instance = constructor.newInstance(this.user, this.permission);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
@@ -121,7 +123,12 @@ public class Controller {
 //			root.validate();
 //			root.repaint();
 //			changeBackground(kind);
-			setView(kind, pItem, lItem);
+			try {
+				setView(kind, pItem, lItem);
+			} catch (InvocationTargetException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 		@Override
