@@ -6,11 +6,12 @@ package GUI;
 
 import BUS.NhapHangBUS;
 import DTO.ChiTietNhapHang;
-import DTO.ChiTietPhieuNhap;
 import DTO.ChucVu;
 import DTO.NhanVien;
 import DTO.PhieuNhap;
 import DTO.SanPhamExcelDTO;
+
+import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,6 +33,8 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import org.apache.commons.math3.analysis.interpolation.AkimaSplineInterpolator;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import javax.swing.JPanel;
@@ -76,12 +79,12 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     private XSSFSheet sheet;
     private List<PhieuNhap> pnList;
     private ArrayList<ArrayList> listExcel = new ArrayList<>();
-    
+    private NhanVien nv;
 
     /**
-     * Creates new form NhapHangPanel
+     * Creates new form NhapHangJPanel
      */
-    public NhapHangJPanel() throws SQLException, ClassNotFoundException {
+    public NhapHangJPanel(NhanVien user,ChucVu permission) throws SQLException, ClassNotFoundException {
 
         initComponents();
         pnBUS = new NhapHangBUS();
@@ -89,44 +92,22 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         initTablePhieuNhap(pnList);
         clickTable(tableCTPNExcel);
 //        changeSL(tableCart);
-
-        updateTotal(tableCart);
-        addQuantityListener(tableCart);
-
-    }
-    
-    public NhapHangJPanel(NhanVien user, ChucVu permission) throws SQLException, ClassNotFoundException {
-
-        initComponents();
-        pnBUS = new NhapHangBUS();
-        pnList = pnBUS.getAll();
-        initTablePhieuNhap(pnList);
-        clickTable(tableCTPNExcel);
-//        changeSL(tableCart);
-
+        
+        if(permission.getNhapHang().contains("them")) {
+        	jButton4.setEnabled(true);
+        }
+        else {
+        	jButton4.setEnabled(false);
+        	jButton4.setBackground(Color.black);
+        	jButton4.setForeground(getBackground());
+        }
+        
         updateTotal(tableCart);
         addQuantityListener(tableCart);
 
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
-        // Create a JFrame
-        NhanVien nv = new NhanVien();
-        ChucVu cv = new ChucVu();
-        JFrame frame = new JFrame("My Application");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Create a JPanel with your interface components
-        JPanel panel = new NhapHangJPanel();
-
-        // Add the panel to the frame
-        frame.getContentPane().add(panel);
-
-        // Pack and show the frame
-        frame.pack();
-        frame.setVisible(true);
-    }
-
+   
     public void initTablePhieuNhap(List<PhieuNhap> pnAdd) {
 
         DefaultTableModel tableModel = (DefaultTableModel) tableCTPN.getModel();
@@ -136,7 +117,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         for (PhieuNhap pn : pnAdd) {
             String maPhieuNhap = "PN" + pn.getMaPN();
             Date ngayTao = (Date) pn.getNgayTao();
-            String input = pn.getTongTien().replaceAll("[^\\d]", "").trim();
+            String input = String.valueOf(pn.getTongTien()).replaceAll("[^\\d]", "").trim();
             String tongTien = input;
             String maNhanVien = "NV" + pn.getMaNV();
 
@@ -187,8 +168,17 @@ public class NhapHangJPanel extends javax.swing.JPanel {
                         }
                         // Đưa dữ liệu vào JTable khác
                         DefaultTableModel model = (DefaultTableModel) tableCart.getModel();
-                       
-                        model.addRow(new Object[]{rowData[0], rowData[1], rowData[2], rowData[3], rowData[4]});
+                        boolean isExsisted = false;
+                        for (int i = 0; i < tableCart.getRowCount(); i++) {
+                        	if(tableCart.getValueAt(i, 0) == rowData[0]) {
+                        		isExsisted = true;
+                        		break;
+                        	}
+                        }
+                        if(!isExsisted) {
+                        	model.addRow(new Object[]{rowData[0], rowData[1], rowData[2], rowData[3], rowData[4]});
+                        	
+                        }
                        
                         updateTotal(tableCart);
                       
@@ -708,23 +698,42 @@ public class NhapHangJPanel extends javax.swing.JPanel {
             int n = JOptionPane.showConfirmDialog(this, "Xác nhận lưu đơn nhập hàng? ", "Lưu ý", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
                 try {
-
-                    String tongTien = sumTotal.getText().split("\\₫")[0].trim().replace(".", "");
-                    int maNV = 3;
+                	System.out.println("tong a : " +sumTotal.getText());
+                	Double tongTien = Double.parseDouble(sumTotal.getText());
+                    System.out.println("tong : " +tongTien);
+                	int maNV = 3;
                     PhieuNhap pn = new PhieuNhap(tongTien, maNV, 0);
                     int themBus = 0;
                     
-                    themBus = pnBUS.themPhieuNhap(pn, tongTien);
+                    
+                    List ctList = new ArrayList<>();
+                    for(int i = 0;i< tableCart.getRowCount();i++) {
+                    	
+                    	int maSP = Integer.parseInt(((String) tableCart.getValueAt(i,0)).split("SP0")[1]);
+                    	System.out.println(tableCart.getValueAt(i,2) + "SL");
+                    	System.out.println(tableCart.getValueAt(i,3) +"Don gia");
+                    	int SL = (int) tableCart.getValueAt(i,2);
+                    	Double DonGia = (Double) tableCart.getValueAt(i,3);
+                    	ChiTietNhapHang cTietNhapHang = new ChiTietNhapHang(maSP, SL, DonGia);
+                    	ctList.add(cTietNhapHang);
+                    }
+                    themBus = pnBUS.themPhieuNhap(pn, tongTien,ctList);
                     if(themBus >0){
-                        
+                    	DefaultTableModel model = (DefaultTableModel) tableCart.getModel();
+                    	model.setRowCount(0);
+                    	model = (DefaultTableModel) tableCTPNExcel.getModel();
+                    	model.setRowCount(0);
+                    	
+                    	
                         JOptionPane.showMessageDialog(this, "Thêm phiếu nhập thành công. ", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-                        loadTablePhieuNhap(pnList);
+                        pnList = pnBUS.getAll();
+                        initTablePhieuNhap(pnList);
                     }
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(NhapHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhapHangJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(NhapHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NhapHangJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -732,15 +741,13 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     }                                        
 
     public void updateTotal(JTable tableCart) {
-        NumberFormat vnFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-
+        
         double total = 0;
         for (int i = 0; i < tableCart.getRowCount(); i++) {
             double subtotal = (double) tableCart.getValueAt(i, 4);
             total += subtotal;
         }
-        sumTotal.setText(vnFormat.format(total));
-        System.out.println(sumTotal.getText().split("\\₫")[0].replace(".", "").trim());
+        sumTotal.setText(String.valueOf(total));
 
     }
 

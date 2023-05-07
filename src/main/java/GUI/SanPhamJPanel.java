@@ -9,6 +9,8 @@ import DAO.SanPhamDAO;
 import DTO.ChucVu;
 import DTO.NhanVien;
 import DTO.SanPham;
+
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -48,6 +50,8 @@ public class SanPhamJPanel extends javax.swing.JPanel {
     private SanPhamBUS spBUS;
     private List<SanPham> spList;
     private String searchInput;
+    private NhanVien nVien;
+    
     
     /**
      * Creates new form SanPhamJPanel
@@ -56,6 +60,47 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         initComponents();
         spBUS = new SanPhamBUS();
         spList = spBUS.getAll();
+        nVien = user;
+        if(permission.getSanPham().contains("them")) {
+        	btnSave1.setEnabled(true);
+        }
+        else {
+        	btnSave1.setEnabled(false);
+        	btnSave1.setBackground(Color.black);
+        	btnSave1.setForeground(getBackground());
+        }
+        
+        if(permission.getSanPham().contains("sua")) {
+        	btnUpdate.setEnabled(true);
+        }
+        else {
+        	btnUpdate.setEnabled(false);
+        	btnUpdate.setBackground(Color.black);
+        	btnUpdate.setForeground(getBackground());
+        }
+        
+        
+        if(permission.getSanPham().contains("xoa")) {
+        	btnRemove.setEnabled(true);
+        }
+        else {
+        	btnRemove.setEnabled(false);
+        	btnRemove.setBackground(Color.black);
+        	btnRemove.setForeground(getBackground());
+        }
+        
+        if(permission.getSanPham().contains("timkiem")) {
+        	
+        	btnSearch.setEnabled(true);
+        	inputSearch.setEditable(true);
+        }
+        else {
+        	btnSearch.setEnabled(false);
+        	btnSearch.setBackground(Color.black);
+        	btnSearch.setForeground(getBackground());
+        	inputSearch.setEditable(false);
+        }
+        
         
         addValueToTable(spList);
         addTableRowClickListener(table);
@@ -118,23 +163,7 @@ public class SanPhamJPanel extends javax.swing.JPanel {
     
 
     
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
-        // Create a JFrame
-        JFrame frame = new JFrame("My Application");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-      
-
-        // Create a JPanel with your interface components
-        JPanel panel = new SanPhamJPanel();
-
-        // Add the panel to the frame
-        frame.getContentPane().add(panel);
-
-        // Pack and show the frame
-        frame.pack();
-        frame.setVisible(true);
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
