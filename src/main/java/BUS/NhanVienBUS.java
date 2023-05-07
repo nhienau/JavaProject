@@ -73,4 +73,8 @@ public class NhanVienBUS {
     	return nvDAO.updateEmpWithoutPassword(nv);
     }
     
+    public boolean isAccountNameExisted(String accoutName,int ID) throws ClassNotFoundException, SQLException {
+    	return nvDAO.isAccountNameExisted(accoutName,ID);
+    }
+    
 }
