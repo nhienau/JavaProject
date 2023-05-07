@@ -74,4 +74,9 @@ public class KhuyenMaiHoaDonBUS {
         ArrayList<String> arr=kmhdDAO.getAllMaKMHDNotDeleted();
         return arr.toArray(new String[0]);
     }
+    
+    public ArrayList<KhuyenMaiHoaDon> findbyMaKMHD(int id) throws SQLException, ClassNotFoundException
+    {
+        return kmhdDAO.findbyMaKMHD(id);
+    }
 }

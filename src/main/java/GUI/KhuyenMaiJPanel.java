@@ -1575,6 +1575,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         {
             JOptionPane.showMessageDialog(this, "Vui lòng không được có khoảng cách!");
         }
+        else if(Integer.parseInt(jSpinner18.getValue().toString())==0)
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tổng lượt sử dụng!");
+        }
         else{
             try {
             if(cpBUS.hasCode(jTextField19.getText())!=false)
@@ -1592,12 +1596,6 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 cp.setIsDeleted(0);
                 try {
                     cpBUS.updateCoupon(cp);
-                } catch (SQLException ex) {
-                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
                     LoadCouponList();
                     LoadComboBox();
                 } catch (SQLException ex) {
@@ -1624,6 +1622,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         {
             JOptionPane.showMessageDialog(this, "Vui lòng không được có khoảng cách!");
         }
+        else if(Integer.parseInt(jSpinner18.getValue().toString())==0)
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tổng lượt sử dụng!");
+        }
         else try {
             if(cpBUS.hasCode(jTextField19.getText())!=false)
             {
@@ -1634,17 +1636,11 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 Coupon cp=new Coupon();
                 cp.setCode(jTextField19.getText());
                 cp.setMaKMHD(Integer.parseInt(jComboBox17.getItemAt(jComboBox17.getSelectedIndex())));
-                cp.setTongLuotApDung((Integer)jSpinner18.getValue());
-                cp.setTongLuotDaDung((Integer)jSpinner19.getValue());
+                cp.setTongLuotApDung((Integer)Integer.parseInt(jSpinner18.getValue().toString()));
+                cp.setTongLuotDaDung((Integer)Integer.parseInt(jSpinner19.getValue().toString()));
                 cp.setIsDeleted(0);
                 try {
                     cpBUS.addCoupon(cp);
-                } catch (SQLException ex) {
-                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
                     LoadCouponList();
                     LoadComboBox();
                 } catch (SQLException ex) {
@@ -2233,7 +2229,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         try {
             jSpinner18.commitEdit();
         } catch ( java.text.ParseException e ) {}
-        SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, (int)jSpinner18.getValue(), 1);
+        SpinnerNumberModel model = new SpinnerNumberModel(Integer.parseInt(jSpinner19.getValue().toString()), 0, (int)jSpinner18.getValue(), 1);
         jSpinner19.setModel(model);
     }//GEN-LAST:event_jSpinner18StateChanged
 

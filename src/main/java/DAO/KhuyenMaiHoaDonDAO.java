@@ -179,4 +179,32 @@ public class KhuyenMaiHoaDonDAO {
         conn.close();
         return temp;
     }
+    
+    public ArrayList<KhuyenMaiHoaDon> findbyMaKMHD(int id) throws SQLException, ClassNotFoundException
+    {
+        String sql="select * from khuyenmaihoadon where IsDeleted=0 and MaKMHD="+id;
+        Connection conn=DB.connect();
+        ArrayList<KhuyenMaiHoaDon> arr=new ArrayList<KhuyenMaiHoaDon>();
+        if(conn!=null)
+        {
+            Statement stm=conn.createStatement();
+            ResultSet rs=stm.executeQuery(sql);
+            while(rs.next())
+            {
+                KhuyenMaiHoaDon kmhd=new KhuyenMaiHoaDon();
+                kmhd.setMaKMHD(rs.getInt("MaKMHD"));
+                kmhd.setDonHangToiThieu(rs.getDouble("DonHangToiThieu"));
+                kmhd.setNgayBatDau(rs.getTimestamp("NgayBatDau"));
+                kmhd.setNgayKetThuc(rs.getTimestamp("NgayKetThuc"));
+                kmhd.setPhanTramGiam(rs.getFloat("PhanTramGiam"));
+                kmhd.setTenKM(rs.getString("TenKM"));
+                kmhd.setSoTienGiam(rs.getDouble("SoTienGiam"));
+                kmhd.setTongLuotApDung(rs.getInt("TongLuotApDung"));
+                kmhd.setTongLuotDaDung(rs.getInt("TongLuotDaDung"));
+                kmhd.setIsDeleted(rs.getInt("IsDeleted"));
+                arr.add(kmhd);
+            }
+        }
+        return arr;
+    }
 }

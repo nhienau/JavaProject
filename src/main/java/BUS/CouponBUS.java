@@ -110,4 +110,9 @@ public class CouponBUS {
     {
         return cpDAO.searchNewestHD();
     }
+    
+    public ArrayList<Coupon> findbyMaKMHD(int id) throws ClassNotFoundException, SQLException
+    {
+        return cpDAO.findbyMaKMHD(id);
+    }
 }

@@ -162,7 +162,6 @@ public class BanHangJPanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(BanHangJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("-----"+arr.size());
         if(arr.size()>0 && arr1.size()>0)
         {
             for(int i=0;i<arr.size();i++)

@@ -212,4 +212,29 @@ public class CouponDAO {
         }
         return hd;
     }
+    
+    public ArrayList<Coupon> findbyMaKMHD(int id) throws ClassNotFoundException, SQLException
+    {
+        String sql="select * from coupon where IsDeleted=0 and MaKMHD="+id;
+        ArrayList<Coupon> arr=new ArrayList<Coupon>();
+        Connection conn=DB.connect();
+        if(conn!=null)
+        {
+            Statement stm=conn.createStatement();
+            ResultSet rs;
+            rs=stm.executeQuery(sql);
+            while(rs.next())
+            {
+                Coupon cp=new Coupon();
+                cp.setMaCP(rs.getInt("MaCP"));
+                cp.setTongLuotApDung(rs.getInt("TongLuotApDung"));
+                cp.setTongLuotDaDung(rs.getInt("TongLuotDaDung"));
+                cp.setMaKMHD(rs.getInt("MaKMHD"));
+                cp.setCode(rs.getString("Code"));
+                cp.setIsDeleted(rs.getInt("IsDeleted"));
+                arr.add(cp);
+            }
+        }
+        return arr;
+    }
 }
