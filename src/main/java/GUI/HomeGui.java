@@ -158,7 +158,7 @@ public class HomeGui extends javax.swing.JFrame {
         pUserInfo.add(panel, gbc_panel);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         
-        lblStaffName = new JLabel("nhanvien.TenNVVVV");
+        lblStaffName = new JLabel("nhanvien.TenNV");
         panel.add(lblStaffName);
         lblStaffName.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
         lblStaffName.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -426,6 +426,37 @@ public class HomeGui extends javax.swing.JFrame {
         );
         pNhapHang.setLayout(gl_pNhapHang);
         
+        pBanHang = new JPanel();
+        pBanHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        draggableRoundPanel5.add(pBanHang);
+        
+        lblBanHang = new JLabel("Bán hàng");
+        lblBanHang.setHorizontalAlignment(SwingConstants.CENTER);
+        lblBanHang.setForeground(Color.BLACK);
+        lblBanHang.setFont(new Font("Tahoma", Font.BOLD, 14));
+        GroupLayout gl_pBanHang = new GroupLayout(pBanHang);
+        gl_pBanHang.setHorizontalGroup(
+        	gl_pBanHang.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addGap(0, 168, Short.MAX_VALUE)
+        		.addComponent(lblBanHang, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+        );
+        gl_pBanHang.setVerticalGroup(
+        	gl_pBanHang.createParallelGroup(Alignment.LEADING)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addGap(0, 38, Short.MAX_VALUE)
+        		.addComponent(lblBanHang, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+        pBanHang.setLayout(gl_pBanHang);
+        
         pTaiKhoan = new JPanel();
         draggableRoundPanel5.add(pTaiKhoan);
         
@@ -497,6 +528,7 @@ public class HomeGui extends javax.swing.JFrame {
           }
         }
     	
+        listItem.add(new DanhMucBean("BanHang", pBanHang, lblBanHang));
     	listItem.add(new DanhMucBean("TaiKhoan", pTaiKhoan, lblTaiKhoan));
         controller.setEvent(listItem);
     }
@@ -685,6 +717,8 @@ public class HomeGui extends javax.swing.JFrame {
     private JLabel lblThongKe;
     private JPanel pNhapHang;
     private JLabel lblNhapHang;
+    private JPanel pBanHang;
+    private JLabel lblBanHang;
     private JButton btnSettings;
     private JPopupMenu popupSettings;
     private JMenuItem btnLogOut;
