@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import DTO.ChiTietPhieuNhap;
+import DTO.ChiTietNhapHang;
 import DTO.PhieuNhap;
 
 import java.sql.Connection;
@@ -36,25 +36,51 @@ public class NhapHangDAO {
         pst.setInt(1, 0);
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
-            pnList.add(new PhieuNhap(rs.getInt("MaPN"), rs.getDate("NgayTao"), rs.getString("TongTien"), rs.getInt("MaNV"), rs.getInt("IsDeleted")));
+            pnList.add(new PhieuNhap(rs.getInt("MaPN"), rs.getDate("NgayTao"), rs.getDouble("TongTien"), rs.getInt("MaNV"), rs.getInt("IsDeleted")));
         }
         return pnList;
     }
 
-    public int themNhapHang(PhieuNhap pn, String tongTien) throws SQLException, ClassNotFoundException {
+    public int themNhapHang(PhieuNhap pn, Double tongTien,List<ChiTietNhapHang> ctList) throws SQLException, ClassNotFoundException {
         Connection conn = DB.connect();
         int rs;
-
+        int generatedID = -1;
         // Câu lệnh INSERT cho bảng PhieuNhap
         String sqlPhieuNhap = "INSERT INTO phieunhap (NgayTao, TongTien, MaNV, IsDeleted) VALUES (?, ?, ?, ?)";
-        PreparedStatement pstPhieuNhap = conn.prepareStatement(sqlPhieuNhap, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement pstPhieuNhap = conn.prepareStatement(sqlPhieuNhap,PreparedStatement.RETURN_GENERATED_KEYS);
         pstPhieuNhap.setDate(1, new java.sql.Date(pn.getNgayTao().getTime()));
-        pstPhieuNhap.setString(2, tongTien);
+        pstPhieuNhap.setDouble(2, tongTien);
         pstPhieuNhap.setInt(3, pn.getMaNV());
         pstPhieuNhap.setInt(4, 0);
 
         rs = pstPhieuNhap.executeUpdate();
-        return rs;
+        if (rs > 0) {
+            ResultSet generatedKeys = pstPhieuNhap.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                generatedID = generatedKeys.getInt(1);
+            }
+            String sqlChiTietPhieuNhap = "INSERT INTO chitietphieunhap (MaSP, MaPN, SL, DonGia) VALUES (?, ?, ?, ?)";
+          PreparedStatement pstChiTietPhieuNhap = conn.prepareStatement(sqlChiTietPhieuNhap);
+
+          // Lặp qua danh sách chi tiết phiếu nhập và thêm vào câu lệnh INSERT
+          	for (ChiTietNhapHang ctpn : ctList) {
+              pstChiTietPhieuNhap.setInt(1, ctpn.getMaSP());
+              pstChiTietPhieuNhap.setInt(2, generatedID);
+              pstChiTietPhieuNhap.setInt(3, ctpn.getSL());
+              pstChiTietPhieuNhap.setDouble(4, ctpn.getDONGIA());
+              int rsss = pstChiTietPhieuNhap.executeUpdate();
+              if(rsss > 0) {
+            	  System.out.println(ctpn.getMaSP());
+            	    String sqlUpdateString = "UPDATE sanpham SET SL = SL + ? WHERE MaSP = ?";
+            	    PreparedStatement pstmt = conn.prepareStatement(sqlUpdateString);
+            	    pstmt.setInt(1, ctpn.getSL());
+            	    pstmt.setInt(2, ctpn.getMaSP());
+            	    int rowsUpdated = pstmt.executeUpdate();
+              }
+          	}
+            
+        }
+        return generatedID;
     }
     
   
@@ -141,7 +167,7 @@ public class NhapHangDAO {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 pnList.add(new PhieuNhap(rs.getInt("MaPN"),
-                          rs.getDate("NgayTao"), rs.getString("TongTien"),
+                          rs.getDate("NgayTao"), rs.getDouble("TongTien"),
                           rs.getInt("MaNV"),
                           rs.getInt("IsDeleted")));
             }
