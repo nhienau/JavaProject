@@ -136,4 +136,8 @@ public class NhanVien {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(this.NgaySinh);
     }
+    @Override
+    public String toString() {
+        return MaNV + "-"+ TenNV;
+    }
 }
