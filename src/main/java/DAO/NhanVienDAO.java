@@ -130,6 +130,31 @@ public class NhanVienDAO {
         return rowAffect;
     }
     
+    public int updateEmpWithoutPassword(NhanVien nv) throws ClassNotFoundException, SQLException{
+        Connection con = DB.connect();
+        String sql;
+           sql = "update nhanvien set TenNV = ? ,SDT = ? , Email = ? , NgaySinh = ? , TaiKhoan = ? ,MaCV = ? Where MaNV = ?";
+       
+        PreparedStatement pst = con.prepareStatement(sql);
+         pst.setString(1, nv.getTenNV());
+        pst.setString(2, nv.getSDT());
+        pst.setString(3, nv.getEmail());
+        
+        pst.setString(4,  nv.getDate());
+        pst.setString(5, nv.getTaiKhoan());
+        if(nv.getMaCV() != -1){
+            pst.setInt(6, nv.getMaCV());
+            
+        }
+        else{
+            pst.setNull(6, Types.INTEGER);
+        }
+        pst.setInt(7, nv.getMaNV());
+        int rowAffect =  pst.executeUpdate();
+        con.close();
+        return rowAffect;
+    }
+    
     public int delEmp(int ID) throws ClassNotFoundException, SQLException{
         Connection con = DB.connect();
         String sql = "update nhanvien set IsDeleted = ? where MaNV = ?";
