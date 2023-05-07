@@ -68,7 +68,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author HP
  */
-public class NhapHangPanel extends javax.swing.JPanel {
+public class NhapHangJPanel extends javax.swing.JPanel {
 
     private String path;
     private NhapHangBUS pnBUS;
@@ -81,7 +81,21 @@ public class NhapHangPanel extends javax.swing.JPanel {
     /**
      * Creates new form NhapHangPanel
      */
-    public NhapHangPanel() throws SQLException, ClassNotFoundException {
+    public NhapHangJPanel() throws SQLException, ClassNotFoundException {
+
+        initComponents();
+        pnBUS = new NhapHangBUS();
+        pnList = pnBUS.getAll();
+        initTablePhieuNhap(pnList);
+        clickTable(tableCTPNExcel);
+//        changeSL(tableCart);
+
+        updateTotal(tableCart);
+        addQuantityListener(tableCart);
+
+    }
+    
+    public NhapHangJPanel(NhanVien user, ChucVu permission) throws SQLException, ClassNotFoundException {
 
         initComponents();
         pnBUS = new NhapHangBUS();
@@ -103,7 +117,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create a JPanel with your interface components
-        JPanel panel = new NhapHangPanel();
+        JPanel panel = new NhapHangJPanel();
 
         // Add the panel to the frame
         frame.getContentPane().add(panel);
