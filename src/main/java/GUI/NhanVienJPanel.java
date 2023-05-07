@@ -7,6 +7,7 @@ package GUI;
 import BUS.ChucVuBUS;
 import BUS.NhanVienBUS;
 import CUSTOM.KiemTra;
+import CUSTOM.PasswordHash;
 import DTO.ChucVu;
 import DTO.NhanVien;
 import com.toedter.calendar.JDateChooser;
@@ -76,42 +77,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     /**
      * Creates new form NhanVienJPanel
      */
-    public NhanVienJPanel() throws SQLException, ClassNotFoundException {
-        initComponents();
-        kt = new KiemTra();
-        nvBUS = new NhanVienBUS();
-        cvBUS = new ChucVuBUS();
-        cvList = cvBUS.takeAll();
-        nvList = nvBUS.takeAll();
 
-        titleTableLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\account-img.png"));
-        jLabel2.setIcon(new ImageIcon("src\\main\\java\\Images\\image-removebg-preview (1).png"));
-        delIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\delete.png"));
-        addIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\plus.png"));
-        editIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\edit.png"));
-        
-        refreshRoundPanel.setVisible(false);
-        setRowColorBackground(this.empListTable);
-        setRenderComboBox(sortComboBox);
-        setRenderComboBox(positionComboBox);
-        addTFFocusListener();
-//        setAllValidateLabel();
-
-        addSearchTFListener();
-
-        addShowLabelListener(nameValidateLabel, nameTextField, "nameTextField");
-        addShowLabelListener(phoneValidateLabel, phoneTextField, "phoneTextField");
-        addShowLabelListener(accountNameValidateLabel, accountNameTextField, "accountNameTextField");
-
-        setDencenDetails();
-        
-        
-        addShowLabelListener(mailValidateLabel, mailTextField, "mailTextField");
-        addShortCutEnterForInput();
-        initTable(nvList);
-        renderSortComboxData();
-        renderPositionComboxData();
-    }
     
     public NhanVienJPanel(NhanVien user, ChucVu permission) throws SQLException, ClassNotFoundException {
         initComponents();
@@ -140,7 +106,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         addShowLabelListener(phoneValidateLabel, phoneTextField, "phoneTextField");
         addShowLabelListener(accountNameValidateLabel, accountNameTextField, "accountNameTextField");
 
-        setDencenDetails();
+        setDencenDetails(permission);
         
         
         addShowLabelListener(mailValidateLabel, mailTextField, "mailTextField");
@@ -151,11 +117,25 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     }
     
 
-    private void setDencenDetails() {
-    	searchDencen = true;
-    	addDencen = true;
-    	delDencen = true;
-    	editDencen = true;
+    private void setDencenDetails(ChucVu cv) {
+    	
+    	searchDencen = false;
+    	addDencen = false;
+    	delDencen = false;
+    	editDencen = false;
+    	
+    	if(cv.getNhanVien().contains("them")) {
+    		addDencen = true;
+    	}
+    	if(cv.getNhanVien().contains("sua")) {
+    		editDencen = true;
+    	}
+    	if(cv.getNhanVien().contains("xoa")) {
+    		delDencen = true;
+    	}
+    	if(cv.getNhanVien().contains("timkiem")) {
+    		searchDencen = true;
+    	}
     	
     	if(searchDencen) {
     		searchTextField.setEditable(true);
@@ -496,7 +476,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         accountNameValidateLabel.setForeground(new Color(31, 31, 31));
         jPanel10 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        passTextField = new javax.swing.JTextField();
+        passTextField = new javax.swing.JPasswordField();
         jPanel12 = new javax.swing.JPanel();
         dateTextField = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -1334,8 +1314,8 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         			.addGap(5)
         			.addGroup(draggableRoundPanel1Layout.createParallelGroup(Alignment.LEADING)
         				.addComponent(draggableRoundPanel2, GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
-        				.addComponent(draggableRoundPanel3, GroupLayout.PREFERRED_SIZE, 740, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        				.addComponent(draggableRoundPanel3, GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(draggableRoundPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         			.addGap(5))
         );
@@ -1344,12 +1324,12 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         		.addGroup(draggableRoundPanel1Layout.createSequentialGroup()
         			.addGap(5)
         			.addGroup(draggableRoundPanel1Layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(draggableRoundPanel4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(draggableRoundPanel4, GroupLayout.PREFERRED_SIZE, 651, GroupLayout.PREFERRED_SIZE)
         				.addGroup(draggableRoundPanel1Layout.createSequentialGroup()
         					.addComponent(draggableRoundPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(draggableRoundPanel3, 0, 0, Short.MAX_VALUE)))
-        			.addGap(5))
+        			.addContainerGap())
         );
         draggableRoundPanel1.setLayout(draggableRoundPanel1Layout);
 
@@ -1358,14 +1338,14 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         	layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
         			.addGap(5)
-        			.addComponent(draggableRoundPanel1, GroupLayout.DEFAULT_SIZE, 1125, Short.MAX_VALUE)
-        			.addGap(5))
+        			.addComponent(draggableRoundPanel1, GroupLayout.PREFERRED_SIZE, 1121, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
         	layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
         			.addGap(5)
-        			.addComponent(draggableRoundPanel1, GroupLayout.PREFERRED_SIZE, 670, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(draggableRoundPanel1, GroupLayout.PREFERRED_SIZE, 661, GroupLayout.PREFERRED_SIZE)
         			.addContainerGap(5, Short.MAX_VALUE))
         );
         this.setLayout(layout);
@@ -1374,7 +1354,6 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     private boolean allInputValid() {
         HashMap<String, JTextField> tfList = new HashMap<>();
         tfList.put("nameTextField", nameTextField);
-        tfList.put("passTextField", passTextField);
         tfList.put("mailTextField", mailTextField);
         tfList.put("accountNameTextField", accountNameTextField);
         tfList.put("dateTextField", dateTextField);
@@ -1389,7 +1368,6 @@ public class NhanVienJPanel extends javax.swing.JPanel {
             switch (key) {
                 case "nameTextField":
                     if (!kt.KTHoVaTen(input)) {
-                        System.out.println("input => " + input + key);
                         isValid = false;
                     }
                     break;
@@ -1409,7 +1387,6 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                     }
                     break;
                 case "dateTextField":
-                case "passTextField":
                     if (input.isEmpty()) {
                         isValid = false;
                     }
@@ -1418,7 +1395,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                     throw new AssertionError();
             }
         }
-
+        
         return isValid;
     }
 
@@ -1455,7 +1432,8 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         iDTextField.setText("NV" + String.valueOf(nv.getMaNV()));
         nameTextField.setText(nv.getTenNV());
         accountNameTextField.setText(nv.getTaiKhoan());
-        passTextField.setText(nv.getMatKhau());
+       
+        passTextField.setText("");
         dateTextField.setText(String.valueOf(nv.getNgaySinh()));
         mailTextField.setText(nv.getEmail());
         phoneTextField.setText(nv.getSDT());
@@ -1498,13 +1476,22 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 String SDT = phoneTextField.getText();
                 String Email = mailTextField.getText();
                 String TaiKhoan = accountNameTextField.getText();
-                String MatKhau = passTextField.getText();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-
                 Date NgaySinh = dateFormat.parse(dateTextField.getText());
                 int maCV = positionToID((String) positionComboBox.getSelectedItem());
-                NhanVien newNV = new NhanVien(MaNV, TenNV, SDT, Email, NgaySinh, TaiKhoan, MatKhau, maCV, 0);
-                int rowAffect = nvBUS.updateEmp(newNV);
+                String MatKhau;
+                int rowAffect;
+                if(String.valueOf(passTextField.getPassword()).isEmpty()) {
+                	NhanVien newNV = new NhanVien(MaNV, TenNV, SDT, Email, NgaySinh, TaiKhoan, maCV, 0);
+                	rowAffect = nvBUS.updateEmpWithoutPassword(newNV);
+                }
+                else {
+                	MatKhau = PasswordHash.hashPassword(String.valueOf(passTextField.getPassword()));
+                	NhanVien newNV = new NhanVien(MaNV, TenNV, SDT, Email, NgaySinh, TaiKhoan, MatKhau, maCV, 0);
+                	rowAffect = nvBUS.updateEmp(newNV);
+                }
+
+                 
                 if (rowAffect > 0) {
                     JOptionPane.showMessageDialog(this, "Cập nhật thành công", "Update", JOptionPane.INFORMATION_MESSAGE);
                     resetAllTF(takeTextFieldsList());
@@ -1593,12 +1580,13 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_sortComboBoxItemStateChanged
 
     private void addEmp() throws ParseException, ClassNotFoundException, SQLException {
-        if (allInputValid()) {
+        if (allInputValid() && !String.valueOf(passTextField.getPassword()).isEmpty()) {
             String name = nameTextField.getText();
             String phone = phoneTextField.getText();
             String mail = mailTextField.getText();
             String accountName = accountNameTextField.getText();
-            String pass = passTextField.getText();
+//            String pass = passTextField.getPa();
+            String pass = PasswordHash.hashPassword(new String(passTextField.getPassword()));
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             Date dateBirth = dateFormat.parse(dateTextField.getText());
@@ -1746,7 +1734,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel mailValidateLabel;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JLabel nameValidateLabel;
-    private javax.swing.JTextField passTextField;
+    private javax.swing.JPasswordField passTextField;
     private javax.swing.JTextField phoneTextField;
     private javax.swing.JLabel phoneValidateLabel;
     private javax.swing.JComboBox<String> positionComboBox;

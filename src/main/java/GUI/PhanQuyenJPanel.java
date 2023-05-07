@@ -89,30 +89,7 @@ public class PhanQuyenJPanel extends javax.swing.JPanel {
      * @throws SQLException 
      * @throws ClassNotFoundException 
      */
-    public PhanQuyenJPanel() throws ClassNotFoundException, SQLException {
-    	setForeground(new Color(31, 31, 31));
-        initComponents();
-        cvBUS = new ChucVuBUS();
-        nvBUS = new NhanVienBUS();
-        kTra = new KiemTra();
-        jLabel1.setIcon(new ImageIcon("src\\main\\java\\Images\\account-img.png"));
-        jLabel2.setIcon(new ImageIcon("src\\main\\java\\Images\\image-removebg-preview (1).png"));
-        delIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\delete.png"));
-        addIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\plus.png"));
-        editIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\edit.png"));
-        
-        
-        setDencenDetails();
-        setRowColorBackground(this.positionListTable);
 
-        initData();
-        initTable();
-        addSelectedCheckBoxEvent();
-        searchTFListener();
-        
-        addAllBorderFocus();
-        
-    }
     
     public PhanQuyenJPanel (NhanVien user, ChucVu permission) throws ClassNotFoundException, SQLException {
     	setForeground(new Color(31, 31, 31));
@@ -127,7 +104,7 @@ public class PhanQuyenJPanel extends javax.swing.JPanel {
         editIconLabel.setIcon(new ImageIcon("src\\main\\java\\Images\\edit.png"));
         
         
-        setDencenDetails();
+        setDencenDetails(permission);
         setRowColorBackground(this.positionListTable);
 
         initData();
@@ -139,11 +116,24 @@ public class PhanQuyenJPanel extends javax.swing.JPanel {
         
     }
 
-    private void setDencenDetails() {
-    	searchDencen = true;
-    	addDencen = true;
-    	delDencen = true;
-    	editDencen = true;
+    private void setDencenDetails(ChucVu cv) {
+    	searchDencen = false;
+    	addDencen = false;
+    	delDencen = false;
+    	editDencen = false;
+    	
+    	if(cv.getNhanVien().contains("them")) {
+    		addDencen = true;
+    	}
+    	if(cv.getNhanVien().contains("sua")) {
+    		editDencen = true;
+    	}
+    	if(cv.getNhanVien().contains("xoa")) {
+    		delDencen = true;
+    	}
+    	if(cv.getNhanVien().contains("timkiem")) {
+    		searchDencen = true;
+    	}
     	
     	if(searchDencen) {
     		searchTextField.setEditable(true);
