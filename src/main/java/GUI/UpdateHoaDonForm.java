@@ -165,7 +165,7 @@ public class UpdateHoaDonForm extends JFrame
       }
 
       for (int i = 0; i < comboBox_khachHang.getItemCount(); i++) {
-        if (((KhachHang) comboBox_khachHang.getItemAt(i)).getMaHD() ==(Integer.parseInt(maKH))) {
+        if (((KhachHang) comboBox_khachHang.getItemAt(i)).getMaKH() ==(Integer.parseInt(maKH))) {
           comboBox_khachHang.setSelectedIndex(i);
       
             break;
@@ -182,7 +182,7 @@ public class UpdateHoaDonForm extends JFrame
         selectedKH = (KhachHang) comboBox_khachHang.getSelectedItem();
         HoaDon hoaDon = new HoaDon();
         hoaDon.setMaHD(Integer.parseInt(jTextField_maHD.getText().trim())  );
-        hoaDon.setMaKH(selectedKH.getMaHD());
+        hoaDon.setMaKH(selectedKH.getMaKH());
         hoaDon.setMaNV( selectedNV.getMaNV());
         hoaDon.setMaKMHD(Integer.parseInt( comboBox_khuyenMai.getSelectedItem().toString()));
         updateHDBUS.updateHoaDon(hoaDon);
