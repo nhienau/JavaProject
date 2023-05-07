@@ -28,7 +28,6 @@ public class KhuyenMaiSanPhamBUS {
             if(arr.get(i).getIsDeleted()==0)
             {
                 temp.add(arr.get(i));
-                System.out.println(arr.get(i).getIsDeleted());
             }
         }
         return temp;
@@ -45,6 +44,12 @@ public class KhuyenMaiSanPhamBUS {
         return arr.toArray(new String[0]);
     }
     
+    public String[] getMaSPFromKMSP() throws ClassNotFoundException, SQLException
+    {
+        ArrayList<String> arr=kmspDAO.getMaSPFromKMSP();
+        return arr.toArray(new String[0]);
+    }
+
     public boolean updateKhuyenMaiSanPham(KhuyenMaiSanPham kmsp) throws SQLException, ClassNotFoundException
     {
         return kmspDAO.updateKmsp(kmsp);
@@ -58,7 +63,7 @@ public class KhuyenMaiSanPhamBUS {
     public ArrayList<KhuyenMaiSanPham> searchKmsp(String dk, String input,int dk1) throws SQLException, ClassNotFoundException
     {
         ArrayList<String> temp=new ArrayList<String>();
-        temp.add("Mã KMHD");
+        temp.add("Mã KMSP");
         temp.add("Ngày bắt đầu");
         temp.add("Ngày kết thúc");
         temp.add("Phần trăm giảm");
@@ -67,7 +72,7 @@ public class KhuyenMaiSanPhamBUS {
         temp.add("Tổng lượt đã dùng");
         temp.add("Mã SP");
         ArrayList<String> temp1=new ArrayList<String>();
-        temp1.add("MaKMHD");
+        temp1.add("MaKMSP");
         temp1.add("NgayBatDau");
         temp1.add("NgayKetThuc");
         temp1.add("PhanTramGiam");

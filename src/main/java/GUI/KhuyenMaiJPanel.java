@@ -8,7 +8,7 @@ import java.awt.LayoutManager;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import BUS.Coupon_BUS;
+import BUS.CouponBUS;
 import BUS.KhuyenMaiHoaDonBUS;
 import BUS.KhuyenMaiSanPhamBUS;
 import CUSTOM.KiemTra;
@@ -26,7 +26,9 @@ import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -35,6 +37,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -45,7 +48,7 @@ import javax.swing.table.TableModel;
  */
 public class KhuyenMaiJPanel extends javax.swing.JPanel {
     private KiemTra kt=new KiemTra();
-    private Coupon_BUS cpBUS=new Coupon_BUS();
+    private CouponBUS cpBUS=new CouponBUS();
     private KhuyenMaiSanPhamBUS kmspBUS=new KhuyenMaiSanPhamBUS();
     private KhuyenMaiHoaDonBUS kmhdBUS=new KhuyenMaiHoaDonBUS();
     /**
@@ -212,8 +215,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 int viewrow=table.convertRowIndexToModel(viewRow);
                 jTextField20.setText(table.getModel().getValueAt(viewrow, 0).toString());
                 jTextField19.setText(table.getModel().getValueAt(viewrow, 1).toString());
-                jTextField29.setText(table.getModel().getValueAt(viewrow, 2).toString());
-                jTextField30.setText(table.getModel().getValueAt(viewrow, 3).toString());
+                jSpinner18.setValue(Integer.parseInt(table.getModel().getValueAt(viewrow, 2).toString()));
+                jSpinner19.setValue(Integer.parseInt(table.getModel().getValueAt(viewrow, 3).toString()));
                 jComboBox17.setSelectedItem(table.getModel().getValueAt(viewrow, 4).toString());
             }
         }
@@ -243,10 +246,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 } catch (ParseException ex) {
                     Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                jTextField26.setText(table.getModel().getValueAt(viewrow, 3).toString());
-                jTextField27.setText(table.getModel().getValueAt(viewrow, 4).toString());
-                jTextField33.setText(table.getModel().getValueAt(viewrow, 5).toString());
-                jTextField34.setText(table.getModel().getValueAt(viewrow, 6).toString());
+                jSpinner11.setValue(Float.parseFloat(table.getModel().getValueAt(viewrow, 3).toString()));
+                jSpinner12.setValue(Double.parseDouble(table.getModel().getValueAt(viewrow, 4).toString()));
+                jSpinner16.setValue(Integer.parseInt(table.getModel().getValueAt(viewrow, 5).toString()));
+                jSpinner17.setValue(Integer.parseInt(table.getModel().getValueAt(viewrow, 6).toString()));
                 jComboBox13.setSelectedItem(table.getModel().getValueAt(viewrow, 7).toString());
             }
         }
@@ -278,11 +281,11 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                     Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 DecimalFormat format = new DecimalFormat("#######",new DecimalFormatSymbols(Locale.GERMAN));
-                tfdhtt.setText(format.format(Double.valueOf(table.getModel().getValueAt(viewrow, 4).toString())).toString());
-                tfptg.setText(table.getModel().getValueAt(viewrow, 5).toString());
-                tfstg.setText(table.getModel().getValueAt(viewrow, 6).toString());
-                tftlad.setText(table.getModel().getValueAt(viewrow, 7).toString());
-                tftldd.setText(table.getModel().getValueAt(viewrow, 8).toString());
+                jSpinner15.setValue(Double.parseDouble(table.getModel().getValueAt(viewrow, 4).toString()));
+                jSpinner9.setValue(Float.parseFloat(table.getModel().getValueAt(viewrow, 5).toString()));
+                jSpinner10.setValue(Double.parseDouble(table.getModel().getValueAt(viewrow, 6).toString()));
+                jSpinner13.setValue(Integer.parseInt(table.getModel().getValueAt(viewrow, 7).toString()));
+                jSpinner14.setValue(Integer.parseInt(table.getModel().getValueAt(viewrow, 8).toString()));
             }
         }
     });
@@ -290,8 +293,15 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     
     public void LoadComboBox() throws SQLException, ClassNotFoundException
     {
-        jComboBox17.setModel(new DefaultComboBoxModel(cpBUS.getDistincMaKMHD()));
-        jComboBox13.setModel(new DefaultComboBoxModel(kmspBUS.getMaSP()));
+        jComboBox17.setModel(new DefaultComboBoxModel(kmhdBUS.getAllMaKMHDNotDeleted()));
+        String[] arrmaspKMSP=kmspBUS.getMaSPFromKMSP();
+        String[] arrmasp=kmspBUS.getMaSP();
+        List<String> arr1=new ArrayList<String>(Arrays.asList(arrmasp));
+        for(int i=0;i<arrmaspKMSP.length;i++)
+        {
+            arr1.remove(arrmaspKMSP[i]);
+        }
+        jComboBox13.setModel(new DefaultComboBoxModel(arr1.toArray(new String[0])));
         String[] gg={"Mã KMHD","Tên KM","Ngày bắt đầu","Ngày kết thúc","Đơn hàng tối thiểu","Phần trăm giảm","Số tiền giảm","Tổng lượt áp dụng","Tổng lượt đã dùng"};
         jComboBox1.setModel(new DefaultComboBoxModel(gg));
         String[] ff={"Mã KMSP","Ngày bắt đầu","Ngày kết thúc","Phần trăm giảm","Số tiền giảm","Tổng lượt áp dụng","Tổng lượt đã dùng","Mã SP"};
@@ -343,18 +353,18 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         tfkmhd = new javax.swing.JTextField();
         jPanel21 = new javax.swing.JPanel();
         jLabel45 = new javax.swing.JLabel();
-        tfptg = new javax.swing.JTextField();
         jLabel46 = new javax.swing.JLabel();
-        tfdhtt = new javax.swing.JTextField();
         jLabel47 = new javax.swing.JLabel();
         tftkm = new javax.swing.JTextField();
+        jSpinner9 = new javax.swing.JSpinner();
+        jSpinner15 = new javax.swing.JSpinner();
         jPanel22 = new javax.swing.JPanel();
         jLabel62 = new javax.swing.JLabel();
-        tftlad = new javax.swing.JTextField();
         jLabel63 = new javax.swing.JLabel();
-        tftldd = new javax.swing.JTextField();
         jLabel64 = new javax.swing.JLabel();
-        tfstg = new javax.swing.JTextField();
+        jSpinner10 = new javax.swing.JSpinner();
+        jSpinner13 = new javax.swing.JSpinner();
+        jSpinner14 = new javax.swing.JSpinner();
         jPanel18 = new javax.swing.JPanel();
         bthem = new javax.swing.JButton();
         bsua = new javax.swing.JButton();
@@ -391,16 +401,16 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jSpinner4 = new javax.swing.JSpinner();
         jPanel9 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
-        jTextField26 = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
-        jTextField27 = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
         jComboBox13 = new javax.swing.JComboBox<>();
+        jSpinner11 = new javax.swing.JSpinner();
+        jSpinner12 = new javax.swing.JSpinner();
         jPanel16 = new javax.swing.JPanel();
         jLabel51 = new javax.swing.JLabel();
-        jTextField33 = new javax.swing.JTextField();
         jLabel52 = new javax.swing.JLabel();
-        jTextField34 = new javax.swing.JTextField();
+        jSpinner16 = new javax.swing.JSpinner();
+        jSpinner17 = new javax.swing.JSpinner();
         jPanel17 = new javax.swing.JPanel();
         jButton31 = new javax.swing.JButton();
         jButton32 = new javax.swing.JButton();
@@ -425,9 +435,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jTextField20 = new javax.swing.JTextField();
         jPanel12 = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
-        jTextField29 = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
-        jTextField30 = new javax.swing.JTextField();
+        jSpinner18 = new javax.swing.JSpinner();
+        jSpinner19 = new javax.swing.JSpinner();
         jPanel13 = new javax.swing.JPanel();
         jButton25 = new javax.swing.JButton();
         jButton26 = new javax.swing.JButton();
@@ -659,25 +669,12 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         jPanel21.add(jLabel45, gridBagConstraints);
 
-        tfptg.setMinimumSize(new java.awt.Dimension(72, 22));
-        tfptg.setPreferredSize(new java.awt.Dimension(160, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 2;
-        jPanel21.add(tfptg, gridBagConstraints);
-
         jLabel46.setForeground(new java.awt.Color(240, 240, 240));
         jLabel46.setText("Đơn hàng tối thiểu:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
         jPanel21.add(jLabel46, gridBagConstraints);
-
-        tfdhtt.setMinimumSize(new java.awt.Dimension(72, 22));
-        tfdhtt.setPreferredSize(new java.awt.Dimension(160, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
-        jPanel21.add(tfdhtt, gridBagConstraints);
 
         jLabel47.setForeground(new java.awt.Color(240, 240, 240));
         jLabel47.setText("Tên khuyến mãi:");
@@ -690,6 +687,31 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel21.add(tftkm, gridBagConstraints);
+
+        jSpinner9.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.0f), Float.valueOf(0.0f), Float.valueOf(100.0f), Float.valueOf(1.0f)));
+        jSpinner9.setMinimumSize(new java.awt.Dimension(72, 22));
+        jSpinner9.setPreferredSize(new java.awt.Dimension(160, 22));
+        jSpinner9.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner9StateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 2;
+        jPanel21.add(jSpinner9, gridBagConstraints);
+
+        jSpinner15.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 10000.0d));
+        jSpinner15.setMinimumSize(new java.awt.Dimension(72, 22));
+        jSpinner15.setPreferredSize(new java.awt.Dimension(160, 22));
+        jSpinner15.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner15StateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        jPanel21.add(jSpinner15, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 25);
@@ -705,25 +727,12 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
         jPanel22.add(jLabel62, gridBagConstraints);
 
-        tftlad.setMinimumSize(new java.awt.Dimension(82, 22));
-        tftlad.setPreferredSize(new java.awt.Dimension(160, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
-        jPanel22.add(tftlad, gridBagConstraints);
-
         jLabel63.setForeground(new java.awt.Color(240, 240, 240));
         jLabel63.setText("Tổng lượt đã dùng:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         jPanel22.add(jLabel63, gridBagConstraints);
-
-        tftldd.setMinimumSize(new java.awt.Dimension(82, 22));
-        tftldd.setPreferredSize(new java.awt.Dimension(160, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 2;
-        jPanel22.add(tftldd, gridBagConstraints);
 
         jLabel64.setForeground(new java.awt.Color(240, 240, 240));
         jLabel64.setText("Số tiền giảm:");
@@ -732,12 +741,37 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
         jPanel22.add(jLabel64, gridBagConstraints);
 
-        tfstg.setMinimumSize(new java.awt.Dimension(82, 22));
-        tfstg.setPreferredSize(new java.awt.Dimension(160, 22));
+        jSpinner10.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 10000.0d));
+        jSpinner10.setMinimumSize(new java.awt.Dimension(82, 22));
+        jSpinner10.setPreferredSize(new java.awt.Dimension(160, 22));
+        jSpinner10.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner10StateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
-        jPanel22.add(tfstg, gridBagConstraints);
+        jPanel22.add(jSpinner10, gridBagConstraints);
+
+        jSpinner13.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSpinner13.setMinimumSize(new java.awt.Dimension(82, 22));
+        jSpinner13.setPreferredSize(new java.awt.Dimension(160, 22));
+        jSpinner13.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner13StateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        jPanel22.add(jSpinner13, gridBagConstraints);
+
+        jSpinner14.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinner14.setMinimumSize(new java.awt.Dimension(82, 22));
+        jSpinner14.setPreferredSize(new java.awt.Dimension(160, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 2;
+        jPanel22.add(jSpinner14, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 25, 0, 0);
@@ -1030,12 +1064,6 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
         jPanel9.add(jLabel36, gridBagConstraints);
 
-        jTextField26.setMinimumSize(new java.awt.Dimension(82, 22));
-        jTextField26.setPreferredSize(new java.awt.Dimension(160, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
-        jPanel9.add(jTextField26, gridBagConstraints);
-
         jLabel37.setBackground(new java.awt.Color(31, 31, 31));
         jLabel37.setForeground(new java.awt.Color(240, 240, 240));
         jLabel37.setText("Số tiền giảm:");
@@ -1043,13 +1071,6 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
         jPanel9.add(jLabel37, gridBagConstraints);
-
-        jTextField27.setMinimumSize(new java.awt.Dimension(82, 22));
-        jTextField27.setPreferredSize(new java.awt.Dimension(160, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
-        jPanel9.add(jTextField27, gridBagConstraints);
 
         jLabel38.setBackground(new java.awt.Color(31, 31, 31));
         jLabel38.setForeground(new java.awt.Color(240, 240, 240));
@@ -1062,9 +1083,39 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jComboBox13.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox13.setMinimumSize(new java.awt.Dimension(82, 22));
         jComboBox13.setPreferredSize(new java.awt.Dimension(160, 22));
+        jComboBox13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox13ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
         jPanel9.add(jComboBox13, gridBagConstraints);
+
+        jSpinner11.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.0f), Float.valueOf(0.0f), Float.valueOf(100.0f), Float.valueOf(1.0f)));
+        jSpinner11.setMinimumSize(new java.awt.Dimension(82, 22));
+        jSpinner11.setPreferredSize(new java.awt.Dimension(160, 22));
+        jSpinner11.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner11StateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        jPanel9.add(jSpinner11, gridBagConstraints);
+
+        jSpinner12.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 10000.0d));
+        jSpinner12.setMinimumSize(new java.awt.Dimension(82, 22));
+        jSpinner12.setPreferredSize(new java.awt.Dimension(160, 22));
+        jSpinner12.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner12StateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        jPanel9.add(jSpinner12, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 25);
@@ -1080,12 +1131,6 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
         jPanel16.add(jLabel51, gridBagConstraints);
 
-        jTextField33.setMinimumSize(new java.awt.Dimension(82, 22));
-        jTextField33.setPreferredSize(new java.awt.Dimension(160, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
-        jPanel16.add(jTextField33, gridBagConstraints);
-
         jLabel52.setBackground(new java.awt.Color(31, 31, 31));
         jLabel52.setForeground(new java.awt.Color(240, 240, 240));
         jLabel52.setText("Tổng lượt đã dùng:");
@@ -1094,11 +1139,24 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         jPanel16.add(jLabel52, gridBagConstraints);
 
-        jTextField34.setMinimumSize(new java.awt.Dimension(82, 22));
-        jTextField34.setPreferredSize(new java.awt.Dimension(160, 22));
+        jSpinner16.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSpinner16.setMinimumSize(new java.awt.Dimension(82, 22));
+        jSpinner16.setPreferredSize(new java.awt.Dimension(160, 22));
+        jSpinner16.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner16StateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        jPanel16.add(jSpinner16, gridBagConstraints);
+
+        jSpinner17.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinner17.setMinimumSize(new java.awt.Dimension(82, 22));
+        jSpinner17.setPreferredSize(new java.awt.Dimension(160, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
-        jPanel16.add(jTextField34, gridBagConstraints);
+        jPanel16.add(jSpinner17, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 25, 0, 0);
@@ -1270,6 +1328,11 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jComboBox17.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox17.setMinimumSize(new java.awt.Dimension(82, 22));
         jComboBox17.setPreferredSize(new java.awt.Dimension(160, 22));
+        jComboBox17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox17ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
         jPanel11.add(jComboBox17, gridBagConstraints);
@@ -1299,12 +1362,6 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
         jPanel12.add(jLabel41, gridBagConstraints);
 
-        jTextField29.setMinimumSize(new java.awt.Dimension(82, 22));
-        jTextField29.setPreferredSize(new java.awt.Dimension(160, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 20);
-        jPanel12.add(jTextField29, gridBagConstraints);
-
         jLabel42.setForeground(new java.awt.Color(240, 240, 240));
         jLabel42.setText("Tổng lượt đã dùng:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1312,12 +1369,24 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         jPanel12.add(jLabel42, gridBagConstraints);
 
-        jTextField30.setMinimumSize(new java.awt.Dimension(82, 22));
-        jTextField30.setPreferredSize(new java.awt.Dimension(160, 22));
+        jSpinner18.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSpinner18.setMinimumSize(new java.awt.Dimension(82, 22));
+        jSpinner18.setPreferredSize(new java.awt.Dimension(160, 22));
+        jSpinner18.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner18StateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        jPanel12.add(jSpinner18, gridBagConstraints);
+
+        jSpinner19.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinner19.setMinimumSize(new java.awt.Dimension(82, 22));
+        jSpinner19.setPreferredSize(new java.awt.Dimension(160, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
-        jPanel12.add(jTextField30, gridBagConstraints);
+        jPanel12.add(jSpinner19, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 50);
@@ -1405,115 +1474,26 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         add(draggableRoundPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField20ActionPerformed
-
-    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
-        // TODO add your handling code here:
-            if(jTextField20.getText().isBlank()||jTextField19.getText().isBlank()||jTextField29.getText().isBlank()||jTextField30.getText().isBlank())
-            {
-                JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
-            }
-            else if(!kt.KTKhoangCach(jTextField19.getText())||!kt.KTKhoangCach(jTextField29.getText())||!kt.KTKhoangCach(jTextField30.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "Vui lòng không được có khoảng cách!");
-            }
-            else if(!kt.KTInt(jTextField29.getText())||!kt.KTInt(jTextField30.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "Vui lòng chỉ nhập số!");
-            }
-            else if(Integer.parseInt(jTextField29.getText())<0||Integer.parseInt(jTextField30.getText())<0)
-            {
-                JOptionPane.showMessageDialog(this, "Không được nhập số âm!");
-            }
-            else if(!kt.KTKyTuDacBietKhongKhoangCach(jTextField19.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "Vui lòng chỉ chữ với ký tự đặc biệt!");
-            }
-            else try {
-                if(cpBUS.hasCode(jTextField19.getText())!=false)
-                {
-                    JOptionPane.showMessageDialog(this, "Trùng code!");
-                }
-                else
-                {
-                    Coupon cp=new Coupon();
-                    cp.setCode(jTextField19.getText());
-                    cp.setMaKMHD(Integer.parseInt(jComboBox17.getItemAt(jComboBox17.getSelectedIndex())));
-                    cp.setTongLuotApDung(Integer.parseInt(jTextField29.getText()));
-                    cp.setTongLuotDaDung(Integer.parseInt(jTextField30.getText()));
-                    cp.setIsDeleted(0);
-                    try {
-                        cpBUS.addCoupon(cp);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    try {
-                        LoadCouponList();
-                        LoadComboBox();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    }//GEN-LAST:event_jButton25ActionPerformed
-
-    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
-        // TODO add your handling code here:
-        if(jTable3.getSelectedRows().length==0)
-        {
-            JOptionPane.showMessageDialog(this, "Chưa chọn hàng để sửa!");
+    private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
+        try {
+            // TODO add your handling code here:
+            LoadCouponList();
+            LoadComboBox();
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else if(jTextField20.getText().isBlank()||jTextField19.getText().isBlank()||jTextField29.getText().isBlank()||jTextField30.getText().isBlank())
-            {
-                JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
-            }
-            else if(!kt.KTKhoangCach(jTextField19.getText())||!kt.KTKhoangCach(jTextField29.getText())||!kt.KTKhoangCach(jTextField30.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "Vui lòng không được có khoảng cách!");
-            }
-            else if(!kt.KTSo(jTextField29.getText())||!kt.KTSo(jTextField30.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "Vui lòng chỉ nhập số!");
-            }
-            else if(!kt.KTKyTuDacBietKhongKhoangCach(jTextField19.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "Vui lòng chỉ chữ với ký tự đặc biệt!");
-            }
-            else{
-                    Coupon cp=new Coupon();
-                    cp.setMaCP(Integer.parseInt(jTextField20.getText()));
-                    cp.setCode(jTextField19.getText());
-                    cp.setMaKMHD(Integer.parseInt(jComboBox17.getItemAt(jComboBox17.getSelectedIndex())));
-                    cp.setTongLuotApDung(Integer.parseInt(jTextField29.getText()));
-                    cp.setTongLuotDaDung(Integer.parseInt(jTextField30.getText()));
-                    cp.setIsDeleted(0);
-                    try {
-                        cpBUS.updateCoupon(cp);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    try {
-                        LoadCouponList();
-                        LoadComboBox();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-            }
-    }//GEN-LAST:event_jButton26ActionPerformed
+    }//GEN-LAST:event_jButton29ActionPerformed
+
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+        // TODO add your handling code here:
+        jTable3.getSelectionModel().clearSelection();
+        jTextField20.setText("");
+        jTextField19.setText("");
+        jSpinner18.setValue(1);
+        jSpinner19.setValue(0);
+    }//GEN-LAST:event_jButton28ActionPerformed
 
     private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
         // TODO add your handling code here:
@@ -1541,90 +1521,78 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton27ActionPerformed
 
-    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
         // TODO add your handling code here:
-        jTable3.getSelectionModel().clearSelection();
-        jTextField20.setText("");
-        jTextField19.setText("");
-        jTextField29.setText("");
-        jTextField30.setText("");
-    }//GEN-LAST:event_jButton28ActionPerformed
-
-    private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
-        try {
-            // TODO add your handling code here:
-            LoadCouponList();
-            LoadComboBox();
-        } catch (SQLException ex) {
-            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        if(jTable3.getSelectedRows().length==0)
+        {
+            JOptionPane.showMessageDialog(this, "Chưa chọn hàng để sửa!");
         }
-    }//GEN-LAST:event_jButton29ActionPerformed
+        else if(jTextField19.getText().isBlank())
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
+        }
+        else if(!kt.KTKhoangCach(jTextField19.getText()))
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng không được có khoảng cách!");
+        }
+        else{
+            Coupon cp=new Coupon();
+            cp.setMaCP(Integer.parseInt(jTextField20.getText()));
+            cp.setCode(jTextField19.getText());
+            cp.setMaKMHD(Integer.parseInt(jComboBox17.getItemAt(jComboBox17.getSelectedIndex())));
+            cp.setTongLuotApDung((Integer)jSpinner18.getValue());
+            cp.setTongLuotDaDung((Integer)jSpinner19.getValue());
+            cp.setIsDeleted(0);
+            try {
+                cpBUS.updateCoupon(cp);
+            } catch (SQLException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                LoadCouponList();
+                LoadComboBox();
+            } catch (SQLException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton26ActionPerformed
 
-    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
         // TODO add your handling code here:
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            if(jTextField26.getText().isBlank()||jTextField27.getText().isBlank()||jTextField33.getText().isBlank()||jTextField34.getText().isBlank())
+        if(jTextField19.getText().isBlank())
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
+        }
+        else if(!kt.KTKhoangCach(jTextField19.getText()))
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng không được có khoảng cách!");
+        }
+        else try {
+            if(cpBUS.hasCode(jTextField19.getText())!=false)
             {
-                JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
+                JOptionPane.showMessageDialog(this, "Trùng code!");
             }
-            else if(!kt.KTKhoangCach(jTextField26.getText())||!kt.KTKhoangCach(jTextField27.getText())||!kt.KTKhoangCach(jTextField33.getText())||!kt.KTKhoangCach(jTextField34.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "Vui lòng không được có khoảng cách!");
-            }
-            else if(!kt.KTFloat(jTextField26.getText())||!kt.KTDouble(jTextField27.getText())||!kt.KTInt(jTextField33.getText())||!kt.KTInt(jTextField34.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập số!");
-            }
-            else if(Float.parseFloat(jTextField26.getText())<0||Double.parseDouble(jTextField27.getText())<0||Integer.parseInt(jTextField33.getText())<0||Integer.parseInt(jTextField34.getText())<0)
-        {
-            JOptionPane.showMessageDialog(this, "Không được bé hơn 0!");
-        }
-        else if(Float.parseFloat(jTextField26.getText())>0&&Double.parseDouble(jTextField27.getText())>0)
-        {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm với số tiền giảm 1 trong 2 phải nhập số 0!");
-        }
-        else if(Float.parseFloat(jTextField26.getText())==0&&Double.parseDouble(jTextField27.getText())==0)
-        {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm với số tiền giảm cả 2 không được nhập số 0!");
-        }
-        else if(Float.parseFloat(jTextField26.getText())>100)
-        {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm không được lớn hơn 100!");
-        }
-        else if(dcnbd.getDate()==null||dcnkt.getDate()==null)
-        {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày!");
-        }
             else
             {
-                KhuyenMaiSanPham kmsp=new KhuyenMaiSanPham();
-                kmsp.setMaKMSP(Integer.parseInt(jTextField28.getText()));
-                kmsp.setMaSP(Integer.parseInt(jComboBox13.getSelectedItem().toString()));
-                kmsp.setPhanTramGiam(Float.parseFloat(jTextField26.getText()));
-                kmsp.setSoTienGiam(Double.parseDouble(jTextField27.getText()));
-                kmsp.setTongLuotApDung(Integer.parseInt(jTextField33.getText()));
-                kmsp.setTongLuotDaDung(Integer.parseInt(jTextField34.getText()));
-                kmsp.setIsDeleted(0);
-                String datetime=sdfDate.format(jDateChooser11.getDate())+" "+(int)jSpinner1.getValue()+":"+(int)jSpinner2.getValue()+":00";
+                Coupon cp=new Coupon();
+                cp.setCode(jTextField19.getText());
+                cp.setMaKMHD(Integer.parseInt(jComboBox17.getItemAt(jComboBox17.getSelectedIndex())));
+                cp.setTongLuotApDung((Integer)jSpinner18.getValue());
+                cp.setTongLuotDaDung((Integer)jSpinner19.getValue());
+                cp.setIsDeleted(0);
                 try {
-                    Date gg=dateFormat.parse(datetime);
-                    kmsp.setNgayBatDau(new Timestamp(gg.getTime()));
-                } catch (ParseException ex) {
+                    cpBUS.addCoupon(cp);
+                } catch (SQLException ex) {
                     Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                String datetime1=sdfDate.format(jDateChooser12.getDate())+" "+(int)jSpinner3.getValue()+":"+(int)jSpinner4.getValue()+":00";
-                try {
-                    Date gg=dateFormat.parse(datetime1);
-                    kmsp.setNgayKetThuc(new Timestamp(gg.getTime()));
-                } catch (ParseException ex) {
+                } catch (ClassNotFoundException ex) {
                     Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 try {
-                    kmspBUS.addKhuyenMaiSanPham(kmsp);
-                    LoadKMSPList();
+                    LoadCouponList();
                     LoadComboBox();
                 } catch (SQLException ex) {
                     Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -1632,28 +1600,34 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                     Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-    }//GEN-LAST:event_jButton31ActionPerformed
-
-    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
-        // TODO add your handling code here:
-        jDateChooser11.setDate(null);
-        jDateChooser12.setDate(null);
-        jSpinner1.setValue(Integer.valueOf(0));
-        jSpinner2.setValue(Integer.valueOf(0));
-        jSpinner3.setValue(Integer.valueOf(0));
-        jSpinner4.setValue(Integer.valueOf(0));
-        jTextField26.setText("0");
-        jTextField27.setText("0");
-        jTextField33.setText("");
-        jTextField34.setText("");
-        try {
-            LoadKMSPList();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton30ActionPerformed
+    }//GEN-LAST:event_jButton25ActionPerformed
+
+    private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField20ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        // TODO add your handling code here:
+        if(jTextField12.getText().isBlank())
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
+        }
+        else
+        {
+            try {
+                changeTableModelCp(cpBUS.searchCp(jComboBox11.getSelectedItem().toString(), jTextField12.getText()));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton34ActionPerformed
         try {
@@ -1667,77 +1641,26 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton34ActionPerformed
 
-    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
+    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
         // TODO add your handling code here:
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if(jTable2.getSelectedRows().length==0)
-        {
-            JOptionPane.showMessageDialog(this, "Chưa chọn hàng để sửa!");
+        jDateChooser11.setDate(null);
+        jDateChooser12.setDate(null);
+        jSpinner1.setValue(0);
+        jSpinner2.setValue(0);
+        jSpinner3.setValue(0);
+        jSpinner4.setValue(0);
+        jSpinner11.setValue(0);
+        jSpinner12.setValue(0);
+        jSpinner16.setValue(0);
+        jSpinner17.setValue(0);
+        try {
+            LoadKMSPList();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else if(jTextField26.getText().isBlank()||jTextField27.getText().isBlank()||jTextField33.getText().isBlank()||jTextField34.getText().isBlank())
-        {
-            JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
-        }
-        else if(!kt.KTKhoangCach(jTextField26.getText())||!kt.KTKhoangCach(jTextField27.getText())||!kt.KTKhoangCach(jTextField33.getText())||!kt.KTKhoangCach(jTextField34.getText()))
-        {
-            JOptionPane.showMessageDialog(this, "Vui lòng không được có khoảng cách!");
-        }
-        else if(!kt.KTDouble(jTextField26.getText())||!kt.KTDouble(jTextField27.getText())||!kt.KTSo(jTextField33.getText())||!kt.KTSo(jTextField34.getText()))
-        {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập số!");
-        }
-        else if(Float.parseFloat(jTextField26.getText())<0||Double.parseDouble(jTextField27.getText())<0||Integer.parseInt(jTextField33.getText())<0||Integer.parseInt(jTextField34.getText())<0)
-        {
-            JOptionPane.showMessageDialog(this, "Không được bé hơn 0!");
-        }
-        else if(Float.parseFloat(jTextField26.getText())>0&&Double.parseDouble(jTextField27.getText())>0)
-        {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm với số tiền giảm 1 trong 2 phải nhập số 0!");
-        }
-        else if(Float.parseFloat(jTextField26.getText())==0&&Double.parseDouble(jTextField27.getText())==0)
-        {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm với số tiền giảm cả 2 không được nhập số 0!");
-        }
-        else if(Float.parseFloat(jTextField26.getText())>100)
-        {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm không được lớn hơn 100!");
-        }
-        else
-        {
-            KhuyenMaiSanPham kmsp=new KhuyenMaiSanPham();
-            kmsp.setMaKMSP(Integer.parseInt(jTextField28.getText()));
-            kmsp.setMaSP(Integer.parseInt(jComboBox13.getSelectedItem().toString()));
-            kmsp.setPhanTramGiam(Float.parseFloat(jTextField26.getText()));
-            kmsp.setSoTienGiam(Double.parseDouble(jTextField27.getText()));
-            kmsp.setTongLuotApDung(Integer.parseInt(jTextField33.getText()));
-            kmsp.setTongLuotDaDung(Integer.parseInt(jTextField34.getText()));
-            kmsp.setIsDeleted(0);
-            String datetime=sdfDate.format(jDateChooser11.getDate())+" "+(int)jSpinner1.getValue()+":"+(int)jSpinner2.getValue()+":00";
-            try {
-                Date gg=dateFormat.parse(datetime);
-                kmsp.setNgayBatDau(new Timestamp(gg.getTime()));
-            } catch (ParseException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            String datetime1=sdfDate.format(jDateChooser12.getDate())+" "+(int)jSpinner3.getValue()+":"+(int)jSpinner4.getValue()+":00";
-            try {
-                Date gg=dateFormat.parse(datetime1);
-                kmsp.setNgayKetThuc(new Timestamp(gg.getTime()));
-            } catch (ParseException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                kmspBUS.updateKhuyenMaiSanPham(kmsp);
-                LoadKMSPList();
-                LoadComboBox();
-            } catch (SQLException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_jButton32ActionPerformed
+    }//GEN-LAST:event_jButton30ActionPerformed
 
     private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
         // TODO add your handling code here:
@@ -1765,37 +1688,253 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton33ActionPerformed
 
-    private void bthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthemActionPerformed
+    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
         // TODO add your handling code here:
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if(tftkm.getText().isBlank()||tfdhtt.getText().isBlank()||tfptg.getText().isBlank()||tfstg.getText().isBlank()||tftlad.getText().isBlank()||tftldd.getText().isBlank())
+        if(jTable2.getSelectedRows().length==0)
+        {
+            JOptionPane.showMessageDialog(this, "Chưa chọn hàng để sửa!");
+        }
+        else if(dcnbd.getDate()==null||dcnkt.getDate()==null)
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày!");
+        }
+        else
+        {
+            KhuyenMaiSanPham kmsp=new KhuyenMaiSanPham();
+            kmsp.setMaKMSP(Integer.parseInt(jTextField28.getText()));
+            kmsp.setMaSP(Integer.parseInt(jComboBox13.getSelectedItem().toString()));
+            kmsp.setPhanTramGiam((Float)jSpinner11.getValue());
+            kmsp.setSoTienGiam((Double)jSpinner12.getValue());
+            kmsp.setTongLuotApDung((Integer)jSpinner16.getValue());
+            kmsp.setTongLuotDaDung((Integer)jSpinner17.getValue());
+            kmsp.setIsDeleted(0);
+            String datetime=sdfDate.format(jDateChooser11.getDate())+" "+(int)jSpinner1.getValue()+":"+(int)jSpinner2.getValue()+":00";
+            try {
+                Date gg=dateFormat.parse(datetime);
+                kmsp.setNgayBatDau(new Timestamp(gg.getTime()));
+            } catch (ParseException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String datetime1=sdfDate.format(jDateChooser12.getDate())+" "+(int)jSpinner3.getValue()+":"+(int)jSpinner4.getValue()+":00";
+            try {
+                Date gg=dateFormat.parse(datetime1);
+                kmsp.setNgayKetThuc(new Timestamp(gg.getTime()));
+            } catch (ParseException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                kmspBUS.updateKhuyenMaiSanPham(kmsp);
+                LoadKMSPList();
+                LoadComboBox();
+            } catch (SQLException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton32ActionPerformed
+
+    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(dcnbd.getDate()==null||dcnkt.getDate()==null)
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày!");
+        }
+        else
+        {
+            KhuyenMaiSanPham kmsp=new KhuyenMaiSanPham();
+            kmsp.setMaSP(Integer.parseInt(jComboBox13.getSelectedItem().toString()));
+            kmsp.setPhanTramGiam((Float)jSpinner11.getValue());
+            kmsp.setSoTienGiam((Double)jSpinner12.getValue());
+            kmsp.setTongLuotApDung((Integer)jSpinner16.getValue());
+            kmsp.setTongLuotDaDung((Integer)jSpinner17.getValue());
+            kmsp.setIsDeleted(0);
+            String datetime=sdfDate.format(jDateChooser11.getDate())+" "+(int)jSpinner1.getValue()+":"+(int)jSpinner2.getValue()+":00";
+            try {
+                Date gg=dateFormat.parse(datetime);
+                kmsp.setNgayBatDau(new Timestamp(gg.getTime()));
+            } catch (ParseException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String datetime1=sdfDate.format(jDateChooser12.getDate())+" "+(int)jSpinner3.getValue()+":"+(int)jSpinner4.getValue()+":00";
+            try {
+                Date gg=dateFormat.parse(datetime1);
+                kmsp.setNgayKetThuc(new Timestamp(gg.getTime()));
+            } catch (ParseException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                kmspBUS.addKhuyenMaiSanPham(kmsp);
+                LoadKMSPList();
+                LoadComboBox();
+            } catch (SQLException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton31ActionPerformed
+
+    private void jSpinner16StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner16StateChanged
+        // TODO add your handling code here:
+        try {
+            jSpinner16.commitEdit();
+        } catch ( java.text.ParseException e ) {}
+        SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, (int)jSpinner16.getValue(), 1);
+        jSpinner17.setModel(model);
+    }//GEN-LAST:event_jSpinner16StateChanged
+
+    private void jDateChooser12PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser12PropertyChange
+        // TODO add your handling code here:
+        jDateChooser11.setMaxSelectableDate(jDateChooser12.getDate());
+    }//GEN-LAST:event_jDateChooser12PropertyChange
+
+    private void jDateChooser11PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser11PropertyChange
+        // TODO add your handling code here:
+        jDateChooser12.setMinSelectableDate(jDateChooser11.getDate());
+    }//GEN-LAST:event_jDateChooser11PropertyChange
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        // TODO add your handling code here:
+        if(jTextField2.getText().isBlank()&&jComboBox10.getSelectedItem().toString()!="Ngày bắt đầu" && jComboBox10.getSelectedItem().toString()!="Ngày kết thúc")
         {
             JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
         }
-        else if(!kt.KTKhoangCach(tfdhtt.getText())||!kt.KTKhoangCach(tfptg.getText())||!kt.KTKhoangCach(tfstg.getText())||!kt.KTKhoangCach(tftlad.getText())||!kt.KTKhoangCach(tftldd.getText()))
+        else if(jDateChooser2.getDate()==null && jComboBox10.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox10.getSelectedItem().toString()=="Ngày kết thúc")
         {
-            JOptionPane.showMessageDialog(this, "Vui lòng không được có khoảng cách!");
+            JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống ngày!");
         }
-        else if(!kt.KTDouble(tfdhtt.getText())||!kt.KTFloat(tfptg.getText())||!kt.KTDouble(tfstg.getText())||!kt.KTInt(tftlad.getText())||!kt.KTInt(tftldd.getText()))
+        else
         {
-            JOptionPane.showMessageDialog(this, "Vui lòng chỉ nhập số!");
+            if(jComboBox10.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox10.getSelectedItem().toString()=="Ngày kết thúc")
+            {
+                if(jRadioButton3.isSelected()==true)
+                {
+                    try {
+                        changeTableModelKmsp(kmspBUS.searchKmsp(jComboBox10.getSelectedItem().toString(), jDateChooser2.getDate().toString(), 1));
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if(jRadioButton4.isSelected()==true)
+                {
+                    try {
+                        changeTableModelKmsp(kmspBUS.searchKmsp(jComboBox10.getSelectedItem().toString(), jDateChooser2.getDate().toString(), 0));
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            else
+            {
+                try {
+                    changeTableModelKmsp(kmspBUS.searchKmsp(jComboBox10.getSelectedItem().toString(), jTextField2.getText(), 1));
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-        else if(Double.parseDouble(tfdhtt.getText())<0||Float.parseFloat(tfptg.getText())<0||Double.parseDouble(tfstg.getText())<0||Integer.parseInt(tftlad.getText())<0||Integer.parseInt(tftldd.getText())<0)
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jComboBox10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox10ActionPerformed
+        // TODO add your handling code here:
+        if(jComboBox10.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox10.getSelectedItem().toString()=="Ngày kết thúc")
         {
-            JOptionPane.showMessageDialog(this, "Không được bé hơn 0!");
+            jDateChooser2.setVisible(true);
+            jRadioButton3.setVisible(true);
+            jRadioButton4.setVisible(true);
+            jTextField2.setVisible(false);
         }
-        else if(Float.parseFloat(tfptg.getText())>0&&Double.parseDouble(tfstg.getText())>0)
+        else
         {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm với số tiền giảm 1 trong 2 phải nhập số 0!");
+            jDateChooser2.setVisible(false);
+            jRadioButton3.setVisible(false);
+            jRadioButton4.setVisible(false);
+            jTextField2.setVisible(true);
         }
-        else if(Float.parseFloat(tfptg.getText())==0&&Double.parseDouble(tfstg.getText())==0)
-        {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm với số tiền giảm cả 2 không được nhập số 0!");
+    }//GEN-LAST:event_jComboBox10ActionPerformed
+
+    private void brefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brefreshActionPerformed
+        try {
+            // TODO add your handling code here:
+            LoadKMHDList();
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else if(Float.parseFloat(tfptg.getText())>100)
+    }//GEN-LAST:event_brefreshActionPerformed
+
+    private void bxoanhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bxoanhapActionPerformed
+        // TODO add your handling code here:
+        dcnbd.setDate(null);
+        dcnkt.setDate(null);
+        jSpinner5.setValue(Integer.valueOf(0));
+        jSpinner6.setValue(Integer.valueOf(0));
+        jSpinner7.setValue(Integer.valueOf(0));
+        jSpinner8.setValue(Integer.valueOf(0));
+        tfkmhd.setText("");
+        tftkm.setText("");
+        jSpinner9.setValue(0.0);
+        jSpinner10.setValue(0);
+        jSpinner15.setValue(0);
+        jSpinner13.setValue(0);
+        jSpinner14.setValue(0);
+        try {
+            LoadKMHDList();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bxoanhapActionPerformed
+
+    private void bxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bxoaActionPerformed
+        // TODO add your handling code here:
+        if(jTable1.getSelectedRows().length==0)
         {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm không được lớn hơn 100!");
+            JOptionPane.showMessageDialog(this, "Chưa chọn hàng để xóa!");
+        }
+        else for(int i=0;i<jTable1.getSelectedRows().length;i++)
+        {
+            try {
+                kmhdBUS.deleteKmhd(Integer.parseInt(jTable1.getModel().getValueAt(jTable1.getSelectedRows()[i], 0).toString()));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        try {
+            LoadKMHDList();
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bxoaActionPerformed
+
+    private void bsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsuaActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(jTable1.getSelectedRows().length==0)
+        {
+            JOptionPane.showMessageDialog(this, "Chưa chọn hàng để sửa!");
         }
         else if(dcnbd.getDate()==null||dcnkt.getDate()==null)
         {
@@ -1805,11 +1944,62 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
             KhuyenMaiHoaDon kmhd=new KhuyenMaiHoaDon();
             kmhd.setMaKMHD(Integer.parseInt(tfkmhd.getText()));
             kmhd.setTenKM(tftkm.getText());
-            kmhd.setPhanTramGiam(Float.parseFloat(tfptg.getText()));
-            kmhd.setDonHangToiThieu(Double.parseDouble(tfdhtt.getText()));
-            kmhd.setSoTienGiam(Double.parseDouble(tfstg.getText()));
-            kmhd.setTongLuotApDung(Integer.parseInt(tftlad.getText()));
-            kmhd.setTongLuotDaDung(Integer.parseInt(tftldd.getText()));
+            kmhd.setPhanTramGiam((Float)Float.parseFloat(jSpinner9.getValue().toString()));
+            kmhd.setDonHangToiThieu((Double)jSpinner15.getValue());
+            kmhd.setSoTienGiam((Double)jSpinner10.getValue());
+            kmhd.setTongLuotApDung((Integer)jSpinner13.getValue());
+            kmhd.setTongLuotDaDung((Integer)jSpinner14.getValue());
+            String datetime=sdfDate.format(dcnbd.getDate())+" "+(int)jSpinner5.getValue()+":"+(int)jSpinner6.getValue()+":00";
+            try {
+                Date gg=dateFormat.parse(datetime);
+                kmhd.setNgayBatDau(new Timestamp(gg.getTime()));
+            } catch (ParseException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String datetime1=sdfDate.format(dcnkt.getDate())+" "+(int)jSpinner7.getValue()+":"+(int)jSpinner8.getValue()+":00";
+            try {
+                Date gg=dateFormat.parse(datetime1);
+                kmhd.setNgayKetThuc(new Timestamp(gg.getTime()));
+            } catch (ParseException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                kmhdBUS.updateKmhd(kmhd);
+            } catch (SQLException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                LoadKMHDList();
+            } catch (SQLException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_bsuaActionPerformed
+
+    private void bthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthemActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(tftkm.getText().isBlank())
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
+        }
+        else if(dcnbd.getDate()==null||dcnkt.getDate()==null)
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày!");
+        }
+        else {
+            KhuyenMaiHoaDon kmhd=new KhuyenMaiHoaDon();
+            kmhd.setTenKM(tftkm.getText());
+            kmhd.setPhanTramGiam((Float)Float.parseFloat(jSpinner9.getValue().toString()));
+            kmhd.setDonHangToiThieu((Double)Double.parseDouble(jSpinner15.getValue().toString()));
+            kmhd.setSoTienGiam((Double)Double.parseDouble(jSpinner10.getValue().toString()));
+            kmhd.setTongLuotApDung((Integer)Integer.parseInt(jSpinner13.getValue().toString()));
+            kmhd.setTongLuotDaDung((Integer)Integer.parseInt(jSpinner14.getValue().toString()));
             String datetime=sdfDate.format(dcnbd.getDate())+" "+(int)jSpinner5.getValue()+":"+(int)jSpinner6.getValue()+":00";
             try {
                 Date gg=dateFormat.parse(datetime);
@@ -1842,163 +2032,62 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_bthemActionPerformed
 
-    private void bsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsuaActionPerformed
+    private void jSpinner13StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner13StateChanged
         // TODO add your handling code here:
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if(jTable1.getSelectedRows().length==0)
-        {
-            JOptionPane.showMessageDialog(this, "Chưa chọn hàng để sửa!");
-        }
-        else if(tftkm.getText().isBlank()||tfdhtt.getText().isBlank()||tfptg.getText().isBlank()||tfstg.getText().isBlank()||tftlad.getText().isBlank()||tftldd.getText().isBlank())
-        {
-            JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
-        }
-        else if(!kt.KTKhoangCach(tfdhtt.getText())||!kt.KTKhoangCach(tfptg.getText())||!kt.KTKhoangCach(tfstg.getText())||!kt.KTKhoangCach(tftlad.getText())||!kt.KTKhoangCach(tftldd.getText()))
-        {
-            JOptionPane.showMessageDialog(this, "Vui lòng không được có khoảng cách!");
-        }
-        else if(!kt.KTDouble(tfdhtt.getText())||!kt.KTFloat(tfptg.getText())||!kt.KTDouble(tfstg.getText())||!kt.KTInt(tftlad.getText())||!kt.KTInt(tftldd.getText()))
-        {
-            JOptionPane.showMessageDialog(this, "Vui lòng chỉ nhập số!");
-        }
-        else if(Double.parseDouble(tfdhtt.getText())<0||Float.parseFloat(tfptg.getText())<0||Double.parseDouble(tfstg.getText())<0||Integer.parseInt(tftlad.getText())<0||Integer.parseInt(tftldd.getText())<0)
-        {
-            JOptionPane.showMessageDialog(this, "Không được bé hơn 0!");
-        }
-        else if(Float.parseFloat(tfptg.getText())>0&&Double.parseDouble(tfstg.getText())>0)
-        {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm với số tiền giảm 1 trong 2 phải nhập số 0!");
-        }
-        else if(Float.parseFloat(tfptg.getText())==0&&Double.parseDouble(tfstg.getText())==0)
-        {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm với số tiền giảm cả 2 không được nhập số 0!");
-        }
-        else if(Float.parseFloat(tfptg.getText())>100)
-        {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm không được lớn hơn 100!");
-        }
-        else if(dcnbd.getDate()==null||dcnkt.getDate()==null)
-        {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày!");
-        }
-        else {
-            KhuyenMaiHoaDon kmhd=new KhuyenMaiHoaDon();
-            kmhd.setMaKMHD(Integer.parseInt(tfkmhd.getText()));
-            kmhd.setTenKM(tftkm.getText());
-            kmhd.setPhanTramGiam(Float.parseFloat(tfptg.getText()));
-            kmhd.setDonHangToiThieu(Double.parseDouble(tfdhtt.getText()));
-            kmhd.setSoTienGiam(Double.parseDouble(tfstg.getText()));
-            kmhd.setTongLuotApDung(Integer.parseInt(tftlad.getText()));
-            kmhd.setTongLuotDaDung(Integer.parseInt(tftldd.getText()));
-            String datetime=sdfDate.format(dcnbd.getDate())+" "+(int)jSpinner5.getValue()+":"+(int)jSpinner6.getValue()+":00";
-            try {
-                Date gg=dateFormat.parse(datetime);
-                kmhd.setNgayBatDau(new Timestamp(gg.getTime()));
-            } catch (ParseException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            String datetime1=sdfDate.format(dcnkt.getDate())+" "+(int)jSpinner7.getValue()+":"+(int)jSpinner8.getValue()+":00";
-            try {
-                Date gg=dateFormat.parse(datetime1);
-                kmhd.setNgayKetThuc(new Timestamp(gg.getTime()));
-            } catch (ParseException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                kmhdBUS.updateKmhd(kmhd);
-            } catch (SQLException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                LoadKMHDList();
-            } catch (SQLException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_bsuaActionPerformed
-
-    private void bxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bxoaActionPerformed
-        // TODO add your handling code here:
-        if(jTable1.getSelectedRows().length==0)
-        {
-            JOptionPane.showMessageDialog(this, "Chưa chọn hàng để xóa!");
-        }
-        else for(int i=0;i<jTable1.getSelectedRows().length;i++)
-        {
-            try {
-                kmhdBUS.deleteKmhd(Integer.parseInt(jTable1.getModel().getValueAt(jTable1.getSelectedRows()[i], 0).toString()));
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
         try {
-            LoadKMHDList();
-        } catch (SQLException ex) {
-            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_bxoaActionPerformed
+            jSpinner13.commitEdit();
+        } catch ( java.text.ParseException e ) {}
+        SpinnerNumberModel model = new SpinnerNumberModel(0, 0, (int)jSpinner13.getValue(), 1);
+        jSpinner14.setModel(model);
+    }//GEN-LAST:event_jSpinner13StateChanged
 
-    private void bxoanhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bxoanhapActionPerformed
+    private void jSpinner10StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner10StateChanged
         // TODO add your handling code here:
-        dcnbd.setDate(null);
-        dcnkt.setDate(null);
-        jSpinner5.setValue(Integer.valueOf(0));
-        jSpinner6.setValue(Integer.valueOf(0));
-        jSpinner7.setValue(Integer.valueOf(0));
-        jSpinner8.setValue(Integer.valueOf(0));
-        tfkmhd.setText("");
-        tftkm.setText("");
-        tfptg.setText("0");
-        tfstg.setText("0");
-        tfdhtt.setText("");
-        tftlad.setText("");
-        tftldd.setText("");
         try {
-            LoadKMHDList();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_bxoanhapActionPerformed
-
-    private void brefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brefreshActionPerformed
-        try {
-            // TODO add your handling code here:
-            LoadKMHDList();
-        } catch (SQLException ex) {
-            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_brefreshActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-        if(jComboBox1.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox1.getSelectedItem().toString()=="Ngày kết thúc")
+            jSpinner10.commitEdit();
+        } catch ( java.text.ParseException e ) {}
+        if((Double)jSpinner10.getValue()>0)
         {
-            jDateChooser1.setVisible(true);
-            jRadioButton1.setVisible(true);
-            jRadioButton2.setVisible(true);
-            jTextField1.setVisible(false);
+            SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, 0.0, 1);
+            jSpinner9.setModel(model);
         }
         else
         {
-            jDateChooser1.setVisible(false);
-            jRadioButton1.setVisible(false);
-            jRadioButton2.setVisible(false);
-            jTextField1.setVisible(true);
+            SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, 100, 1);
+            jSpinner9.setModel(model);
         }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jSpinner10StateChanged
+
+    private void jSpinner15StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner15StateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jSpinner15StateChanged
+
+    private void jSpinner9StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner9StateChanged
+        // TODO add your handling code here:
+        try {
+            jSpinner9.commitEdit();
+        } catch ( java.text.ParseException e ) {}
+        if((Float)Float.parseFloat(jSpinner9.getValue().toString())>0)
+        {
+            SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, 0.0, 10000);
+            jSpinner10.setModel(model);
+        }
+        else
+        {
+            SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, Double.MAX_VALUE, 10000);
+            jSpinner10.setModel(model);
+        }
+    }//GEN-LAST:event_jSpinner9StateChanged
+
+    private void dcnktPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dcnktPropertyChange
+        // TODO add your handling code here:
+        dcnbd.setMaxSelectableDate(dcnkt.getDate());
+    }//GEN-LAST:event_dcnktPropertyChange
+
+    private void dcnbdPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dcnbdPropertyChange
+        // TODO add your handling code here:
+        dcnkt.setMinSelectableDate(dcnbd.getDate());
+    }//GEN-LAST:event_dcnbdPropertyChange
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
@@ -2042,123 +2131,80 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
             else
             {
                 try {
-                        changeTableModelKmhd(kmhdBUS.searchKmhd(jComboBox1.getSelectedItem().toString(), jTextField1.getText(), 1));
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    changeTableModelKmhd(kmhdBUS.searchKmhd(jComboBox1.getSelectedItem().toString(), jTextField1.getText(), 1));
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void dcnbdPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dcnbdPropertyChange
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        dcnkt.setMinSelectableDate(dcnbd.getDate());
-    }//GEN-LAST:event_dcnbdPropertyChange
-
-    private void dcnktPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dcnktPropertyChange
-        // TODO add your handling code here:
-        dcnbd.setMaxSelectableDate(dcnkt.getDate());
-    }//GEN-LAST:event_dcnktPropertyChange
-
-    private void jDateChooser11PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser11PropertyChange
-        // TODO add your handling code here:
-        jDateChooser12.setMinSelectableDate(jDateChooser11.getDate());
-    }//GEN-LAST:event_jDateChooser11PropertyChange
-
-    private void jDateChooser12PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser12PropertyChange
-        // TODO add your handling code here:
-        jDateChooser11.setMaxSelectableDate(jDateChooser12.getDate());
-    }//GEN-LAST:event_jDateChooser12PropertyChange
-
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
-
-    private void jComboBox10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox10ActionPerformed
-        // TODO add your handling code here:
-        if(jComboBox10.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox10.getSelectedItem().toString()=="Ngày kết thúc")
+        if(jComboBox1.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox1.getSelectedItem().toString()=="Ngày kết thúc")
         {
-            jDateChooser2.setVisible(true);
-            jRadioButton3.setVisible(true);
-            jRadioButton4.setVisible(true);
-            jTextField2.setVisible(false);
+            jDateChooser1.setVisible(true);
+            jRadioButton1.setVisible(true);
+            jRadioButton2.setVisible(true);
+            jTextField1.setVisible(false);
         }
         else
         {
-            jDateChooser2.setVisible(false);
-            jRadioButton3.setVisible(false);
-            jRadioButton4.setVisible(false);
-            jTextField2.setVisible(true);
+            jDateChooser1.setVisible(false);
+            jRadioButton1.setVisible(false);
+            jRadioButton2.setVisible(false);
+            jTextField1.setVisible(true);
         }
-    }//GEN-LAST:event_jComboBox10ActionPerformed
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+    private void jSpinner18StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner18StateChanged
         // TODO add your handling code here:
-        if(jTextField2.getText().isBlank()&&jComboBox10.getSelectedItem().toString()!="Ngày bắt đầu" && jComboBox10.getSelectedItem().toString()!="Ngày kết thúc")
+    }//GEN-LAST:event_jSpinner18StateChanged
+
+    private void jSpinner11StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner11StateChanged
+        // TODO add your handling code here:
+        try {
+            jSpinner11.commitEdit();
+        } catch ( java.text.ParseException e ) {}
+        if((Float)jSpinner11.getValue()>0)
         {
-            JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
-        }
-        else if(jDateChooser2.getDate()==null && jComboBox10.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox10.getSelectedItem().toString()=="Ngày kết thúc")
-        {
-            JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống ngày!");
+            SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, 0.0, 10000);
+            jSpinner12.setModel(model);
         }
         else
         {
-            if(jComboBox10.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox10.getSelectedItem().toString()=="Ngày kết thúc")
-            {
-                if(jRadioButton3.isSelected()==true)
-                {
-                    try {
-                        changeTableModelKmsp(kmspBUS.searchKmsp(jComboBox10.getSelectedItem().toString(), jDateChooser2.getDate().toString(), 1));
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                if(jRadioButton4.isSelected()==true)
-                {
-                    try {
-                        changeTableModelKmsp(kmspBUS.searchKmsp(jComboBox10.getSelectedItem().toString(), jDateChooser2.getDate().toString(), 0));
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-            else
-            {
-                try {
-                        changeTableModelKmsp(kmspBUS.searchKmsp(jComboBox10.getSelectedItem().toString(), jTextField2.getText(), 1));
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-            }
+            SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, Double.MAX_VALUE, 10000);
+            jSpinner12.setModel(model);
         }
-    }//GEN-LAST:event_jButton17ActionPerformed
+    }//GEN-LAST:event_jSpinner11StateChanged
 
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+    private void jSpinner12StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner12StateChanged
         // TODO add your handling code here:
-        if(jTextField12.getText().isBlank())
+        try {
+            jSpinner12.commitEdit();
+        } catch ( java.text.ParseException e ) {}
+        if((Double)jSpinner12.getValue()>0)
         {
-            JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
+            SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, 0.0, 1);
+            jSpinner11.setModel(model);
         }
         else
         {
-            try {
-                changeTableModelCp(cpBUS.searchCp(jComboBox11.getSelectedItem().toString(), jTextField12.getText()));
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, 100, 1);
+            jSpinner11.setModel(model);
         }
-    }//GEN-LAST:event_jButton18ActionPerformed
+    }//GEN-LAST:event_jSpinner12StateChanged
+
+    private void jComboBox13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox13ActionPerformed
+
+    private void jComboBox17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox17ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBox17ActionPerformed
     
     public void changeTableModelKmhd(ArrayList<KhuyenMaiHoaDon> arr)
     {
@@ -2335,6 +2381,16 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSpinner10;
+    private javax.swing.JSpinner jSpinner11;
+    private javax.swing.JSpinner jSpinner12;
+    private javax.swing.JSpinner jSpinner13;
+    private javax.swing.JSpinner jSpinner14;
+    private javax.swing.JSpinner jSpinner15;
+    private javax.swing.JSpinner jSpinner16;
+    private javax.swing.JSpinner jSpinner17;
+    private javax.swing.JSpinner jSpinner18;
+    private javax.swing.JSpinner jSpinner19;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
@@ -2342,6 +2398,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     private javax.swing.JSpinner jSpinner6;
     private javax.swing.JSpinner jSpinner7;
     private javax.swing.JSpinner jSpinner8;
+    private javax.swing.JSpinner jSpinner9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
@@ -2351,19 +2408,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField19;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField26;
-    private javax.swing.JTextField jTextField27;
     private javax.swing.JTextField jTextField28;
-    private javax.swing.JTextField jTextField29;
-    private javax.swing.JTextField jTextField30;
-    private javax.swing.JTextField jTextField33;
-    private javax.swing.JTextField jTextField34;
-    private javax.swing.JTextField tfdhtt;
     private javax.swing.JTextField tfkmhd;
-    private javax.swing.JTextField tfptg;
-    private javax.swing.JTextField tfstg;
     private javax.swing.JTextField tftkm;
-    private javax.swing.JTextField tftlad;
-    private javax.swing.JTextField tftldd;
     // End of variables declaration//GEN-END:variables
 }

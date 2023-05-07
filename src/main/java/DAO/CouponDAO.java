@@ -5,7 +5,9 @@
 package DAO;
 
 import DTO.Coupon;
+import DTO.HoaDon;
 import java.sql.*;
+import static java.sql.Types.NULL;
 import java.util.ArrayList;
 /**
  *
@@ -44,7 +46,7 @@ public class CouponDAO {
                 conn.close();
             }
         }
-        System.out.print(arr.size());
+        //System.out.print(arr.size());
         return arr;
     }
     
@@ -137,7 +139,7 @@ public class CouponDAO {
         if(conn!=null)
         {
             Statement stm=conn.createStatement();
-            ResultSet rs;//ORDER BY Difference(City, @City) DESC
+            ResultSet rs;
             String sql="select * from coupon where "+dk+" like '%"+input+"%' and IsDeleted='0'";
             //PreparedStatement stm1=conn.prepareStatement(sql);
             //stm1.setString(1, input);
@@ -155,5 +157,59 @@ public class CouponDAO {
             }
         }
         return arr;
+    }
+    
+    public boolean addHD(HoaDon hd) throws ClassNotFoundException, SQLException
+    {
+        java.sql.Date sqlDate = new java.sql.Date(hd.getNgayTao().getTime());
+        boolean result = false;
+        Connection conn=db.connect();
+        if(conn!=null) {
+            try {
+                    String sql = "Insert into hoadon(MaKH,MaNV,MaKMHD,NgayTao,TongTien,IsDeleted) values(?,?,?,?,?,?)";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    if(hd.getMaKMHD()!=NULL)
+                    {
+                        stmt.setInt(1, hd.getMaKH());
+                        stmt.setInt(2, hd.getMaNV());
+                        stmt.setInt(3, hd.getMaKMHD());
+                        stmt.setDate(4, sqlDate);
+                        stmt.setDouble(5, hd.getTongTien());
+                        stmt.setInt(6, 0);
+                    }
+                    else
+                    {
+                        stmt.setInt(1, hd.getMaKH());
+                        stmt.setInt(2, hd.getMaNV());
+                        stmt.setNull(3, NULL);
+                        stmt.setDate(4, sqlDate);
+                        stmt.setDouble(5, hd.getTongTien());
+                        stmt.setInt(6, 0);
+                    }
+                    if (stmt.executeUpdate()>=1)
+                        result = true;
+                } catch (SQLException ex) {
+            System.out.println(ex);
+            } finally{
+            conn.close(); } }
+            return result;
+    }
+    
+    public HoaDon searchNewestHD() throws SQLException, ClassNotFoundException
+    {
+        HoaDon hd=new HoaDon();
+        Connection conn=DB.connect();
+        if(conn!=null)
+        {
+            Statement stm=conn.createStatement();
+            ResultSet rs;
+            String sql="SELECT * from hoadon ORDER BY MaHD DESC LIMIT 1";
+            rs=stm.executeQuery(sql);
+            while(rs.next())
+            {
+                hd.setMaHD(rs.getInt("MaHD"));
+            }
+        }
+        return hd;
     }
 }

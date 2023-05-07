@@ -76,7 +76,25 @@ public class KhuyenMaiSanPhamDAO {
     
     public ArrayList<String> getMaSP() throws ClassNotFoundException, SQLException
     {
-        String sql="select MaSP from sanpham";
+        String sql="select MaSP from sanpham where IsDeleted=0";
+        ArrayList<String> temp=new ArrayList<String>();
+        Connection conn=DB.connect();
+        if(conn!=null)
+        {
+            Statement smt=conn.createStatement();
+            ResultSet rs=smt.executeQuery(sql);
+            while(rs.next())
+            {
+                temp.add(rs.getString("MaSP"));
+            }
+        }
+        conn.close();
+        return temp;
+    }
+    
+    public ArrayList<String> getMaSPFromKMSP() throws ClassNotFoundException, SQLException
+    {
+        String sql="select MaSP from khuyenmaisanpham where IsDeleted=0";
         ArrayList<String> temp=new ArrayList<String>();
         Connection conn=DB.connect();
         if(conn!=null)
@@ -125,7 +143,7 @@ public class KhuyenMaiSanPhamDAO {
             stm.setInt(8, kmsp.getIsDeleted());
             stm.setInt(9, kmsp.getMaKMSP());
             result=stm.executeUpdate()>0;
-            System.out.print(kmsp.getNgayKetThuc());
+            //System.out.print(kmsp.getNgayKetThuc());
         }
         return result;
     }

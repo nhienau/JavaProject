@@ -125,6 +125,19 @@ public class KhuyenMaiHoaDonDAO {
                     rs=stm.executeQuery(sql);
                 }
             }
+            else if(dk=="DonHangToiThieu")
+            {
+                if(dk1==0)
+                {
+                    String sql="select * from khuyenmaihoadon where "+dk+" >= "+input+" and IsDeleted=0";
+                    rs=stm.executeQuery(sql);
+                }
+                else
+                {
+                    String sql="select * from khuyenmaihoadon where "+dk+" <= "+input+" and IsDeleted=0";
+                    rs=stm.executeQuery(sql);
+                }
+            }
             else
             {
                 String sql="select * from khuyenmaihoadon where "+dk+" like '%"+input+"%' and IsDeleted='0'";
@@ -147,5 +160,23 @@ public class KhuyenMaiHoaDonDAO {
             }
         }
         return arr;
+    }
+    
+    public ArrayList<String> getAllMaKMHDNotDeleted() throws ClassNotFoundException, SQLException
+    {
+        String sql="select MaKMHD from khuyenmaihoadon where IsDeleted=0";
+        ArrayList<String> temp=new ArrayList<String>();
+        Connection conn=DB.connect();
+        if(conn!=null)
+        {
+            Statement smt=conn.createStatement();
+            ResultSet rs=smt.executeQuery(sql);
+            while(rs.next())
+            {
+                temp.add(String.valueOf(rs.getInt("MaKMHD")));
+            }
+        }
+        conn.close();
+        return temp;
     }
 }

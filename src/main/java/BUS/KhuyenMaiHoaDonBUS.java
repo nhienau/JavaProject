@@ -75,4 +75,10 @@ public class KhuyenMaiHoaDonBUS {
         }
         return kmhdDAO.searchKmhd(temp1.get(0), input, dk1);
     }
+    
+    public String[] getAllMaKMHDNotDeleted() throws ClassNotFoundException, SQLException
+    {
+        ArrayList<String> arr=kmhdDAO.getAllMaKMHDNotDeleted();
+        return arr.toArray(new String[0]);
+    }
 }

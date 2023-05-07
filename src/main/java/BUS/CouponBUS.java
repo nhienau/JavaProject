@@ -6,6 +6,7 @@ package BUS;
 
 import DAO.CouponDAO;
 import DTO.Coupon;
+import DTO.HoaDon;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +17,7 @@ import java.util.Set;
  *
  * @author ASUS
  */
-public class Coupon_BUS {
+public class CouponBUS {
     CouponDAO cpDAO=new CouponDAO();
     public ArrayList<Coupon> getAllCouponNotDeleted() throws SQLException, ClassNotFoundException
     {
@@ -27,7 +28,6 @@ public class Coupon_BUS {
             if(arr.get(i).getIsDeleted()==0)
             {
                 temp.add(arr.get(i));
-                System.out.println(arr.get(i).getIsDeleted());
             }
         }
         return temp;
@@ -99,5 +99,15 @@ public class Coupon_BUS {
             }
         }
         return cpDAO.searchCp(temp1.get(0), input);
+    }
+    
+    public boolean addHD(HoaDon hd) throws SQLException, ClassNotFoundException
+    {
+        return cpDAO.addHD(hd);
+    }
+    
+    public HoaDon searchNewestHD() throws SQLException, ClassNotFoundException
+    {
+        return cpDAO.searchNewestHD();
     }
 }

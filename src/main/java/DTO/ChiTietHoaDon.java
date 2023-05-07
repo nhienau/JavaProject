@@ -22,6 +22,8 @@ public class ChiTietHoaDon {
         this.GiaChuaGiam = GiaChuaGiam;
         this.GiaDaGiam = GiaDaGiam;
     }
+    
+    public ChiTietHoaDon(){}
 
     public int getMaSP() {
         return MaSP;
