@@ -18,9 +18,9 @@ import java.util.ArrayList;
  */
 public class KhuyenMaiHoaDonDAO {
     private DB db;
-    public ArrayList<KhuyenMaiHoaDon> getAllKmhd() throws SQLException, ClassNotFoundException
+    public ArrayList<KhuyenMaiHoaDon> getAllKmhdNotDeleted() throws SQLException, ClassNotFoundException
     {
-        String sql="select * from khuyenmaihoadon";
+        String sql="select * from khuyenmaihoadon where IsDeleted=0";
         Connection conn=DB.connect();
         ArrayList<KhuyenMaiHoaDon> arr=new ArrayList<KhuyenMaiHoaDon>();
         if(conn!=null)

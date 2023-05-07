@@ -51,6 +51,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     private CouponBUS cpBUS=new CouponBUS();
     private KhuyenMaiSanPhamBUS kmspBUS=new KhuyenMaiSanPhamBUS();
     private KhuyenMaiHoaDonBUS kmhdBUS=new KhuyenMaiHoaDonBUS();
+    private NhanVien user;
+    private ChucVu cv;
     /**
      * Creates new form KhuyenMaiJPanel
      */
@@ -61,6 +63,30 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     
     public void SetUp() throws ClassNotFoundException, SQLException
     {
+        if(cv.getKhuyenMai().contains("them"))
+        {
+            bthem.setEnabled(true);
+            jButton31.setEnabled(true);
+            jButton25.setEnabled(true);
+        }
+        if(cv.getKhuyenMai().contains("sua"))
+        {
+            bsua.setEnabled(true);
+            jButton32.setEnabled(true);
+            jButton26.setEnabled(true);
+        }
+        if(cv.getKhuyenMai().contains("xoa"))
+        {
+            bxoa.setEnabled(true);
+            jButton33.setEnabled(true);
+            jButton27.setEnabled(true);
+        }
+        if(cv.getKhuyenMai().contains("timkiem"))
+        {
+            jButton1.setEnabled(true);
+            jButton17.setEnabled(true);
+            jButton18.setEnabled(true);
+        }
         jTable1.setDefaultEditor(Object.class, null);
         jTable2.setDefaultEditor(Object.class, null);
         jTable3.setDefaultEditor(Object.class, null);
@@ -112,6 +138,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     }
     
     public KhuyenMaiJPanel (NhanVien user, ChucVu permission) throws ClassNotFoundException, SQLException {
+        this.user=user;
+        cv=permission;
         initComponents();
         SetUp();
     }
@@ -485,6 +513,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jButton1.setBackground(new java.awt.Color(255, 101, 0));
         jButton1.setBorderPainted(false);
         jButton1.setText("Tìm kiếm");
+        jButton1.setEnabled(false);
         jButton1.setPreferredSize(new java.awt.Dimension(90, 15));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -766,7 +795,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel22.add(jSpinner13, gridBagConstraints);
 
-        jSpinner14.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinner14.setModel(new javax.swing.SpinnerNumberModel(0, 0, 0, 1));
         jSpinner14.setMinimumSize(new java.awt.Dimension(82, 22));
         jSpinner14.setPreferredSize(new java.awt.Dimension(160, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -784,6 +813,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         bthem.setBackground(new java.awt.Color(255, 101, 0));
         bthem.setText("Thêm");
+        bthem.setEnabled(false);
         bthem.setBorderPainted(false);
         bthem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -796,6 +826,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         bsua.setBackground(new java.awt.Color(255, 101, 0));
         bsua.setText("Sửa");
+        bsua.setEnabled(false);
         bsua.setMinimumSize(new java.awt.Dimension(63, 25));
         bsua.setPreferredSize(new java.awt.Dimension(63, 25));
         bsua.setBorderPainted(false);
@@ -811,6 +842,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         bxoa.setBackground(new java.awt.Color(255, 101, 0));
         bxoa.setText("Xóa");
+        bxoa.setEnabled(false);
         bxoa.setMinimumSize(new java.awt.Dimension(63, 25));
         bxoa.setPreferredSize(new java.awt.Dimension(63, 25));
         bxoa.setBorderPainted(false);
@@ -895,6 +927,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jButton17.setBackground(new java.awt.Color(255, 101, 0));
         jButton17.setText("Tìm kiếm");
         jButton17.setBorderPainted(false);
+        jButton17.setEnabled(false);
         jButton17.setPreferredSize(new java.awt.Dimension(90, 15));
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1169,6 +1202,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         jButton31.setBackground(new java.awt.Color(255, 101, 0));
         jButton31.setText("Thêm");
+        jButton31.setEnabled(false);
         jButton31.setBorderPainted(false);
         jButton31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1181,6 +1215,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         jButton32.setBackground(new java.awt.Color(255, 101, 0));
         jButton32.setText("Sửa");
+        jButton32.setEnabled(false);
         jButton32.setMinimumSize(new java.awt.Dimension(63, 25));
         jButton32.setBorderPainted(false);
         jButton32.setPreferredSize(new java.awt.Dimension(63, 25));
@@ -1196,6 +1231,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         jButton33.setBackground(new java.awt.Color(255, 101, 0));
         jButton33.setText("Xóa");
+        jButton33.setEnabled(false);
         jButton33.setMinimumSize(new java.awt.Dimension(63, 25));
         jButton33.setBorderPainted(false);
         jButton33.setPreferredSize(new java.awt.Dimension(63, 25));
@@ -1280,6 +1316,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jButton18.setBackground(new java.awt.Color(255, 101, 0));
         jButton18.setText("Tìm kiếm");
         jButton18.setBorderPainted(false);
+        jButton18.setEnabled(false);
         jButton18.setPreferredSize(new java.awt.Dimension(90, 15));
         jButton18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1381,7 +1418,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel12.add(jSpinner18, gridBagConstraints);
 
-        jSpinner19.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinner19.setModel(new javax.swing.SpinnerNumberModel(0, 0, 0, 1));
         jSpinner19.setMinimumSize(new java.awt.Dimension(82, 22));
         jSpinner19.setPreferredSize(new java.awt.Dimension(160, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1397,6 +1434,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         jButton25.setBackground(new java.awt.Color(255, 101, 0));
         jButton25.setText("Thêm");
+        jButton25.setEnabled(false);
         jButton25.setBorderPainted(false);
         jButton25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1410,6 +1448,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jButton26.setBackground(new java.awt.Color(255, 101, 0));
         jButton26.setText("Sửa");
         jButton26.setBorderPainted(false);
+        jButton26.setEnabled(false);
         jButton26.setMinimumSize(new java.awt.Dimension(63, 25));
         jButton26.setPreferredSize(new java.awt.Dimension(63, 25));
         jButton26.addActionListener(new java.awt.event.ActionListener() {
@@ -1424,6 +1463,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         jButton27.setBackground(new java.awt.Color(255, 101, 0));
         jButton27.setText("Xóa");
+        jButton27.setEnabled(false);
         jButton27.setMinimumSize(new java.awt.Dimension(63, 25));
         jButton27.setBorderPainted(false);
         jButton27.setPreferredSize(new java.awt.Dimension(63, 25));
@@ -1536,23 +1576,36 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng không được có khoảng cách!");
         }
         else{
-            Coupon cp=new Coupon();
-            cp.setMaCP(Integer.parseInt(jTextField20.getText()));
-            cp.setCode(jTextField19.getText());
-            cp.setMaKMHD(Integer.parseInt(jComboBox17.getItemAt(jComboBox17.getSelectedIndex())));
-            cp.setTongLuotApDung((Integer)jSpinner18.getValue());
-            cp.setTongLuotDaDung((Integer)jSpinner19.getValue());
-            cp.setIsDeleted(0);
             try {
-                cpBUS.updateCoupon(cp);
-            } catch (SQLException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            if(cpBUS.hasCode(jTextField19.getText())!=false)
+            {
+                JOptionPane.showMessageDialog(this, "Trùng code!");
             }
-            try {
-                LoadCouponList();
-                LoadComboBox();
+            else
+            {
+                Coupon cp=new Coupon();
+                cp.setMaCP(Integer.parseInt(jTextField20.getText()));
+                cp.setCode(jTextField19.getText());
+                cp.setMaKMHD(Integer.parseInt(jComboBox17.getItemAt(jComboBox17.getSelectedIndex())));
+                cp.setTongLuotApDung((Integer)Integer.parseInt(jSpinner18.getValue().toString()));
+                cp.setTongLuotDaDung((Integer)Integer.parseInt(jSpinner19.getValue().toString()));
+                cp.setIsDeleted(0);
+                try {
+                    cpBUS.updateCoupon(cp);
+                } catch (SQLException ex) {
+                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    LoadCouponList();
+                    LoadComboBox();
+                } catch (SQLException ex) {
+                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             } catch (SQLException ex) {
                 Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -1696,9 +1749,13 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         {
             JOptionPane.showMessageDialog(this, "Chưa chọn hàng để sửa!");
         }
-        else if(dcnbd.getDate()==null||dcnkt.getDate()==null)
+        else if(jDateChooser11.getDate()==null||jDateChooser12.getDate()==null)
         {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày!");
+        }
+        else if((Float)Float.parseFloat(jSpinner11.getValue().toString())==0 && (Double)Double.parseDouble(jSpinner12.getValue().toString())==0)
+        {
+            JOptionPane.showMessageDialog(this, "Chưa nhập phần trăm giảm hay số tiền giảm!");
         }
         else
         {
@@ -1740,18 +1797,22 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if(dcnbd.getDate()==null||dcnkt.getDate()==null)
+        if(jDateChooser11.getDate()==null||jDateChooser12.getDate()==null)
         {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày!");
+        }
+        else if((Float)Float.parseFloat(jSpinner11.getValue().toString())==0 && (Double)Double.parseDouble(jSpinner12.getValue().toString())==0)
+        {
+            JOptionPane.showMessageDialog(this, "Chưa nhập phần trăm giảm hay số tiền giảm!");
         }
         else
         {
             KhuyenMaiSanPham kmsp=new KhuyenMaiSanPham();
             kmsp.setMaSP(Integer.parseInt(jComboBox13.getSelectedItem().toString()));
-            kmsp.setPhanTramGiam((Float)jSpinner11.getValue());
-            kmsp.setSoTienGiam((Double)jSpinner12.getValue());
-            kmsp.setTongLuotApDung((Integer)jSpinner16.getValue());
-            kmsp.setTongLuotDaDung((Integer)jSpinner17.getValue());
+            kmsp.setPhanTramGiam((Float)Float.parseFloat(jSpinner11.getValue().toString()));
+            kmsp.setSoTienGiam((Double)Double.parseDouble(jSpinner12.getValue().toString()));
+            kmsp.setTongLuotApDung((Integer)Integer.parseInt(jSpinner16.getValue().toString()));
+            kmsp.setTongLuotDaDung((Integer)Integer.parseInt(jSpinner17.getValue().toString()));
             kmsp.setIsDeleted(0);
             String datetime=sdfDate.format(jDateChooser11.getDate())+" "+(int)jSpinner1.getValue()+":"+(int)jSpinner2.getValue()+":00";
             try {
@@ -1940,6 +2001,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày!");
         }
+        else if((Float)Float.parseFloat(jSpinner9.getValue().toString())==0 && (Double)Double.parseDouble(jSpinner10.getValue().toString())==0)
+        {
+            JOptionPane.showMessageDialog(this, "Chưa nhập phần trăm giảm hay số tiền giảm!");
+        }
         else {
             KhuyenMaiHoaDon kmhd=new KhuyenMaiHoaDon();
             kmhd.setMaKMHD(Integer.parseInt(tfkmhd.getText()));
@@ -1991,6 +2056,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         else if(dcnbd.getDate()==null||dcnkt.getDate()==null)
         {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày!");
+        }
+        else if((Float)Float.parseFloat(jSpinner9.getValue().toString())==0 && (Double)Double.parseDouble(jSpinner10.getValue().toString())==0)
+        {
+            JOptionPane.showMessageDialog(this, "Chưa nhập phần trăm giảm hay số tiền giảm!");
         }
         else {
             KhuyenMaiHoaDon kmhd=new KhuyenMaiHoaDon();
@@ -2161,6 +2230,11 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
     private void jSpinner18StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner18StateChanged
         // TODO add your handling code here:
+        try {
+            jSpinner18.commitEdit();
+        } catch ( java.text.ParseException e ) {}
+        SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, (int)jSpinner18.getValue(), 1);
+        jSpinner19.setModel(model);
     }//GEN-LAST:event_jSpinner18StateChanged
 
     private void jSpinner11StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner11StateChanged
@@ -2168,7 +2242,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         try {
             jSpinner11.commitEdit();
         } catch ( java.text.ParseException e ) {}
-        if((Float)jSpinner11.getValue()>0)
+        if((Float)Float.parseFloat(jSpinner11.getValue().toString())>0)
         {
             SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, 0.0, 10000);
             jSpinner12.setModel(model);
@@ -2185,7 +2259,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         try {
             jSpinner12.commitEdit();
         } catch ( java.text.ParseException e ) {}
-        if((Double)jSpinner12.getValue()>0)
+        if((Double)Double.parseDouble(jSpinner12.getValue().toString())>0)
         {
             SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, 0.0, 1);
             jSpinner11.setModel(model);

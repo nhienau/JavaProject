@@ -18,14 +18,7 @@ public class KhuyenMaiHoaDonBUS {
     
     public ArrayList<KhuyenMaiHoaDon> getKmhdNotDeleted() throws SQLException, ClassNotFoundException
     {
-        ArrayList<KhuyenMaiHoaDon> arr=kmhdDAO.getAllKmhd();
-        for(int i=0;i<arr.size();i++)
-        {
-            if(arr.get(i).getIsDeleted()==1)
-            {
-                arr.remove(i);
-            }
-        }
+        ArrayList<KhuyenMaiHoaDon> arr=kmhdDAO.getAllKmhdNotDeleted();
         return arr;
     }
     
