@@ -21,6 +21,7 @@ public class NhanVien {
     private String MatKhau;
     private int MaCV;
     private int IsDeleted;
+    
 
     public NhanVien(int MaNV, String TenNV, String SDT, String Email, Date NgaySinh, String TaiKhoan, String MatKhau, int MaCV, int IsDeleted) {
         this.MaNV = MaNV;
@@ -33,6 +34,18 @@ public class NhanVien {
         this.MaCV = MaCV;
         this.IsDeleted = IsDeleted;
     }
+    
+    public NhanVien(int MaNV, String TenNV, String SDT, String Email, Date NgaySinh, String TaiKhoan, int MaCV, int IsDeleted) {
+        this.MaNV = MaNV;
+        this.TenNV = TenNV;
+        this.SDT = SDT;
+        this.Email = Email;
+        this.NgaySinh = NgaySinh;
+        this.TaiKhoan = TaiKhoan;
+        this.MaCV = MaCV;
+        this.IsDeleted = IsDeleted;
+    }
+    
 
     public NhanVien(String TenNV, String SDT, String Email, Date NgaySinh, String TaiKhoan, String MatKhau, int MaCV, int IsDeleted) {
         this.TenNV = TenNV;
