@@ -13,11 +13,11 @@ import java.util.Date;
 public class PhieuNhap {
     private int MaPN;
     private Date NgayTao;
-    private String TongTien;
+    private Double TongTien;
     private int MaNV;
     private int IsDeleted;
 
-    public PhieuNhap(int MaPN, Date NgayTao, String TongTien, int MaNV, int IsDeleted) {
+    public PhieuNhap(int MaPN, Date NgayTao, Double TongTien, int MaNV, int IsDeleted) {
         this.MaPN = MaPN;
         this.NgayTao = NgayTao;
         this.TongTien = TongTien;
@@ -25,13 +25,13 @@ public class PhieuNhap {
         this.IsDeleted = IsDeleted;
     }
     
-    public PhieuNhap( String TongTien, int MaNV, int IsDeleted) {
+    public PhieuNhap( Double TongTien, int MaNV, int IsDeleted) {
        
         this.TongTien = TongTien;
         this.MaNV = MaNV;
         this.IsDeleted = IsDeleted;
     }
-    public PhieuNhap( Date NgayTao, String TongTien, int MaNV, int IsDeleted) {
+    public PhieuNhap( Date NgayTao, Double TongTien, int MaNV, int IsDeleted) {
         
         this.NgayTao = NgayTao;
         this.TongTien = TongTien;
@@ -70,11 +70,11 @@ public class PhieuNhap {
 }
 
 
-    public String getTongTien() {
+    public Double getTongTien() {
         return TongTien;
     }
 
-    public void setTongTien(String TongTien) {
+    public void setTongTien(Double TongTien) {
         this.TongTien = TongTien;
     }
 

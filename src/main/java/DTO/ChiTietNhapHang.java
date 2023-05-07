@@ -21,6 +21,12 @@ public class ChiTietNhapHang {
         this.DONGIA = DONGIA;
     }
 
+    public ChiTietNhapHang(int MaSP, int SL, double DONGIA) {
+        this.MaSP = MaSP;
+        this.SL = SL;
+        this.DONGIA = DONGIA;
+    }
+    
     public int getMaSP() {
         return MaSP;
     }
