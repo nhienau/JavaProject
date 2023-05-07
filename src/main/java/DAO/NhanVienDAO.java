@@ -12,12 +12,16 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.SimpleFormatter;
 
 import javax.swing.JOptionPane;
+
+
+
 
 /**
  *
@@ -277,6 +281,26 @@ public class NhanVienDAO {
 			throw e;
 		}
     	return check;
+    }
+    
+    public boolean isAccountNameExisted(String accoutName,int ID) throws ClassNotFoundException, SQLException {
+    	Connection conn = DB.connect();
+    	String sqlString="";
+    	if(ID != -1) {
+    		sqlString = "select * from nhanvien where TaiKhoan = '" +accoutName +"'and MaNV !=" +ID;
+    		
+    	}
+    	else {
+    		sqlString = "select * from nhanvien where TaiKhoan = '" +accoutName +"'";  		
+    	}
+    	Statement stm = conn.createStatement();
+    	ResultSet resultSet = stm.executeQuery(sqlString);
+	    int rowCount = 0;
+	    while(resultSet.next()) {
+	    	rowCount++;
+	    }
+    	return rowCount > 0 ;
+    	
     }
     
 }

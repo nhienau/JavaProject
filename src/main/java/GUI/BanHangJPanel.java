@@ -68,6 +68,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private ArrayList<KhuyenMaiSanPham> arr_KMSP;
     private ArrayList<ChiTietHoaDon> arr_CTHD;
     private ArrayList<Coupon> arr_CP;
+    private ChucVu cv;
     /**
      * Creates new form BanHangJPanel
      */
@@ -104,6 +105,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         arr_KMSP = new ArrayList<KhuyenMaiSanPham>();
         arr_CTHD = new ArrayList<ChiTietHoaDon>();
         arr_CP = new ArrayList<Coupon>();
+        cv=permission;
         initComponents();
         SetUp();
     }
@@ -116,6 +118,10 @@ public class BanHangJPanel extends javax.swing.JPanel {
     
     public void SetUp() throws SQLException, ClassNotFoundException, ParseException
     {   
+        if(cv.getHoaDon().contains("them"))
+        {
+            jButton7.setEnabled(true);
+        }
         LoadComboBox();
         LoadRowValueToTextFDHd(jTable2);
         LoadRowValueToTextFDSpChooser(jTable1);
@@ -802,6 +808,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
 
         jButton7.setBackground(new java.awt.Color(255, 101, 0));
         jButton7.setText("Lập hóa đơn");
+        jButton7.setEnabled(false);
         jButton7.setBorderPainted(false);
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1197,7 +1204,6 @@ public class BanHangJPanel extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             TongTien();
-            SetCodeComboBox();
         } catch (SQLException ex) {
             Logger.getLogger(BanHangJPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

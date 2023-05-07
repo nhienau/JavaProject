@@ -1470,44 +1470,51 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     private void updateEmp() throws ParseException, ClassNotFoundException, SQLException {
         int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa không ?");
         if (option == JOptionPane.YES_OPTION) {
-            if (allInputValid()) {
-                int MaNV = Integer.parseInt(iDTextField.getText().split("NV")[1]);
-                String TenNV = nameTextField.getText();
-                String SDT = phoneTextField.getText();
-                String Email = mailTextField.getText();
-                String TaiKhoan = accountNameTextField.getText();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-                Date NgaySinh = dateFormat.parse(dateTextField.getText());
-                int maCV = positionToID((String) positionComboBox.getSelectedItem());
-                String MatKhau;
-                int rowAffect;
-                if(String.valueOf(passTextField.getPassword()).isEmpty()) {
-                	NhanVien newNV = new NhanVien(MaNV, TenNV, SDT, Email, NgaySinh, TaiKhoan, maCV, 0);
-                	rowAffect = nvBUS.updateEmpWithoutPassword(newNV);
-                }
-                else {
-                	MatKhau = PasswordHash.hashPassword(String.valueOf(passTextField.getPassword()));
-                	NhanVien newNV = new NhanVien(MaNV, TenNV, SDT, Email, NgaySinh, TaiKhoan, MatKhau, maCV, 0);
-                	rowAffect = nvBUS.updateEmp(newNV);
-                }
+        	if(!nvBUS.isAccountNameExisted(accountNameTextField.getText(),Integer.parseInt(iDTextField.getText().split("NV")[1]))) {
+        		 if (allInputValid()) {
+                     int MaNV = Integer.parseInt(iDTextField.getText().split("NV")[1]);
+                     String TenNV = nameTextField.getText();
+                     String SDT = phoneTextField.getText();
+                     String Email = mailTextField.getText();
+                     String TaiKhoan = accountNameTextField.getText();
+                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+                     Date NgaySinh = dateFormat.parse(dateTextField.getText());
+                     int maCV = positionToID((String) positionComboBox.getSelectedItem());
+                     String MatKhau;
+                     int rowAffect;
+                     if(String.valueOf(passTextField.getPassword()).isEmpty()) {
+                     	NhanVien newNV = new NhanVien(MaNV, TenNV, SDT, Email, NgaySinh, TaiKhoan, maCV, 0);
+                     	rowAffect = nvBUS.updateEmpWithoutPassword(newNV);
+                     }
+                     else {
+                     	MatKhau = PasswordHash.hashPassword(String.valueOf(passTextField.getPassword()));
+                     	NhanVien newNV = new NhanVien(MaNV, TenNV, SDT, Email, NgaySinh, TaiKhoan, MatKhau, maCV, 0);
+                     	rowAffect = nvBUS.updateEmp(newNV);
+                     }
 
-                 
-                if (rowAffect > 0) {
-                    JOptionPane.showMessageDialog(this, "Cập nhật thành công", "Update", JOptionPane.INFORMATION_MESSAGE);
-                    resetAllTF(takeTextFieldsList());
-                    positionComboBox.setSelectedIndex(0);
-                    empListTable.clearSelection();
-                    iDTextField.setText("");
-                    EnableRoundPanelBtn(editRoundPanel, false);
-                    EnableRoundPanelBtn(delRoundPanel, false);
-                    filter();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Cập nhật thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                      
+                     if (rowAffect > 0) {
+                         JOptionPane.showMessageDialog(this, "Cập nhật thành công", "Update", JOptionPane.INFORMATION_MESSAGE);
+                         resetAllTF(takeTextFieldsList());
+                         positionComboBox.setSelectedIndex(0);
+                         empListTable.clearSelection();
+                         iDTextField.setText("");
+                         EnableRoundPanelBtn(editRoundPanel, false);
+                         EnableRoundPanelBtn(delRoundPanel, false);
+                         filter();
+                     } else {
+                         JOptionPane.showMessageDialog(this, "Cập nhật thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
 
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin đầy đủ và đúng định dạng", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
+                     }
+                 } else {
+                     JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin đầy đủ và đúng định dạng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                 }
+        	}
+        	else {
+        		   JOptionPane.showMessageDialog(this, "Tài khoản đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                   
+        	}
+           
         }
 
     }
@@ -1580,32 +1587,38 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_sortComboBoxItemStateChanged
 
     private void addEmp() throws ParseException, ClassNotFoundException, SQLException {
-        if (allInputValid() && !String.valueOf(passTextField.getPassword()).isEmpty()) {
-            String name = nameTextField.getText();
-            String phone = phoneTextField.getText();
-            String mail = mailTextField.getText();
-            String accountName = accountNameTextField.getText();
-//            String pass = passTextField.getPa();
-            String pass = PasswordHash.hashPassword(new String(passTextField.getPassword()));
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    	if(!nvBUS.isAccountNameExisted(accountNameTextField.getText(),-1)) {
+    		   if (allInputValid() && !String.valueOf(passTextField.getPassword()).isEmpty()) {
+    	            String name = nameTextField.getText();
+    	            String phone = phoneTextField.getText();
+    	            String mail = mailTextField.getText();
+    	            String accountName = accountNameTextField.getText();
+//    	            String pass = passTextField.getPa();
+    	            String pass = PasswordHash.hashPassword(new String(passTextField.getPassword()));
+    	            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-            Date dateBirth = dateFormat.parse(dateTextField.getText());
-            int positionID = positionToID((String) positionComboBox.getSelectedItem());
-            NhanVien newNV = new NhanVien(name, phone, mail, dateBirth, accountName, pass, positionID, 0);
-            int rowAffect = nvBUS.addEmp(newNV);
-            if (rowAffect > 0) {
-                JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                filter();
-                resetAllTF(takeTextFieldsList());
-                EnableRoundPanelBtn(editRoundPanel,false);
-	            EnableRoundPanelBtn(delRoundPanel,false);
-                sortComboBox.setSelectedIndex(0);
-            } else {
-                JOptionPane.showMessageDialog(this, "Thêm thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin đầy đủ và đúng định dạng", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    	            Date dateBirth = dateFormat.parse(dateTextField.getText());
+    	            int positionID = positionToID((String) positionComboBox.getSelectedItem());
+    	            NhanVien newNV = new NhanVien(name, phone, mail, dateBirth, accountName, pass, positionID, 0);
+    	            int rowAffect = nvBUS.addEmp(newNV);
+    	            if (rowAffect > 0) {
+    	                JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+    	                filter();
+    	                resetAllTF(takeTextFieldsList());
+    	                EnableRoundPanelBtn(editRoundPanel,false);
+    		            EnableRoundPanelBtn(delRoundPanel,false);
+    	                sortComboBox.setSelectedIndex(0);
+    	            } else {
+    	                JOptionPane.showMessageDialog(this, "Thêm thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+    	            }
+    	        } else {
+    	            JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin đầy đủ và đúng định dạng", "Error", JOptionPane.ERROR_MESSAGE);
+    	        }
+    	}
+    	else {
+    	    JOptionPane.showMessageDialog(this, "Tài khoản này đã tồn tại", "Error", JOptionPane.ERROR_MESSAGE);
+	        }
+     
     }
 
     private int positionToID(String position) {

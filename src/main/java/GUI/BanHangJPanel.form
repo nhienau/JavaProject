@@ -620,6 +620,7 @@
                           <Color blue="0" green="65" red="ff" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="L&#x1ead;p h&#xf3;a &#x111;&#x1a1;n"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
