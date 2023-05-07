@@ -69,4 +69,8 @@ public class NhanVienBUS {
     	return nvDAO.phoneNumberExisted(phoneNumber);
     }
     
+    public int updateEmpWithoutPassword(NhanVien nv) throws ClassNotFoundException, SQLException {
+    	return nvDAO.updateEmpWithoutPassword(nv);
+    }
+    
 }
