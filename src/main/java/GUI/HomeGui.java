@@ -59,6 +59,7 @@ public class HomeGui extends javax.swing.JFrame {
      * Creates new form HomeGui
      */
     public HomeGui() {
+    	getContentPane().setBackground(new Color(31, 31, 31));
         initComponents();
         initAllControllers();
     }
@@ -79,8 +80,11 @@ public class HomeGui extends javax.swing.JFrame {
         }
 
         draggableRoundPanel4 = new CUSTOM.DraggableRoundPanel();
+        draggableRoundPanel4.setBackground(new Color(51, 51, 51));
         draggableRoundPanel5 = new CUSTOM.DraggableRoundPanel();
+        draggableRoundPanel5.setBackground(new Color(51, 51, 51));
         draggableRoundPanel6 = new CUSTOM.DraggableRoundPanel();
+        draggableRoundPanel6.setBackground(new Color(51, 51, 51));
         draggableRoundPanel6.setOpaque(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -88,6 +92,7 @@ public class HomeGui extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1361, 725));
         
         pUserInfo = new JPanel();
+        pUserInfo.setBackground(new Color(51, 51, 51));
 
         javax.swing.GroupLayout draggableRoundPanel4Layout = new javax.swing.GroupLayout(draggableRoundPanel4);
         draggableRoundPanel4Layout.setHorizontalGroup(
@@ -115,6 +120,7 @@ public class HomeGui extends javax.swing.JFrame {
         pUserInfo.setLayout(gbl_pUserInfo);
         
         btnSettings = new JButton();
+        btnSettings.setBackground(new Color(51, 51, 51));
         btnSettings.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
@@ -128,11 +134,13 @@ public class HomeGui extends javax.swing.JFrame {
         btnSettings.setIcon(settingIcon);
         
         popupSettings = new JPopupMenu();
+        popupSettings.setBackground(new Color(51, 51, 51));
         popupSettings.setFont(new Font("Tahoma", Font.PLAIN, 12));
         addPopup(btnSettings, popupSettings);
         popupSettings.setLabel("");
         
         btnLogOut = new JMenuItem("Đăng xuất");
+        btnLogOut.setBackground(new Color(37, 37, 38));
         btnLogOut.setFont(new Font("Arial", Font.PLAIN, 12));
         btnLogOut.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -143,6 +151,7 @@ public class HomeGui extends javax.swing.JFrame {
         popupSettings.add(btnLogOut);
         
         btnExit = new JMenuItem("Thoát");
+        btnExit.setBackground(new Color(37, 37, 38));
         btnExit.setFont(new Font("Arial", Font.PLAIN, 12));
         btnExit.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -151,6 +160,7 @@ public class HomeGui extends javax.swing.JFrame {
         });
 
         JPanel panel = new JPanel();
+        panel.setBackground(new Color(51, 51, 51));
         GridBagConstraints gbc_panel = new GridBagConstraints();
         gbc_panel.fill = GridBagConstraints.BOTH;
         gbc_panel.insets = new Insets(0, 0, 5, 0);
@@ -160,12 +170,14 @@ public class HomeGui extends javax.swing.JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         
         lblStaffName = new JLabel("nhanvien.TenNV");
+        lblStaffName.setForeground(new Color(245, 245, 245));
         panel.add(lblStaffName);
         lblStaffName.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
         lblStaffName.setFont(new Font("Tahoma", Font.BOLD, 16));
         lblStaffName.setMaximumSize(new Dimension(150, lblStaffName.getPreferredSize().height));
         
         lblRole = new JLabel("chucvu.TenCV");
+        lblRole.setForeground(new Color(245, 245, 245));
         panel.add(lblRole);
         lblRole.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
         lblRole.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -219,10 +231,12 @@ public class HomeGui extends javax.swing.JFrame {
         draggableRoundPanel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
         pHoaDon = new JPanel();
+        pHoaDon.setBackground(new Color(51, 51, 51));
         draggableRoundPanel5.add(pHoaDon);
         
         lblHoaDon = new JLabel("Hoá đơn");
-        lblHoaDon.setForeground(new Color(0, 0, 0));
+        lblHoaDon.setBackground(new Color(51, 51, 51));
+        lblHoaDon.setForeground(new Color(245, 245, 245));
         lblHoaDon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblHoaDon.setHorizontalAlignment(SwingConstants.CENTER);
         lblHoaDon.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -240,11 +254,13 @@ public class HomeGui extends javax.swing.JFrame {
         pHoaDon.setLayout(gl_pHoaDon);
         
         pKhachHang = new JPanel();
+        pKhachHang.setBackground(new Color(51, 51, 51));
         pKhachHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         draggableRoundPanel5.add(pKhachHang);
         
         lblKhachHang = new JLabel("Khách hàng");
-        lblKhachHang.setForeground(new Color(0, 0, 0));
+        lblKhachHang.setBackground(new Color(51, 51, 51));
+        lblKhachHang.setForeground(new Color(245, 245, 245));
         lblKhachHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblKhachHang.setHorizontalAlignment(SwingConstants.CENTER);
         lblKhachHang.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -264,11 +280,13 @@ public class HomeGui extends javax.swing.JFrame {
         pKhachHang.setLayout(gl_pKhachHang);
         
         pNhanVien = new JPanel();
+        pNhanVien.setBackground(new Color(51, 51, 51));
         pNhanVien.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         draggableRoundPanel5.add(pNhanVien);
         
         lblNhanVien = new JLabel("Nhân viên");
-        lblNhanVien.setForeground(new Color(0, 0, 0));
+        lblNhanVien.setBackground(new Color(51, 51, 51));
+        lblNhanVien.setForeground(new Color(245, 245, 245));
         lblNhanVien.setHorizontalAlignment(SwingConstants.CENTER);
         lblNhanVien.setFont(new Font("Tahoma", Font.BOLD, 14));
         GroupLayout gl_pNhanVien = new GroupLayout(pNhanVien);
@@ -287,11 +305,13 @@ public class HomeGui extends javax.swing.JFrame {
         pNhanVien.setLayout(gl_pNhanVien);
         
         pKhuyenMai = new JPanel();
+        pKhuyenMai.setBackground(new Color(51, 51, 51));
         pKhuyenMai.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         draggableRoundPanel5.add(pKhuyenMai);
         
         lblKhuyenMai = new JLabel("Khuyến mãi");
-        lblKhuyenMai.setForeground(new Color(0, 0, 0));
+        lblKhuyenMai.setBackground(new Color(51, 51, 51));
+        lblKhuyenMai.setForeground(new Color(245, 245, 245));
         lblKhuyenMai.setHorizontalAlignment(SwingConstants.CENTER);
         lblKhuyenMai.setFont(new Font("Tahoma", Font.BOLD, 14));
         GroupLayout gl_pKhuyenMai = new GroupLayout(pKhuyenMai);
@@ -312,11 +332,13 @@ public class HomeGui extends javax.swing.JFrame {
         pKhuyenMai.setLayout(gl_pKhuyenMai);
         
         pSanPham = new JPanel();
+        pSanPham.setBackground(new Color(51, 51, 51));
         pSanPham.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         draggableRoundPanel5.add(pSanPham);
         
         lblSanPham = new JLabel("Sản phẩm");
-        lblSanPham.setForeground(new Color(0, 0, 0));
+        lblSanPham.setBackground(new Color(51, 51, 51));
+        lblSanPham.setForeground(new Color(245, 245, 245));
         lblSanPham.setHorizontalAlignment(SwingConstants.CENTER);
         lblSanPham.setFont(new Font("Tahoma", Font.BOLD, 14));
         GroupLayout gl_pSanPham = new GroupLayout(pSanPham);
@@ -339,11 +361,13 @@ public class HomeGui extends javax.swing.JFrame {
         pSanPham.setLayout(gl_pSanPham);
         
         pPhanQuyen = new JPanel();
+        pPhanQuyen.setBackground(new Color(51, 51, 51));
         pPhanQuyen.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         draggableRoundPanel5.add(pPhanQuyen);
         
         lblPhanQuyen = new JLabel("Phân quyền");
-        lblPhanQuyen.setForeground(new Color(0, 0, 0));
+        lblPhanQuyen.setBackground(new Color(51, 51, 51));
+        lblPhanQuyen.setForeground(new Color(245, 245, 245));
         lblPhanQuyen.setHorizontalAlignment(SwingConstants.CENTER);
         lblPhanQuyen.setFont(new Font("Tahoma", Font.BOLD, 14));
         GroupLayout gl_pPhanQuyen = new GroupLayout(pPhanQuyen);
@@ -368,11 +392,13 @@ public class HomeGui extends javax.swing.JFrame {
         pPhanQuyen.setLayout(gl_pPhanQuyen);
         
         pThongKe = new JPanel();
+        pThongKe.setBackground(new Color(51, 51, 51));
         pThongKe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         draggableRoundPanel5.add(pThongKe);
         
         lblThongKe = new JLabel("Thống kê");
-        lblThongKe.setForeground(new Color(0, 0, 0));
+        lblThongKe.setBackground(new Color(51, 51, 51));
+        lblThongKe.setForeground(new Color(245, 245, 245));
         lblThongKe.setHorizontalAlignment(SwingConstants.CENTER);
         lblThongKe.setFont(new Font("Tahoma", Font.BOLD, 14));
         GroupLayout gl_pThongKe = new GroupLayout(pThongKe);
@@ -397,11 +423,13 @@ public class HomeGui extends javax.swing.JFrame {
         pThongKe.setLayout(gl_pThongKe);
         
         pNhapHang = new JPanel();
+        pNhapHang.setBackground(new Color(51, 51, 51));
         pNhapHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         draggableRoundPanel5.add(pNhapHang);
         
         lblNhapHang = new JLabel("Nhập hàng");
-        lblNhapHang.setForeground(new Color(0, 0, 0));
+        lblNhapHang.setBackground(new Color(51, 51, 51));
+        lblNhapHang.setForeground(new Color(245, 245, 245));
         lblNhapHang.setHorizontalAlignment(SwingConstants.CENTER);
         lblNhapHang.setFont(new Font("Tahoma", Font.BOLD, 14));
         GroupLayout gl_pNhapHang = new GroupLayout(pNhapHang);
@@ -428,12 +456,14 @@ public class HomeGui extends javax.swing.JFrame {
         pNhapHang.setLayout(gl_pNhapHang);
         
         pBanHang = new JPanel();
+        pBanHang.setBackground(new Color(51, 51, 51));
         pBanHang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         draggableRoundPanel5.add(pBanHang);
         
         lblBanHang = new JLabel("Bán hàng");
+        lblBanHang.setBackground(new Color(51, 51, 51));
         lblBanHang.setHorizontalAlignment(SwingConstants.CENTER);
-        lblBanHang.setForeground(Color.BLACK);
+        lblBanHang.setForeground(new Color(245, 245, 245));
         lblBanHang.setFont(new Font("Tahoma", Font.BOLD, 14));
         GroupLayout gl_pBanHang = new GroupLayout(pBanHang);
         gl_pBanHang.setHorizontalGroup(
@@ -459,10 +489,12 @@ public class HomeGui extends javax.swing.JFrame {
         pBanHang.setLayout(gl_pBanHang);
         
         pTaiKhoan = new JPanel();
+        pTaiKhoan.setBackground(new Color(51, 51, 51));
         draggableRoundPanel5.add(pTaiKhoan);
         
         lblTaiKhoan = new JLabel("Tài khoản");
-        lblTaiKhoan.setForeground(new Color(0, 0, 0));
+        lblTaiKhoan.setBackground(new Color(51, 51, 51));
+        lblTaiKhoan.setForeground(new Color(245, 245, 245));
         lblTaiKhoan.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblTaiKhoan.setHorizontalAlignment(SwingConstants.CENTER);
         lblTaiKhoan.setFont(new Font("Tahoma", Font.BOLD, 14));

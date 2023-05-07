@@ -124,9 +124,15 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         scrollPane = new javax.swing.JScrollPane();
         tblCustomer = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(51, 51, 51));
+
+        roundPanel.setBackground(new java.awt.Color(51, 51, 51));
         roundPanel.setLayout(new java.awt.BorderLayout());
 
+        pTableControl.setBackground(new java.awt.Color(51, 51, 51));
         pTableControl.setLayout(new java.awt.BorderLayout());
+
+        pSearchBar.setBackground(new java.awt.Color(51, 51, 51));
 
         txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtSearch.setEnabled(false);
@@ -151,8 +157,10 @@ public class KhachHangJPanel extends javax.swing.JPanel {
 
         pTableControl.add(pSearchBar, java.awt.BorderLayout.NORTH);
 
+        pCustomerDetail.setBackground(new java.awt.Color(51, 51, 51));
         pCustomerDetail.setLayout(new java.awt.BorderLayout(0, 5));
 
+        pToolbar.setBackground(new java.awt.Color(51, 51, 51));
         pToolbar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         btnResetAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cursor.png"))); // NOI18N
@@ -192,11 +200,14 @@ public class KhachHangJPanel extends javax.swing.JPanel {
 
         pCustomerDetail.add(pToolbar, java.awt.BorderLayout.NORTH);
 
+        pCustomerInfo.setBackground(new java.awt.Color(51, 51, 51));
         pCustomerInfo.setLayout(new java.awt.GridLayout(1, 3, 20, 20));
 
+        pCustomerInfo1.setBackground(new java.awt.Color(51, 51, 51));
         pCustomerInfo1.setLayout(new java.awt.GridLayout(3, 2, 20, 8));
 
         lblID.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblID.setForeground(new java.awt.Color(245, 245, 245));
         lblID.setText("Mã khách hàng");
         pCustomerInfo1.add(lblID);
 
@@ -207,6 +218,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         pCustomerInfo1.add(txtID);
 
         lblFullName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblFullName.setForeground(new java.awt.Color(245, 245, 245));
         lblFullName.setText("Họ và tên");
         pCustomerInfo1.add(lblFullName);
 
@@ -217,6 +229,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         pCustomerInfo1.add(txtFullName);
 
         lblPhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblPhoneNumber.setForeground(new java.awt.Color(245, 245, 245));
         lblPhoneNumber.setText("Số điện thoại");
         pCustomerInfo1.add(lblPhoneNumber);
 
@@ -228,9 +241,11 @@ public class KhachHangJPanel extends javax.swing.JPanel {
 
         pCustomerInfo.add(pCustomerInfo1);
 
+        pCustomerInfo2.setBackground(new java.awt.Color(51, 51, 51));
         pCustomerInfo2.setLayout(new java.awt.GridLayout(3, 2, 20, 8));
 
         lblDateOfBirth.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblDateOfBirth.setForeground(new java.awt.Color(245, 245, 245));
         lblDateOfBirth.setText("Ngày sinh");
         pCustomerInfo2.add(lblDateOfBirth);
 
@@ -242,6 +257,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         pCustomerInfo2.add(dcDateOfBirth);
 
         lblCurPoint.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblCurPoint.setForeground(new java.awt.Color(245, 245, 245));
         lblCurPoint.setText("Điểm hiện tại");
         pCustomerInfo2.add(lblCurPoint);
 
@@ -252,6 +268,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         pCustomerInfo2.add(txtCurPoint);
 
         lblTotalPoint.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblTotalPoint.setForeground(new java.awt.Color(245, 245, 245));
         lblTotalPoint.setText("Tổng điểm");
         pCustomerInfo2.add(lblTotalPoint);
 
@@ -263,6 +280,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
 
         pCustomerInfo.add(pCustomerInfo2);
 
+        pCustomerInfo3.setBackground(new java.awt.Color(51, 51, 51));
         pCustomerInfo3.setLayout(new javax.swing.BoxLayout(pCustomerInfo3, javax.swing.BoxLayout.PAGE_AXIS));
 
         btnConfirmAction.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -289,6 +307,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
 
         roundPanel.add(pTableControl, java.awt.BorderLayout.NORTH);
 
+        pTable.setBackground(new java.awt.Color(51, 51, 51));
         pTable.setLayout(new java.awt.BorderLayout());
 
         tblCustomer.setModel(new javax.swing.table.DefaultTableModel(

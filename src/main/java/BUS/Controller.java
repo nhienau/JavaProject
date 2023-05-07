@@ -67,9 +67,9 @@ public class Controller {
 			e.printStackTrace();
 		}
 		
-		pItem.setBackground(new Color(31, 31, 31));
-		lItem.setBackground(new Color(31, 31, 31));
-		lItem.setForeground(new Color(240, 240, 240));
+		pItem.setBackground(new Color(55, 55, 61));
+		lItem.setBackground(new Color(55, 55, 61));
+		lItem.setForeground(new Color(245, 245, 245));
 		
 		root.removeAll();
 		root.setLayout(new BorderLayout());
@@ -136,7 +136,7 @@ public class Controller {
 			kindSelected = kind;
 			pItem.setBackground(new Color(31, 31, 31));
 			lItem.setBackground(new Color(31, 31, 31));
-			lItem.setForeground(new Color(240, 240, 240));
+			lItem.setForeground(new Color(245, 245, 245));
 		}
 
 		@Override
@@ -147,20 +147,18 @@ public class Controller {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			pItem.setBackground(new Color(31, 31, 31));
-			lItem.setBackground(new Color(31, 31, 31));
-			lItem.setForeground(new Color(240, 240, 240));
+			if (kind.equals(kindSelected)) return; 
+			pItem.setBackground(new Color(42, 45, 46));
+			lItem.setBackground(new Color(42, 45, 46));
+			lItem.setForeground(new Color(245, 245, 245));
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
 			if (!kindSelected.equalsIgnoreCase(kind)) {
-//				System.out.println("Dang chon: " + kindSelected);
-//				System.out.println("Dang hover: " + kind);
-				
-				pItem.setBackground(UIManager.getColor("Button.background"));
-				lItem.setBackground(UIManager.getColor("Button.background"));
-				lItem.setForeground(new Color(0, 0, 0));
+				pItem.setBackground(new Color(51, 51, 51));
+				lItem.setBackground(new Color(51, 51, 51));
+				lItem.setForeground(new Color(245, 245, 245));
 			}
 		}
 		
@@ -174,11 +172,11 @@ public class Controller {
 			if (item.getKind().equalsIgnoreCase(kind)) {
 				item.getPanel().setBackground(new Color(31, 31, 31));
 				item.getLabel().setBackground(new Color(31, 31, 31));
-				item.getLabel().setForeground(new Color(240, 240, 240));
+				item.getLabel().setForeground(new Color(245, 245, 245));
 			} else {
-				item.getPanel().setBackground(UIManager.getColor("Button.background"));
-				item.getLabel().setBackground(UIManager.getColor("Button.background"));
-				item.getLabel().setForeground(new Color(0, 0, 0));
+				item.getPanel().setBackground(new Color(51, 51, 51));
+				item.getLabel().setBackground(new Color(51, 51, 51));
+				item.getLabel().setForeground(new Color(245, 245, 245));
 			}
 		}
 	}
