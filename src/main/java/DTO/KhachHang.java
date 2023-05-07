@@ -92,4 +92,8 @@ public class KhachHang {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(this.NgaySinh);
     }
+    @Override
+    public String toString() {
+        return MaKH + "-"+ TenKH;
+    }
 }
