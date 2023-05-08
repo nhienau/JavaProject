@@ -63,23 +63,30 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     
     public void SetUp() throws ClassNotFoundException, SQLException
     {
-        
+        if(cv.getKhuyenMai().contains("them"))
+        {
             bthem.setEnabled(true);
             jButton31.setEnabled(true);
             jButton25.setEnabled(true);
-        
+        }
+        if(cv.getKhuyenMai().contains("sua"))
+        {
             bsua.setEnabled(true);
             jButton32.setEnabled(true);
             jButton26.setEnabled(true);
-        
+        }
+        if(cv.getKhuyenMai().contains("xoa"))
+        {
             bxoa.setEnabled(true);
             jButton33.setEnabled(true);
             jButton27.setEnabled(true);
-        
+        }
+        if(cv.getKhuyenMai().contains("timkiem"))
+        {
             jButton1.setEnabled(true);
             jButton17.setEnabled(true);
             jButton18.setEnabled(true);
-        
+        }
         jTable1.setDefaultEditor(Object.class, null);
         jTable2.setDefaultEditor(Object.class, null);
         jTable3.setDefaultEditor(Object.class, null);
