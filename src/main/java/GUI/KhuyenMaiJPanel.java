@@ -63,30 +63,23 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     
     public void SetUp() throws ClassNotFoundException, SQLException
     {
-        if(cv.getKhuyenMai().contains("them"))
-        {
+        
             bthem.setEnabled(true);
             jButton31.setEnabled(true);
             jButton25.setEnabled(true);
-        }
-        if(cv.getKhuyenMai().contains("sua"))
-        {
+        
             bsua.setEnabled(true);
             jButton32.setEnabled(true);
             jButton26.setEnabled(true);
-        }
-        if(cv.getKhuyenMai().contains("xoa"))
-        {
+        
             bxoa.setEnabled(true);
             jButton33.setEnabled(true);
             jButton27.setEnabled(true);
-        }
-        if(cv.getKhuyenMai().contains("timkiem"))
-        {
+        
             jButton1.setEnabled(true);
             jButton17.setEnabled(true);
             jButton18.setEnabled(true);
-        }
+        
         jTable1.setDefaultEditor(Object.class, null);
         jTable2.setDefaultEditor(Object.class, null);
         jTable3.setDefaultEditor(Object.class, null);
@@ -1852,7 +1845,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         {
             JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
         }
-        else if(jDateChooser2.getDate()==null && jComboBox10.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox10.getSelectedItem().toString()=="Ngày kết thúc")
+        else if(jDateChooser2.getDate()==null && (jComboBox10.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox10.getSelectedItem().toString()=="Ngày kết thúc"))
         {
             JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống ngày!");
         }
@@ -1860,10 +1853,11 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         {
             if(jComboBox10.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox10.getSelectedItem().toString()=="Ngày kết thúc")
             {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 if(jRadioButton3.isSelected()==true)
                 {
                     try {
-                        changeTableModelKmsp(kmspBUS.searchKmsp(jComboBox10.getSelectedItem().toString(), jDateChooser2.getDate().toString(), 1));
+                        changeTableModelKmsp(kmspBUS.searchKmsp(jComboBox10.getSelectedItem().toString(), dateFormat.format(jDateChooser2.getDate()), 1));
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
@@ -1873,7 +1867,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 if(jRadioButton4.isSelected()==true)
                 {
                     try {
-                        changeTableModelKmsp(kmspBUS.searchKmsp(jComboBox10.getSelectedItem().toString(), jDateChooser2.getDate().toString(), 0));
+                        changeTableModelKmsp(kmspBUS.searchKmsp(jComboBox10.getSelectedItem().toString(), dateFormat.format(jDateChooser2.getDate()), 0));
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
@@ -2151,7 +2145,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         {
             JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống hoặc chỉ có khoảng cách!");
         }
-        else if(jDateChooser1.getDate()==null && jComboBox1.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox1.getSelectedItem().toString()=="Ngày kết thúc")
+        else if(jDateChooser1.getDate()==null && (jComboBox1.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox1.getSelectedItem().toString()=="Ngày kết thúc"))
         {
             JOptionPane.showMessageDialog(this, "Vui lòng không bỏ trống ngày!");
         }
@@ -2159,10 +2153,11 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         {
             if(jComboBox1.getSelectedItem().toString()=="Ngày bắt đầu" || jComboBox1.getSelectedItem().toString()=="Ngày kết thúc")
             {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 if(jRadioButton1.isSelected()==true)
                 {
                     try {
-                        changeTableModelKmhd(kmhdBUS.searchKmhd(jComboBox1.getSelectedItem().toString(), jDateChooser1.getDate().toString(), 1));
+                        changeTableModelKmhd(kmhdBUS.searchKmhd(jComboBox1.getSelectedItem().toString(), dateFormat.format(jDateChooser1.getDate()), 1));
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
@@ -2172,7 +2167,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 if(jRadioButton2.isSelected()==true)
                 {
                     try {
-                        changeTableModelKmhd(kmhdBUS.searchKmhd(jComboBox1.getSelectedItem().toString(), jDateChooser1.getDate().toString(), 0));
+                        changeTableModelKmhd(kmhdBUS.searchKmhd(jComboBox1.getSelectedItem().toString(), dateFormat.format(jDateChooser1.getDate()), 0));
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(KhuyenMaiJPanel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
