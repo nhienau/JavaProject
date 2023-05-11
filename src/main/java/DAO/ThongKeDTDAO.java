@@ -110,10 +110,15 @@ public class ThongKeDTDAO {
     }
     
     public static JFreeChart getDoanhThuChart() throws SQLException, ClassNotFoundException {
-        String sql = "SELECT MONTH(NgayTao) AS Thang, YEAR(NgayTao) AS Nam, SUM(TongTien) AS DoanhThu "
-                + "FROM (SELECT NgayTao, TongTien FROM hoadon UNION SELECT NgayTao, TongTien FROM phieunhap) as TongTien "
-                + "GROUP BY MONTH(NgayTao), YEAR(NgayTao) "
-                + "ORDER BY Nam, Thang";
+        String sql = "SELECT MONTH(NgayTao) AS Thang, YEAR(NgayTao) AS Nam, COALESCE(SUM(TongTien1), 0) - COALESCE(SUM(TongTien2), 0) AS LoiNhuan "
+            + "FROM ("
+            + "SELECT NgayTao, SUM(TongTien) AS TongTien1, NULL AS TongTien2 FROM hoadon GROUP BY MONTH(NgayTao), YEAR(NgayTao) "
+            + "UNION ALL "
+            + "SELECT NgayTao, NULL AS TongTien1, SUM(TongTien) AS TongTien2 FROM phieunhap GROUP BY MONTH(NgayTao), YEAR(NgayTao) "
+            + ") AS TongTien "
+            + "GROUP BY MONTH(NgayTao), YEAR(NgayTao) "
+            + "ORDER BY Nam, Thang";
+
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -126,10 +131,10 @@ public class ThongKeDTDAO {
             while (rs.next()) {
                 String thang = String.format("%02d", rs.getInt("Thang"));
                 String nam = Integer.toString(rs.getInt("Nam"));
-                double doanhThu = rs.getDouble("DoanhThu");
+                double doanhThu = rs.getDouble("LoiNhuan");
                 long dt = (long) doanhThu;
                 String key = thang + "/" + nam;
-                dataset.setValue(dt, "Doanh thu", key);
+                dataset.setValue(dt, "LoiNhuan", key);
             }
             
         } catch (SQLException e) {
