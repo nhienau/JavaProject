@@ -77,4 +77,8 @@ public class NhanVienBUS {
     	return nvDAO.isAccountNameExisted(accoutName,ID);
     }
     
+    public boolean emailExisted (NhanVien user) throws SQLException {
+    	return nvDAO.emailExisted(user);
+    }
+    
 }

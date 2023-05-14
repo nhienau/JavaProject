@@ -545,14 +545,8 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     	} catch (NullPointerException e) {
     		dateChanged = true;
     	}
-    	int curPoint = -1, totalPoint = -1;
-    	try {
-    		curPoint = Integer.parseInt(txtCurPoint.getText().trim());
-    		totalPoint = Integer.parseInt(txtTotalPoint.getText().trim());
-    	} catch (Exception e) {
-    		
-    	}
-    	return !txtFullName.getText().trim().equals(selectedCustomer.getTenKH()) || !txtPhoneNumber.getText().trim().equals(selectedCustomer.getSDT()) || dateChanged || !(curPoint == selectedCustomer.getDiemHienTai()) || !(totalPoint == selectedCustomer.getTongDiem());
+
+    	return !txtFullName.getText().trim().equals(selectedCustomer.getTenKH()) || !txtPhoneNumber.getText().trim().equals(selectedCustomer.getSDT()) || dateChanged || !(txtCurPoint.getText().trim().equals("" + selectedCustomer.getDiemHienTai())) || !(txtTotalPoint.getText().trim().equals("" + selectedCustomer.getTongDiem()));
     }
     
     private boolean allInputEmpty() {
@@ -581,10 +575,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     	
     	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     	Date today = format.parse(format.format(new Date())); // only get date, time is set to 00:00:00
-    	
-    	int curPoint = Integer.parseInt(txtCurPoint.getText().trim());
-    	int totalPoint = Integer.parseInt(txtTotalPoint.getText().trim());
-    	
+
     	if (!validate.KTHoVaTen(txtFullName.getText().trim())) {
     		valid = false;
     		lblErrorMessage.setText("Họ và tên không hợp lệ");
@@ -605,7 +596,24 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     		valid = false;
     		lblErrorMessage.setText("Tổng điểm phải là số");
     		txtTotalPoint.requestFocus();
-    	} else if (curPoint > totalPoint) {
+    	}
+    	
+    	int curPoint = -1;
+    	int totalPoint = -1;
+    	
+    	try {
+    		curPoint = Integer.parseInt(txtCurPoint.getText().trim());
+    	} catch (NumberFormatException e) {
+
+    	}
+    	
+    	try {
+    		totalPoint = Integer.parseInt(txtTotalPoint.getText().trim());
+    	} catch (NumberFormatException e) {
+
+    	}
+    	
+    	if (curPoint != -1 && totalPoint != -1 && curPoint > totalPoint) {
     		valid = false;
     		lblErrorMessage.setText("Điểm hiện tại không thể lớn hơn tổng điểm");
     		txtCurPoint.requestFocus();
@@ -646,7 +654,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     	} catch (Exception e) {
     		
     	}
-    	// lowercase chua search duoc
+
     	for (KhachHang kh: customers) {  		
     		if (kh.getMaKH() == inputInt || kh.getTenKH().toLowerCase().contains(input.toLowerCase()) || kh.getSDT().contains(input)) {
     			temp.add(kh);
@@ -753,6 +761,19 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     		}
     	} catch (ParseException e) {
     		e.printStackTrace();
+    	}
+    	
+    	for (KhachHang kh: customers) {
+    		if (kh.getMaKH() == Integer.parseInt(txtID.getText().trim())) {
+    			continue;
+    		}
+    		
+    		if (txtPhoneNumber.getText().trim().equals(kh.getSDT())) {
+    			lblErrorMessage.setText("Số điện thoại đã tồn tại");
+        		txtPhoneNumber.requestFocus();
+        		lblErrorMessage.setVisible(true);
+        		return;
+    		}
     	}
     	
     	// Store new info

@@ -258,19 +258,13 @@ public class NhanVienDAO {
     	boolean check = false;
     	try {
 			Connection conn = DB.connect();
-			String query = "SELECT * FROM nhanvien WHERE IsDeleted = ? AND SDT = ?";
+			String query = "SELECT * FROM nhanvien WHERE IsDeleted = ? AND MaNV != ? AND SDT = ?";
 	        PreparedStatement pst = conn.prepareStatement(query);
 	        pst.setInt(1, 0);
-	        pst.setString(2, user.getSDT());
+	        pst.setInt(2, user.getMaNV());
+	        pst.setString(3, user.getSDT());
 	        ResultSet rs = pst.executeQuery();
-	        if (rs.next()) {
-	        	if (rs.getInt("MaNV") == user.getMaNV())
-	        		check = false;
-	        	else
-	        		check = true;
-	        } else {
-	        	check = false;
-	        }
+	        check = rs.next();
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -301,6 +295,29 @@ public class NhanVienDAO {
 	    }
     	return rowCount > 0 ;
     	
+    }
+    
+    public boolean emailExisted (NhanVien user) throws SQLException {
+    	boolean check = false;
+    	try {
+			Connection conn = DB.connect();
+			String query = "SELECT * FROM nhanvien WHERE IsDeleted = ? AND MaNV != ? AND Email = ?";
+	        PreparedStatement pst = conn.prepareStatement(query);
+	        pst.setInt(1, 0);
+	        pst.setInt(2, user.getMaNV());
+	        pst.setString(3, user.getEmail());
+	        ResultSet rs = pst.executeQuery();
+	        check = rs.next();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			throw e;
+		}
+    	return check;
     }
     
 }
