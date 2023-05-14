@@ -343,6 +343,13 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
     		return;
        	}
        	
+       	// Check if new email address existed
+       	if (emailExisted(temp)) {
+       		lblProfileErrorMessage.setText("Email đã tồn tại");
+    		lblProfileErrorMessage.setVisible(true);
+    		return;
+       	}
+       	
        	// Update info
        	int result = 0;
        	try {
@@ -563,6 +570,22 @@ public class TaiKhoanJPanel extends javax.swing.JPanel {
     	boolean check = true;
     	try {
 			check = new NhanVienBUS().phoneNumberExisted(user);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu", "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(this, "Lỗi không xác định", "Error", JOptionPane.ERROR_MESSAGE);
+	        e.printStackTrace();
+	    }
+    	
+    	return check;
+    }
+    
+    private boolean emailExisted(NhanVien user) {
+    	boolean check = true;
+    	try {
+			check = new NhanVienBUS().emailExisted(user);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu", "Error", JOptionPane.ERROR_MESSAGE);
